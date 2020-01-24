@@ -7,9 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C4F569CCDB5C6C4AAA3E4682 /* Pods_mobileCashierApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9179D32A9ED8C7912BEA24CF /* Pods_mobileCashierApp.framework */; };
 		E23C529B23DB1A6C003CAB48 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23C529A23DB1A6C003CAB48 /* Product.swift */; };
 		E23C52A223DB2192003CAB48 /* ProductCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23C52A023DB2192003CAB48 /* ProductCVCell.swift */; };
 		E23C52A323DB2192003CAB48 /* ProductCVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E23C52A123DB2192003CAB48 /* ProductCVCell.xib */; };
+		E23C52A523DB2E12003CAB48 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E23C52A423DB2E12003CAB48 /* GoogleService-Info.plist */; };
 		E26672B323DA444D006F6709 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26672B223DA444D006F6709 /* AppDelegate.swift */; };
 		E26672B523DA444D006F6709 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26672B423DA444D006F6709 /* SceneDelegate.swift */; };
 		E26672B723DA444D006F6709 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26672B623DA444D006F6709 /* ViewController.swift */; };
@@ -19,9 +21,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		23186724E302D363026696C0 /* Pods-mobileCashierApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mobileCashierApp.debug.xcconfig"; path = "Target Support Files/Pods-mobileCashierApp/Pods-mobileCashierApp.debug.xcconfig"; sourceTree = "<group>"; };
+		9179D32A9ED8C7912BEA24CF /* Pods_mobileCashierApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_mobileCashierApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E23C529A23DB1A6C003CAB48 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		E23C52A023DB2192003CAB48 /* ProductCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCVCell.swift; sourceTree = "<group>"; };
 		E23C52A123DB2192003CAB48 /* ProductCVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductCVCell.xib; sourceTree = "<group>"; };
+		E23C52A423DB2E12003CAB48 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E26672AF23DA444D006F6709 /* mobileCashierApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mobileCashierApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E26672B223DA444D006F6709 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E26672B423DA444D006F6709 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -30,6 +35,7 @@
 		E26672BB23DA444F006F6709 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E26672BE23DA444F006F6709 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E26672C023DA444F006F6709 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E9D548C61462E3B9B6080FF0 /* Pods-mobileCashierApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mobileCashierApp.release.xcconfig"; path = "Target Support Files/Pods-mobileCashierApp/Pods-mobileCashierApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,17 +43,38 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4F569CCDB5C6C4AAA3E4682 /* Pods_mobileCashierApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		79C6C2A05D0EDBA883C86CBD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9179D32A9ED8C7912BEA24CF /* Pods_mobileCashierApp.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8B322FFABB9535479CD4D428 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				23186724E302D363026696C0 /* Pods-mobileCashierApp.debug.xcconfig */,
+				E9D548C61462E3B9B6080FF0 /* Pods-mobileCashierApp.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		E26672A623DA444D006F6709 = {
 			isa = PBXGroup;
 			children = (
 				E26672B123DA444D006F6709 /* mobileCashierApp */,
 				E26672B023DA444D006F6709 /* Products */,
+				8B322FFABB9535479CD4D428 /* Pods */,
+				79C6C2A05D0EDBA883C86CBD /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -72,6 +99,7 @@
 				E23C529A23DB1A6C003CAB48 /* Product.swift */,
 				E23C52A023DB2192003CAB48 /* ProductCVCell.swift */,
 				E23C52A123DB2192003CAB48 /* ProductCVCell.xib */,
+				E23C52A423DB2E12003CAB48 /* GoogleService-Info.plist */,
 			);
 			path = mobileCashierApp;
 			sourceTree = "<group>";
@@ -83,9 +111,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E26672C323DA444F006F6709 /* Build configuration list for PBXNativeTarget "mobileCashierApp" */;
 			buildPhases = (
+				4E94A2551B42447BF41FDE6F /* [CP] Check Pods Manifest.lock */,
 				E26672AB23DA444D006F6709 /* Sources */,
 				E26672AC23DA444D006F6709 /* Frameworks */,
 				E26672AD23DA444D006F6709 /* Resources */,
+				176C362F00C345DF292E117A /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -136,12 +166,55 @@
 			files = (
 				E23C52A323DB2192003CAB48 /* ProductCVCell.xib in Resources */,
 				E26672BF23DA444F006F6709 /* LaunchScreen.storyboard in Resources */,
+				E23C52A523DB2E12003CAB48 /* GoogleService-Info.plist in Resources */,
 				E26672BC23DA444F006F6709 /* Assets.xcassets in Resources */,
 				E26672BA23DA444D006F6709 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		176C362F00C345DF292E117A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-mobileCashierApp/Pods-mobileCashierApp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-mobileCashierApp/Pods-mobileCashierApp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-mobileCashierApp/Pods-mobileCashierApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4E94A2551B42447BF41FDE6F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-mobileCashierApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E26672AB23DA444D006F6709 /* Sources */ = {
@@ -294,6 +367,7 @@
 		};
 		E26672C423DA444F006F6709 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 23186724E302D363026696C0 /* Pods-mobileCashierApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -312,6 +386,7 @@
 		};
 		E26672C523DA444F006F6709 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E9D548C61462E3B9B6080FF0 /* Pods-mobileCashierApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
