@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class ViewController: UIViewController, UICollectionViewDataSource {
     
@@ -14,7 +15,8 @@ class ViewController: UIViewController, UICollectionViewDataSource {
     @IBOutlet weak var productCollectionView: UICollectionView!
     var products = [Product]()
     let productCellId = "ProductCellId"
-    
+    let ref = Database.database().reference(withPath: "product-items")
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
