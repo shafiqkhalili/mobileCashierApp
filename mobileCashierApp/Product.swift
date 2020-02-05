@@ -9,13 +9,13 @@
 import Foundation
 
 struct Product {
-    var discription : String
+    var name : String
     var price : Int
     var currency : String
     
     
-    init(description: String, price: Int){
-        self.discription = description
+    init(name: String, price: Int){
+        self.name = name
         self.price = price
         self.currency = "SEK"
     }

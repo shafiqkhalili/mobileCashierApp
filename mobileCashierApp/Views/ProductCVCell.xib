@@ -9,7 +9,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="ProductCVCell" customModule="mobileCashierApp" customModuleProvider="target">
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ProductCVCellID" id="gTV-IL-0wX" customClass="ProductCVCell" customModule="mobileCashierApp" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -40,20 +40,27 @@
             </view>
             <constraints>
                 <constraint firstItem="eOh-uf-nLO" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="736-9U-XXn"/>
+                <constraint firstItem="KY8-bS-jhG" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="7AB-ox-Kbu"/>
+                <constraint firstItem="Bvh-Ot-Wg2" firstAttribute="top" secondItem="eOh-uf-nLO" secondAttribute="top" constant="20" id="8fc-V5-2Bp"/>
+                <constraint firstAttribute="trailing" secondItem="Bvh-Ot-Wg2" secondAttribute="trailing" id="FFW-u5-VwY"/>
                 <constraint firstItem="Bvh-Ot-Wg2" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="I7W-D9-lxM"/>
+                <constraint firstItem="eOh-uf-nLO" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="Kx2-yE-MMu"/>
                 <constraint firstAttribute="trailing" secondItem="Bvh-Ot-Wg2" secondAttribute="trailing" id="LT8-0H-vsl"/>
                 <constraint firstItem="Bvh-Ot-Wg2" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="TAy-i4-DXI"/>
+                <constraint firstItem="KY8-bS-jhG" firstAttribute="top" secondItem="Bvh-Ot-Wg2" secondAttribute="top" constant="109.5" id="WMY-PB-Ia7"/>
+                <constraint firstItem="eOh-uf-nLO" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="X66-QM-bKv"/>
                 <constraint firstItem="eOh-uf-nLO" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="b7Z-oY-nKM"/>
                 <constraint firstAttribute="trailing" secondItem="KY8-bS-jhG" secondAttribute="trailing" id="ffn-WD-EUN"/>
                 <constraint firstItem="KY8-bS-jhG" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="gwe-2v-0sO"/>
                 <constraint firstAttribute="bottom" secondItem="KY8-bS-jhG" secondAttribute="bottom" id="hUe-Sq-oJY"/>
                 <constraint firstItem="Bvh-Ot-Wg2" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="20" id="haq-ge-jDK"/>
                 <constraint firstAttribute="trailing" secondItem="eOh-uf-nLO" secondAttribute="trailing" id="rxQ-dn-ebg"/>
+                <constraint firstItem="Bvh-Ot-Wg2" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="sB8-AT-un2"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <connections>
-                <outlet property="productDescription" destination="KY8-bS-jhG" id="tp7-Zk-a6f"/>
                 <outlet property="productImage" destination="Bvh-Ot-Wg2" id="T4p-am-FsT"/>
+                <outlet property="productName" destination="KY8-bS-jhG" id="tp7-Zk-a6f"/>
                 <outlet property="productPrice" destination="eOh-uf-nLO" id="qQt-Vo-Xsf"/>
             </connections>
             <point key="canvasLocation" x="137.68115942028987" y="126.5625"/>
