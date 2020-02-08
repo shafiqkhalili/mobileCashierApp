@@ -43,18 +43,10 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="tableHeaderCell" id="aFK-OT-I4o">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="productCell" id="aFK-OT-I4o" customClass="ProductTVCell" customModule="mobileCashierApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="aFK-OT-I4o" id="hvI-b0-6Md">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="OWg-2x-A4x">
-                                        <rect key="frame" x="0.0" y="72" width="414" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="OWg-2x-A4x" id="JKU-24-ddt" customClass="ProductTVCell" customModule="mobileCashierApp" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
@@ -78,6 +70,7 @@
                     <navigationItem key="navigationItem" id="aAh-FA-9U3"/>
                     <connections>
                         <outlet property="productsTableView" destination="ZBe-LA-eKV" id="2Ds-LM-Km7"/>
+                        <segue destination="fiG-rV-o7X" kind="presentation" identifier="productDetailsSegue" id="upl-uX-NhG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DPH-p1-QRY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -177,6 +170,9 @@
                                     <segment title="" image="percent" catalog="system"/>
                                     <segment title="SEK"/>
                                 </segments>
+                                <connections>
+                                    <action selector="discountType:" destination="3ub-Rc-O7L" eventType="valueChanged" id="POL-Cq-hWW"/>
+                                </connections>
                             </segmentedControl>
                             <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eGC-zY-12y">
                                 <rect key="frame" x="-2" y="36" width="414" height="44"/>
@@ -224,7 +220,6 @@
                     <navigationItem key="navigationItem" id="Qf0-cb-S4d"/>
                     <connections>
                         <outlet property="discountAmount" destination="qQb-lo-xqm" id="W9N-un-uYT"/>
-                        <outlet property="discountType" destination="TYz-nL-9ug" id="c3G-oE-kvB"/>
                         <outlet property="productName" destination="9rp-zq-GTz" id="mq2-yS-z3M"/>
                         <outlet property="productPrice" destination="bxm-9X-jEo" id="rY6-9i-0AK"/>
                     </connections>
@@ -246,29 +241,12 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="tableHeaderCell" id="Y2M-dY-71Q" customClass="ProductTVCellHeader" customModule="mobileCashierApp" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="shoppingCell" id="Y2M-dY-71Q" customClass="ShoppoingTVCell" customModule="mobileCashierApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Y2M-dY-71Q" id="6Cr-vE-Fbr">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="AU6-ku-t6T">
-                                        <rect key="frame" x="0.0" y="72" width="414" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="AU6-ku-t6T" id="eMc-Fz-0ju">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Cell" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x77-kq-N4s">
-                                                    <rect key="frame" x="124" y="23" width="29" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
@@ -277,14 +255,6 @@
                                     <outlet property="delegate" destination="YX8-oJ-bB0" id="ikK-2s-6m3"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GJn-Un-pch">
-                                <rect key="frame" x="274" y="165" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <connections>
-                                    <action selector="testButton:" destination="YX8-oJ-bB0" eventType="touchUpInside" id="yY8-pd-ww2"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Shopping Basket" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KLc-Ud-Nvw">
                                 <rect key="frame" x="142" y="104" width="130" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -303,6 +273,7 @@
                     <connections>
                         <outlet property="shoppingTableView" destination="prt-kS-XJn" id="AWC-WG-NAT"/>
                         <segue destination="3ub-Rc-O7L" kind="presentation" identifier="discountSegue" modalPresentationStyle="fullScreen" id="xLh-cL-wB0"/>
+                        <segue destination="fiG-rV-o7X" kind="presentation" identifier="productDetailsSegue" modalPresentationStyle="fullScreen" id="prp-pd-zB0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ulp-r0-MLR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -382,6 +353,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="xLh-cL-wB0"/>
+        <segue reference="prp-pd-zB0"/>
         <segue reference="1sY-l7-gwa"/>
     </inferredMetricsTieBreakers>
 </document>

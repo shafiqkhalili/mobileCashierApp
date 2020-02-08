@@ -9,28 +9,34 @@
 import UIKit
 import Firebase
 
-class ProductViewController: UIViewController, UITableViewDataSource,UITableViewDelegate {
+class ProductViewController: UIViewController, UITableViewDataSource,UITableViewDelegate,TableCellDelegate {
     
     @IBOutlet weak var productCollectionView: UICollectionView!
     
+    var ref: DatabaseReference!
     
     // MARK: Products array
     var items: [ProductItem] = []
     
     var basketItems = [ProductItem]()
     //var user: User!
-    let productCellID = "tableHeaderCell"
+    let productCellID = "productCell"
+    
+    var prodDetailsSegue = "productDetailsSegue"
     
     @IBOutlet weak var productsTableView: UITableView!
     
-    //let ref = Database.database().reference(withPath: "product-items")
-    let ref = Database.database().reference(withPath: "product-items")
-    
+    override func viewWillAppear(_ animated: Bool) {
+        //items.removeAll()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
+        ref = Database.database().reference()
+        
+        let refItem = ref.child("product-items")
         
         // Do any additional setup after loading the view.
-        ref.observe(.value, with: { snapshot in
+        refItem.observe(.value, with: { snapshot in
             // 2
             var newItems: [ProductItem] = []
             
@@ -69,6 +75,7 @@ class ProductViewController: UIViewController, UITableViewDataSource,UITableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         print("Cell for row \(indexPath.row)")
         let cell = tableView.dequeueReusableCell(withIdentifier: productCellID,for: indexPath) as! ProductTVCell
+        cell.prodViewDelegate = self
         cell.itemName.text = items[indexPath.row].name
         cell.itemPrice.text = items[indexPath.row].price
         cell.imageView?.image = #imageLiteral(resourceName: "logo")
@@ -80,10 +87,19 @@ class ProductViewController: UIViewController, UITableViewDataSource,UITableView
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard tableView.cellForRow(at: indexPath) != nil else { return }
         let item = items[indexPath.row]
-        basketItems.append(item)
-        for it in basketItems {
-            print(it.name)
-        }
+        
+        //        basketItems.append(item)
+        //        print(item.key)
+    }
+    func goToNextScene() {
+        print("goToNextSchen clicked")
+        performSegue(withIdentifier: prodDetailsSegue, sender: self)
     }
     
+    //    func addToBasket(basketItem : BasketItem) {
+    //
+    //        let itemRef = ref.child("product-basket")
+    //        let basketRef = itemRef.childByAutoId()
+    //        basketRef.setValue(basketItem.toDict())
+    //    }
 }

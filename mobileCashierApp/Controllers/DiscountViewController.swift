@@ -11,10 +11,10 @@ import UIKit
 class DiscountViewController: UIViewController {
 
     var prodName : String?
+    var discountType : UISegmentedControl?
     
     @IBOutlet weak var productName: UILabel!
     @IBOutlet weak var productPrice: UILabel!
-    @IBOutlet weak var discountType: UISegmentedControl!
     @IBOutlet weak var discountAmount: UITextField!
     @IBAction func cancelDiscount(_ sender: UIBarButtonItem) {
         dismiss(animated: false)
@@ -26,8 +26,11 @@ class DiscountViewController: UIViewController {
         // Do any additional setup after loading the view.
         productName.text = prodName
     }
+    @IBAction func discountType(_ sender: UISegmentedControl) {
+    }
     
     @IBAction func applyDiscount(_ sender: UIButton) {
+        
     }
     
     /*

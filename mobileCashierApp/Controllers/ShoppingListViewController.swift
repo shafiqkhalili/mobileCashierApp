@@ -14,9 +14,10 @@ class ShoppingListViewController: UIViewController,UITableViewDataSource,UITable
     
     let ref = Database.database().reference(withPath: "product-items")
     
-    let productCellID = "tableHeaderCell"
+    let shoppingCellID = "shoppingCell"
     let productDiscountSegue = "discountSegue"
- //   weak var prodViewDelegate : TableCellDelegate?
+    let productDetailsSegue = "productDetailsSegue"
+    //weak var prodViewDelegate : TableCellDelegate?
     
     @IBOutlet weak var shoppingTableView: UITableView!
     
@@ -47,8 +48,8 @@ class ShoppingListViewController: UIViewController,UITableViewDataSource,UITable
             self.shoppingTableView.reloadData()
         })
         // Do any additional setup after loading the view.
-        let nib = UINib(nibName: "ProductTVCell", bundle: nil)
-        shoppingTableView.register(nib, forCellReuseIdentifier: productCellID)
+        let nib = UINib(nibName: "ShoppingTVCell", bundle: nil)
+        shoppingTableView.register(nib, forCellReuseIdentifier: shoppingCellID)
         shoppingTableView.dataSource = self
     }
     
@@ -58,8 +59,8 @@ class ShoppingListViewController: UIViewController,UITableViewDataSource,UITable
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         print("Cell for row \(indexPath.row)")
-        let cell = tableView.dequeueReusableCell(withIdentifier: productCellID,for: indexPath) as! ProductTVCell
-        cell.prodViewDelegate = self
+        let cell = tableView.dequeueReusableCell(withIdentifier: shoppingCellID,for: indexPath) as! ShoppingTVCell
+        cell.shoppingViewDelegate = self
         cell.itemName.text = items[indexPath.row].name
         cell.itemPrice.text = items[indexPath.row].price
         cell.imageView?.image = #imageLiteral(resourceName: "logo")
@@ -76,15 +77,7 @@ class ShoppingListViewController: UIViewController,UITableViewDataSource,UITable
 //        return headerCell
     //}
     
-    @IBAction func testButton(_ sender: UIButton) {
-        performSegue(withIdentifier: productDiscountSegue, sender: self)
-    }
-    
-    func goToNextScene() {
-        print("goToNextSchen clicked")
-        performSegue(withIdentifier: productDiscountSegue, sender: self)
-    }
-    
+  
     /*
      // MARK: - Navigation
      
@@ -102,6 +95,7 @@ class ShoppingListViewController: UIViewController,UITableViewDataSource,UITable
         if editingStyle == .delete {
             let groceryItem = items[indexPath.row]
             groceryItem.ref?.removeValue()
+            
         }
     }
     
@@ -109,8 +103,8 @@ class ShoppingListViewController: UIViewController,UITableViewDataSource,UITable
         guard tableView.cellForRow(at: indexPath) != nil else { return }
         let item = items[indexPath.row]
         
-        print(item.name)
-        
+        print(item.key)
+//         self.performSegue(withIdentifier: productDetailsSegue, sender: tableView)
     }
     
     
@@ -127,6 +121,12 @@ class ShoppingListViewController: UIViewController,UITableViewDataSource,UITable
             destinationVC.prodName = "test"
         }
     }
+    
+    func goToNextScene() {
+          print("goToNextSchen clicked")
+          performSegue(withIdentifier: productDiscountSegue, sender: self)
+      }
+      
 }
 
 

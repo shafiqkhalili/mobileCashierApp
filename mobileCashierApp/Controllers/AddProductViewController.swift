@@ -32,7 +32,7 @@ class AddProductViewController: UIViewController {
         
         let productItem = ProductItem(name: name, price: price)
         // 3
-        let productItemRef = self.ref.child(name.lowercased())
+        let productItemRef = self.ref.childByAutoId()
         
         // 4
         productItemRef.setValue(productItem.toAnyObject())
