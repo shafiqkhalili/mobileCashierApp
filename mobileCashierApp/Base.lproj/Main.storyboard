@@ -115,12 +115,21 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZQw-HX-PXv">
+                                <rect key="frame" x="313" y="292" width="27" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="folder.badge.plus" catalog="system"/>
+                                <connections>
+                                    <action selector="addImage:" destination="fiG-rV-o7X" eventType="touchUpInside" id="d5s-al-kv4"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="5Am-A0-SGy"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Add" image="add" selectedImage="add" id="naD-jO-hyh"/>
                     <connections>
+                        <outlet property="productImage" destination="4bi-T7-NFU" id="dkZ-Jw-El2"/>
                         <outlet property="productName" destination="54q-1b-81e" id="BBP-6s-nfD"/>
                         <outlet property="productPrice" destination="OcF-uA-9vz" id="3JI-mk-gVZ"/>
                     </connections>
@@ -347,6 +356,7 @@
         <image name="add" width="36" height="36"/>
         <image name="barcode" width="87.5" height="55"/>
         <image name="discount" width="36" height="36"/>
+        <image name="folder.badge.plus" catalog="system" width="64" height="42"/>
         <image name="home" width="30" height="33"/>
         <image name="percent" catalog="system" width="64" height="58"/>
         <image name="shopping-basket" width="31.5" height="27"/>

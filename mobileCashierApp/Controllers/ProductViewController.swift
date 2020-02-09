@@ -59,14 +59,6 @@ class ProductViewController: UIViewController, UITableViewDataSource,UITableView
         productsTableView.dataSource = self
         
     }
-    //    override func awakeFromNib() {
-    //        super.awakeFromNib()
-    //        // Initialization code
-    //        self.productCollectionView.dataSource = self
-    //        self.productCollectionView.delegate = self
-    //        self.productCollectionView.register(UINib.init(nibName: "ProductCVCellID", bundle: nil), forCellWithReuseIdentifier: "collectionViewID")
-    //
-    //    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         items.count

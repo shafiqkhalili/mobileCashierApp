@@ -16,8 +16,11 @@ class ShoppingListViewController: UIViewController,UITableViewDataSource,UITable
     
     let shoppingCellID = "shoppingCell"
     let productDiscountSegue = "discountSegue"
-    let productDetailsSegue = "productDetailsSegue"
-    //weak var prodViewDelegate : TableCellDelegate?
+    
+    var prodKey : String?
+    var prodName : String?
+    var prodImage : UIImage?
+    var prodPrice : String?
     
     @IBOutlet weak var shoppingTableView: UITableView!
     
@@ -69,24 +72,6 @@ class ShoppingListViewController: UIViewController,UITableViewDataSource,UITable
         return cell
     }
     
-   // internal func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let  headerCell = tableView.dequeueReusableCell(withIdentifier: "tableHeaderCell") as! ProductTVCellHeader
-//        headerCell.backgroundColor = UIColor.cyan
-//
-//
-//        return headerCell
-    //}
-    
-  
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
@@ -102,31 +87,34 @@ class ShoppingListViewController: UIViewController,UITableViewDataSource,UITable
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard tableView.cellForRow(at: indexPath) != nil else { return }
         let item = items[indexPath.row]
+        prodKey = item.key
+        prodName = item.name
+        prodPrice = item.price
         
-        print(item.key)
-//         self.performSegue(withIdentifier: productDetailsSegue, sender: tableView)
     }
     
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: IndexPath) {
-        print(indexPath)
+        let item = items[indexPath.row]
+        prodKey = item.key
+        prodName = item.name
+        prodPrice = item.price
+        print("prodName \(prodName ?? "dfdf Name")")
         self.performSegue(withIdentifier: productDiscountSegue, sender: tableView)
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-    {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?){
         if segue.identifier == productDiscountSegue {
             guard  let destinationVC = segue.destination as? DiscountViewController else {return}
-                    
-            destinationVC.prodName = "test"
+            destinationVC.prodName = prodName
+            destinationVC.prodPrice = prodPrice
         }
     }
     
     func goToNextScene() {
-          print("goToNextSchen clicked")
-          performSegue(withIdentifier: productDiscountSegue, sender: self)
-      }
-      
+        performSegue(withIdentifier: productDiscountSegue, sender: self)
+    }
+    
 }
 
 

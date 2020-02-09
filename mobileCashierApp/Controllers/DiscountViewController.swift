@@ -9,8 +9,10 @@
 import UIKit
 
 class DiscountViewController: UIViewController {
-
+    
     var prodName : String?
+    var prodPrice : String?
+    
     var discountType : UISegmentedControl?
     
     @IBOutlet weak var productName: UILabel!
@@ -22,10 +24,16 @@ class DiscountViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
-        productName.text = prodName
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        print("prodName \(prodName ?? "empty Name")")
+        productName.text = prodName
+        productPrice.text = prodPrice
+    }
+    
     @IBAction func discountType(_ sender: UISegmentedControl) {
     }
     
@@ -34,13 +42,13 @@ class DiscountViewController: UIViewController {
     }
     
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }
