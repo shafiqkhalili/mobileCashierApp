@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 
 class ProductViewController: UIViewController, UITableViewDataSource,UITableViewDelegate,TableCellDelegate {
+    @IBOutlet weak var searchBar: UISearchBar!
     
     @IBOutlet weak var productCollectionView: UICollectionView!
     
@@ -18,6 +19,9 @@ class ProductViewController: UIViewController, UITableViewDataSource,UITableView
     
     // MARK: Products array
     var items: [ProductItem] = []
+    var searchedItems: [ProductItem] = []
+    
+    var isSearching = false
     
     var basketItems = [ProductItem]()
     //var user: User!
@@ -32,6 +36,9 @@ class ProductViewController: UIViewController, UITableViewDataSource,UITableView
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        searchBar.delegate = self
+        
         ref = Database.database().reference()
         
         let refItem = ref.child("product-items")
@@ -50,8 +57,8 @@ class ProductViewController: UIViewController, UITableViewDataSource,UITableView
                     newItems.append(productItem)
                 }
             }
-            
-            self.items = newItems
+            self.searchedItems = newItems
+            self.items = self.searchedItems
             self.productsTableView.reloadData()
         })
         // Do any additional setup after loading the view.
@@ -62,27 +69,53 @@ class ProductViewController: UIViewController, UITableViewDataSource,UITableView
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        items.count
+        
+        if isSearching == true {
+            return searchedItems.count
+        }
+        else{
+            return items.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: productCellID,for: indexPath) as! ProductTVCell
+        
         cell.prodViewDelegate = self
-        cell.itemName.text = items[indexPath.row].name
-        cell.itemPrice.text = items[indexPath.row].price
         
-        let photoUrl = items[indexPath.row].image
-        
-        getImage(url: photoUrl) { photo in
-            if photo != nil {
-                DispatchQueue.main.async {
-                    cell.itemImage.image = photo
+        if isSearching {
+            cell.itemName.text = searchedItems[indexPath.row].name
+            cell.itemPrice.text = searchedItems[indexPath.row].price
+            
+            let photoUrl = searchedItems[indexPath.row].image
+            
+            getImage(url: photoUrl) { photo in
+                if photo != nil {
+                    DispatchQueue.main.async {
+                        cell.itemImage.image = photo
+                    }
+                    
                 }
-                
             }
+            cell.imageView?.image = UIImage(named: searchedItems[indexPath.row].image)
         }
-        cell.imageView?.image = UIImage(named: items[indexPath.row].image)
+        else{
+            cell.itemName.text = items[indexPath.row].name
+            cell.itemPrice.text = items[indexPath.row].price
+            
+            let photoUrl = items[indexPath.row].image
+            
+            getImage(url: photoUrl) { photo in
+                if photo != nil {
+                    DispatchQueue.main.async {
+                        cell.itemImage.image = photo
+                    }
+                    
+                }
+            }
+            cell.imageView?.image = UIImage(named: items[indexPath.row].image)
+        }
         //cell.textLabel?.text = String(persons[indexPath.row])
         
         return cell
@@ -109,11 +142,26 @@ class ProductViewController: UIViewController, UITableViewDataSource,UITableView
             }
         }.resume()
     }
-    
-    //    func addToBasket(basketItem : BasketItem) {
-    //
-    //        let itemRef = ref.child("product-basket")
-    //        let basketRef = itemRef.childByAutoId()
-    //        basketRef.setValue(basketItem.toDict())
-    //    }
+}
+
+extension ProductViewController: UISearchBarDelegate{
+   
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        searchedItems = items.filter({ (mod) -> Bool in
+            return mod.name.lowercased().contains(searchText.lowercased())
+        })
+        isSearching = true
+        for itm in searchedItems {
+            print("item: \(itm)")
+        }
+        self.productsTableView.reloadData()
+    }
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        if searchBar.text?.count == 0 {
+            isSearching = false
+            self.productsTableView.reloadData()
+        }
+        
+    }
 }

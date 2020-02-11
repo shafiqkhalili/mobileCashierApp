@@ -15,29 +15,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EVM-4l-8gd">
-                                <rect key="frame" x="20" y="127" width="251" height="34"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="34" id="Gpn-KW-wDN"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="search"/>
-                                <connections>
-                                    <outlet property="delegate" destination="Cob-2X-tMw" id="a04-MJ-e6d"/>
-                                </connections>
-                            </textField>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="koF-q5-M4g">
-                                <rect key="frame" x="0.0" y="50" width="414" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="koF-q5-M4g">
+                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                                 <items>
                                     <navigationItem title="Products" id="gi4-C8-pBG"/>
                                 </items>
                             </navigationBar>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qqj-o8-BxH">
-                                <rect key="frame" x="297" y="117" width="88" height="55"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" backgroundImage="barcode"/>
-                            </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="productsTableView" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ZBe-LA-eKV">
                                 <rect key="frame" x="0.0" y="303" width="414" height="510"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -57,12 +40,33 @@
                                     <outlet property="delegate" destination="Cob-2X-tMw" id="1GZ-MQ-nUs"/>
                                 </connections>
                             </tableView>
+                            <searchBar contentMode="redraw" misplaced="YES" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="D1l-pr-eER">
+                                <rect key="frame" x="0.0" y="88" width="275" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <scopeButtonTitles>
+                                    <string>Title</string>
+                                    <string>Title</string>
+                                </scopeButtonTitles>
+                                <connections>
+                                    <outlet property="delegate" destination="Cob-2X-tMw" id="DGh-LE-DvU"/>
+                                </connections>
+                            </searchBar>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qqj-o8-BxH">
+                                <rect key="frame" x="316" y="88" width="88" height="56"/>
+                                <state key="normal" backgroundImage="barcode"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="emW-jC-r0C" firstAttribute="trailing" secondItem="EVM-4l-8gd" secondAttribute="trailing" constant="140" id="4Eb-bI-gKh"/>
-                            <constraint firstItem="EVM-4l-8gd" firstAttribute="leading" secondItem="emW-jC-r0C" secondAttribute="leading" constant="20" id="9dc-rE-GVj"/>
-                            <constraint firstItem="EVM-4l-8gd" firstAttribute="top" secondItem="emW-jC-r0C" secondAttribute="top" constant="50" id="Suw-Bs-hgn"/>
+                            <constraint firstItem="koF-q5-M4g" firstAttribute="top" secondItem="emW-jC-r0C" secondAttribute="top" id="Ltn-Bk-UUw"/>
+                            <constraint firstItem="koF-q5-M4g" firstAttribute="trailing" secondItem="emW-jC-r0C" secondAttribute="trailing" id="Q5x-df-yve"/>
+                            <constraint firstItem="Qqj-o8-BxH" firstAttribute="height" secondItem="D1l-pr-eER" secondAttribute="height" id="S6w-oB-4Ae"/>
+                            <constraint firstItem="Qqj-o8-BxH" firstAttribute="leading" secondItem="D1l-pr-eER" secondAttribute="trailing" constant="10" id="XKr-pZ-hfY"/>
+                            <constraint firstItem="D1l-pr-eER" firstAttribute="top" secondItem="koF-q5-M4g" secondAttribute="bottom" id="fJD-rt-VwX"/>
+                            <constraint firstItem="emW-jC-r0C" firstAttribute="trailing" secondItem="Qqj-o8-BxH" secondAttribute="trailing" constant="10" id="qJK-Sd-YLu"/>
+                            <constraint firstItem="D1l-pr-eER" firstAttribute="leading" secondItem="emW-jC-r0C" secondAttribute="leading" id="qrt-uB-a2K"/>
+                            <constraint firstItem="Qqj-o8-BxH" firstAttribute="top" secondItem="koF-q5-M4g" secondAttribute="bottom" symbolic="YES" id="ri9-Sx-P71"/>
+                            <constraint firstItem="koF-q5-M4g" firstAttribute="leading" secondItem="emW-jC-r0C" secondAttribute="leading" id="vvr-g3-MVT"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="emW-jC-r0C"/>
                     </view>
@@ -70,6 +74,7 @@
                     <navigationItem key="navigationItem" id="aAh-FA-9U3"/>
                     <connections>
                         <outlet property="productsTableView" destination="ZBe-LA-eKV" id="2Ds-LM-Km7"/>
+                        <outlet property="searchBar" destination="D1l-pr-eER" id="iPd-gs-KFq"/>
                         <segue destination="fiG-rV-o7X" kind="presentation" identifier="productDetailsSegue" id="upl-uX-NhG"/>
                     </connections>
                 </viewController>
@@ -82,7 +87,7 @@
             <objects>
                 <viewController storyboardIdentifier="addProduct" id="fiG-rV-o7X" customClass="AddProductViewController" customModule="mobileCashierApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6jM-Uc-WLT">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Product name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="54q-1b-81e">
@@ -363,7 +368,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="xLh-cL-wB0"/>
-        <segue reference="prp-pd-zB0"/>
+        <segue reference="upl-uX-NhG"/>
         <segue reference="1sY-l7-gwa"/>
     </inferredMetricsTieBreakers>
 </document>
