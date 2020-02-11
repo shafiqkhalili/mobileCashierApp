@@ -91,6 +91,8 @@ class ShoppingListViewController: UIViewController,UITableViewDataSource,UITable
             }
         }
         cell.imageView?.image = UIImage(named: items[indexPath.row].image)
+        cell.layer.borderColor = UIColor.orange.cgColor
+        cell.layer.borderWidth = 2.0
         return cell
     }
     
@@ -115,7 +117,7 @@ class ShoppingListViewController: UIViewController,UITableViewDataSource,UITable
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: IndexPath) {
         let item = items[indexPath.row]
         //        prodKey = item.prodKey
-        
+        print("From didSelectRowAtIndexPath")
         self.performSegue(withIdentifier: productDiscountSegue, sender: tableView)
     }
     

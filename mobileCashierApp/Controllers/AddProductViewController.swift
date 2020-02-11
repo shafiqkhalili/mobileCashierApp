@@ -16,6 +16,7 @@ class AddProductViewController: UIViewController,UIImagePickerControllerDelegate
     //
     var prodName : String?
     var prodPrice : String?
+    var prodKey: String?
     
     let ref = Database.database().reference(withPath: "product-items")
     
@@ -30,8 +31,24 @@ class AddProductViewController: UIViewController,UIImagePickerControllerDelegate
         
         imagePicker.delegate = self
         
-        productName.text = prodName
-        productPrice.text = prodPrice
+        if let key = prodKey{
+            ref.observeSingleEvent(of: .value, with: { (snapshot) in
+                
+                if snapshot.key == key{
+                    let value = snapshot.value as? NSDictionary
+                    
+                    self.prodName = value?["name"] as? String ?? ""
+                    self.prodPrice = value?["price"] as? String ?? ""
+                    let imageUrl = value?["image"] as? String ?? ""
+                }
+                
+                // ...
+            }) { (error) in
+                print(error.localizedDescription)
+            }
+        }
+        //        productName.text = prodName
+        //        productPrice.text = prodPrice
     }
     
     // MARK: - UIImagePickerControllerDelegate Methods
@@ -86,7 +103,7 @@ class AddProductViewController: UIViewController,UIImagePickerControllerDelegate
                 productItemRef.setValue(productItem.toAnyObject())
             }
         }
-        
+        performSegue(withIdentifier: "fromProductAdd", sender: nil)
         /*
          storageRef.putData(imageData, metadata: uploadMetaData,completion: {
          (downloadmetaData, error) in
