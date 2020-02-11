@@ -141,11 +141,11 @@ class ProductViewController: UIViewController, UITableViewDataSource,UITableView
     }
         
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == prodDetailsSegue {
-            let destinationVC = segue.destination as! AddProductViewController
-            destinationVC.prodKey = clickedItemKey
-            print("prepare: \(clickedItemKey)")
-        }
+//        if segue.identifier == prodDetailsSegue {
+//            let destinationVC = segue.destination as! AddProductViewController
+//            destinationVC.prodKey = clickedItemKey
+//            print("prepare: \(clickedItemKey)")
+//        }
     }
     
     func getImage(url: String, completion: @escaping (UIImage?) -> ()) {
