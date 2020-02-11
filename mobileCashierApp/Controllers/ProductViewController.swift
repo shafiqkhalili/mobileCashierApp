@@ -139,13 +139,13 @@ class ProductViewController: UIViewController, UITableViewDataSource,UITableView
     func goToNextScene() {
         performSegue(withIdentifier: prodDetailsSegue, sender: self)
     }
-        
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == prodDetailsSegue {
-//            let destinationVC = segue.destination as! AddProductViewController
-//            destinationVC.prodKey = clickedItemKey
-//            print("prepare: \(clickedItemKey)")
-//        }
+        //        if segue.identifier == prodDetailsSegue {
+        //            let destinationVC = segue.destination as! AddProductViewController
+        //            destinationVC.prodKey = clickedItemKey
+        //            print("prepare: \(clickedItemKey)")
+        //        }
     }
     
     func getImage(url: String, completion: @escaping (UIImage?) -> ()) {
@@ -153,6 +153,7 @@ class ProductViewController: UIViewController, UITableViewDataSource,UITableView
             if error == nil {
                 completion(UIImage(data: data!))
             } else {
+                print("Error on fetching image !!!")
                 completion(nil)
             }
         }.resume()
@@ -162,14 +163,14 @@ class ProductViewController: UIViewController, UITableViewDataSource,UITableView
 extension ProductViewController: UISearchBarDelegate{
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
-        searchedItems = items.filter({ (mod) -> Bool in
-            return mod.name.lowercased().contains(searchText.lowercased())
-        })
-        isSearching = true
-        for itm in searchedItems {
-            print("item: \(itm)")
+        if searchText.count > 0 {
+            searchedItems = items.filter({ (mod) -> Bool in
+                return mod.name.lowercased().contains(searchText.lowercased())
+            })
+            
+            isSearching = true
         }
+        
         self.productsTableView.reloadData()
     }
     func isSearchBarEmpty() {
