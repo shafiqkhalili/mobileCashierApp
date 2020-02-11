@@ -13,6 +13,7 @@ class ProductViewController: UIViewController, UITableViewDataSource,UITableView
     
     @IBOutlet weak var productCollectionView: UICollectionView!
     
+    
     var ref: DatabaseReference!
     
     // MARK: Products array
@@ -45,7 +46,7 @@ class ProductViewController: UIViewController, UITableViewDataSource,UITableView
                 // 4
                 if let snapshot = child as? DataSnapshot,
                     let productItem = ProductItem(snapshot: snapshot) {
-                    print(snapshot)
+                   
                     newItems.append(productItem)
                 }
             }
@@ -65,12 +66,23 @@ class ProductViewController: UIViewController, UITableViewDataSource,UITableView
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print("Cell for row \(indexPath.row)")
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: productCellID,for: indexPath) as! ProductTVCell
         cell.prodViewDelegate = self
         cell.itemName.text = items[indexPath.row].name
         cell.itemPrice.text = items[indexPath.row].price
-        cell.imageView?.image = #imageLiteral(resourceName: "logo")
+        
+        let photoUrl = items[indexPath.row].image
+        
+        getImage(url: photoUrl) { photo in
+            if photo != nil {
+                DispatchQueue.main.async {
+                    cell.itemImage.image = photo
+                }
+                
+            }
+        }
+        cell.imageView?.image = UIImage(named: items[indexPath.row].image)
         //cell.textLabel?.text = String(persons[indexPath.row])
         
         return cell
@@ -80,12 +92,22 @@ class ProductViewController: UIViewController, UITableViewDataSource,UITableView
         guard tableView.cellForRow(at: indexPath) != nil else { return }
         let item = items[indexPath.row]
         
-        //        basketItems.append(item)
-        //        print(item.key)
+        let refBasket = ref.child("product-basket")
+        
+        refBasket.childByAutoId().setValue(item.toAnyObject())
+        
     }
     func goToNextScene() {
-        print("goToNextSchen clicked")
         performSegue(withIdentifier: prodDetailsSegue, sender: self)
+    }
+    func getImage(url: String, completion: @escaping (UIImage?) -> ()) {
+        URLSession.shared.dataTask(with: URL(string: url)!) { data, response, error in
+            if error == nil {
+                completion(UIImage(data: data!))
+            } else {
+                completion(nil)
+            }
+        }.resume()
     }
     
     //    func addToBasket(basketItem : BasketItem) {

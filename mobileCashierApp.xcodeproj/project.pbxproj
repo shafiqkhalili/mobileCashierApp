@@ -17,6 +17,7 @@
 		E23C52A223DB2192003CAB48 /* ProductCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23C52A023DB2192003CAB48 /* ProductCVCell.swift */; };
 		E23C52A323DB2192003CAB48 /* ProductCVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E23C52A123DB2192003CAB48 /* ProductCVCell.xib */; };
 		E23C52A523DB2E12003CAB48 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E23C52A423DB2E12003CAB48 /* GoogleService-Info.plist */; };
+		E2509A8523F0B21900FDE1FB /* ProductTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2509A8423F0B21900FDE1FB /* ProductTVCell.xib */; };
 		E26672B323DA444D006F6709 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26672B223DA444D006F6709 /* AppDelegate.swift */; };
 		E26672B523DA444D006F6709 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26672B423DA444D006F6709 /* SceneDelegate.swift */; };
 		E26672B723DA444D006F6709 /* ProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26672B623DA444D006F6709 /* ProductViewController.swift */; };
@@ -30,7 +31,6 @@
 		E2D3485F23DE48EC00E7FADA /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D3485E23DE48EC00E7FADA /* User.swift */; };
 		E2D3486223DE6A1A00E7FADA /* AddProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D3486123DE6A1A00E7FADA /* AddProductViewController.swift */; };
 		E2E01CB423E30B9B00BFA762 /* ProductTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E01CB223E30B9B00BFA762 /* ProductTVCell.swift */; };
-		E2E01CB523E30B9B00BFA762 /* ProductTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2E01CB323E30B9B00BFA762 /* ProductTVCell.xib */; };
 		E2E01CB923E31BAD00BFA762 /* ReceiptViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E01CB823E31BAD00BFA762 /* ReceiptViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +45,7 @@
 		E23C52A023DB2192003CAB48 /* ProductCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCVCell.swift; sourceTree = "<group>"; };
 		E23C52A123DB2192003CAB48 /* ProductCVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductCVCell.xib; sourceTree = "<group>"; };
 		E23C52A423DB2E12003CAB48 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E2509A8423F0B21900FDE1FB /* ProductTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductTVCell.xib; sourceTree = "<group>"; };
 		E26672AF23DA444D006F6709 /* mobileCashierApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mobileCashierApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E26672B223DA444D006F6709 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E26672B423DA444D006F6709 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -60,7 +61,6 @@
 		E2D3485E23DE48EC00E7FADA /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		E2D3486123DE6A1A00E7FADA /* AddProductViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProductViewController.swift; sourceTree = "<group>"; };
 		E2E01CB223E30B9B00BFA762 /* ProductTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductTVCell.swift; sourceTree = "<group>"; };
-		E2E01CB323E30B9B00BFA762 /* ProductTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductTVCell.xib; sourceTree = "<group>"; };
 		E2E01CB823E31BAD00BFA762 /* ReceiptViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptViewController.swift; sourceTree = "<group>"; };
 		E3789249CCB3E0FFC970CB19 /* Pods-mobileCashierApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mobileCashierApp.release.xcconfig"; path = "Target Support Files/Pods-mobileCashierApp/Pods-mobileCashierApp.release.xcconfig"; sourceTree = "<group>"; };
 		FE7FF16E286B392BF8AF6DE9 /* Pods-mobileCashierApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mobileCashierApp.debug.xcconfig"; path = "Target Support Files/Pods-mobileCashierApp/Pods-mobileCashierApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -134,9 +134,9 @@
 		E27C59BD23DEE7800088516C /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				E2E01CB323E30B9B00BFA762 /* ProductTVCell.xib */,
 				E23C52A123DB2192003CAB48 /* ProductCVCell.xib */,
 				E20D360923EEF6FF00F3EA26 /* ShoppingTVCell.xib */,
+				E2509A8423F0B21900FDE1FB /* ProductTVCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -230,11 +230,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				E23C52A323DB2192003CAB48 /* ProductCVCell.xib in Resources */,
-				E2E01CB523E30B9B00BFA762 /* ProductTVCell.xib in Resources */,
 				E26672BF23DA444F006F6709 /* LaunchScreen.storyboard in Resources */,
 				E23C52A523DB2E12003CAB48 /* GoogleService-Info.plist in Resources */,
 				E26672BC23DA444F006F6709 /* Assets.xcassets in Resources */,
 				E20D360B23EEF6FF00F3EA26 /* ShoppingTVCell.xib in Resources */,
+				E2509A8523F0B21900FDE1FB /* ProductTVCell.xib in Resources */,
 				E26672BA23DA444D006F6709 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

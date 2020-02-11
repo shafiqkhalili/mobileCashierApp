@@ -59,23 +59,61 @@ class AddProductViewController: UIViewController,UIImagePickerControllerDelegate
         
         let uploadMetaData = StorageMetadata.init()
         uploadMetaData.contentType = "image/jpeg"
+        
         guard let name = productName.text,
             let price = productPrice.text else { return }
         
-        storageRef.putData(imageData, metadata: uploadMetaData){
-            (downloadmetaData, error) in
-            if let error = error{
-                print("Error on uploading imeage \(error.localizedDescription)")
+        // Upload the file to the path "images/rivers.jpg"
+        let uploadTask = storageRef.putData(imageData, metadata: nil) { (metadata, error) in
+            guard let metadata = metadata else {
+                // Uh-oh, an error occurred!
+                return
+            }
+            // Metadata contains file metadata such as size, content-type.
+            let size = metadata.size
+            // You can also access to download URL after upload.
+            storageRef.downloadURL { (url, error) in
+                guard let downloadURL = url else {
+                    // Uh-oh, an error occurred!
+                    return
+                }
+                print("downloadURl \(downloadURL.absoluteString)")
+                let productItem = ProductItem(name: name, price: price,imageURL: downloadURL.absoluteString)
+                // 3
+                let productItemRef = self.ref.childByAutoId()
+                
+                // 4
+                productItemRef.setValue(productItem.toAnyObject())
             }
         }
         
+        /*
+         storageRef.putData(imageData, metadata: uploadMetaData,completion: {
+         (downloadmetaData, error) in
+         if let error = error{
+         print("Error on uploading imeage \(error.localizedDescription)")
+         }
+         if let imageURL = downloadmetaData{
+         storageRef.downloadURL(completion: { (url, error) in
+         if error != nil {
+         print("Failed to download url:", error!)
+         return
+         } else {
+         //Do something with url
+         }
+         
+         })
+         }
+         let productItem = ProductItem(name: name, price: price,image: downloadmetaData.down)
+         // 3
+         let productItemRef = self.ref.childByAutoId()
+         
+         // 4
+         productItemRef.setValue(productItem.toAnyObject())
+         }
+         */
         
-        let productItem = ProductItem(name: name, price: price)
-        // 3
-        let productItemRef = self.ref.childByAutoId()
         
-        // 4
-        productItemRef.setValue(productItem.toAnyObject())
     }
     
     /*

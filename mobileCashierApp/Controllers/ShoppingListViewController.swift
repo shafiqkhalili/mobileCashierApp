@@ -11,8 +11,11 @@ import Firebase
 
 class ShoppingListViewController: UIViewController,UITableViewDataSource,UITableViewDelegate,TableCellDelegate {
     
+    //    var ref: DatabaseReference!
+    //
+    //    ref = Database.database().reference()
     
-    let ref = Database.database().reference(withPath: "product-items")
+    var ref: DatabaseReference!
     
     let shoppingCellID = "shoppingCell"
     let productDiscountSegue = "discountSegue"
@@ -26,13 +29,22 @@ class ShoppingListViewController: UIViewController,UITableViewDataSource,UITable
     
     // MARK: Products array
     var items: [ProductItem] = []
+    var itemKeys: [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        ref = Database.database().reference()
+        
         tabBarItem.badgeValue = "0"
+        let basketRef = ref.child("product-basket")
+        let itemRef = ref.child("product-items")
+        let itemKeyRef = itemRef.child("prodKey")
+                
+        let refItem = ref.child("product-items")
+        
         // Do any additional setup after loading the view.
-        ref.observe(.value, with: { snapshot in
+        basketRef.observe(.value, with: { snapshot in
             // 2
             var newItems: [ProductItem] = []
             
@@ -41,15 +53,14 @@ class ShoppingListViewController: UIViewController,UITableViewDataSource,UITable
                 // 4
                 if let snapshot = child as? DataSnapshot,
                     let productItem = ProductItem(snapshot: snapshot) {
-                    print(snapshot)
                     newItems.append(productItem)
                 }
             }
             
-            // 5
             self.items = newItems
             self.shoppingTableView.reloadData()
         })
+        
         // Do any additional setup after loading the view.
         let nib = UINib(nibName: "ShoppingTVCell", bundle: nil)
         shoppingTableView.register(nib, forCellReuseIdentifier: shoppingCellID)
@@ -61,14 +72,25 @@ class ShoppingListViewController: UIViewController,UITableViewDataSource,UITable
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print("Cell for row \(indexPath.row)")
+        
+        //cell.textLabel?.text = String(persons[indexPath.row])
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: shoppingCellID,for: indexPath) as! ShoppingTVCell
         cell.shoppingViewDelegate = self
         cell.itemName.text = items[indexPath.row].name
         cell.itemPrice.text = items[indexPath.row].price
-        cell.imageView?.image = #imageLiteral(resourceName: "logo")
-        //cell.textLabel?.text = String(persons[indexPath.row])
         
+        let photoUrl = items[indexPath.row].image
+        
+        getImage(url: photoUrl) { photo in
+            if photo != nil {
+                DispatchQueue.main.async {
+                    cell.itemImage.image = photo
+                }
+                
+            }
+        }
+        cell.imageView?.image = UIImage(named: items[indexPath.row].image)
         return cell
     }
     
@@ -87,19 +109,13 @@ class ShoppingListViewController: UIViewController,UITableViewDataSource,UITable
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard tableView.cellForRow(at: indexPath) != nil else { return }
         let item = items[indexPath.row]
-        prodKey = item.key
-        prodName = item.name
-        prodPrice = item.price
-        
     }
     
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: IndexPath) {
         let item = items[indexPath.row]
-        prodKey = item.key
-        prodName = item.name
-        prodPrice = item.price
-        print("prodName \(prodName ?? "dfdf Name")")
+        //        prodKey = item.prodKey
+        
         self.performSegue(withIdentifier: productDiscountSegue, sender: tableView)
     }
     
@@ -114,7 +130,15 @@ class ShoppingListViewController: UIViewController,UITableViewDataSource,UITable
     func goToNextScene() {
         performSegue(withIdentifier: productDiscountSegue, sender: self)
     }
-    
+    func getImage(url: String, completion: @escaping (UIImage?) -> ()) {
+        URLSession.shared.dataTask(with: URL(string: url)!) { data, response, error in
+            if error == nil {
+                completion(UIImage(data: data!))
+            } else {
+                completion(nil)
+            }
+        }.resume()
+    }
 }
 
 
