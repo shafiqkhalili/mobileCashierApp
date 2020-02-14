@@ -9,34 +9,48 @@
 import Foundation
 import Firebase
 
-struct BasketItem {
-    let ref: DatabaseReference?
-    let key: String
-    let prodKey: String
-    //let prodCount: Int
+class BasketItem : ProductItem  {
+    var prodKey: String
+    var basketQuantity : Int
     
-    init(prodKey : String, key: String = "") {
-        self.ref = nil
-        self.key = key
+    init(prodKey : String, baskQuantity: Int,item: ProductItem){
+       
         self.prodKey = prodKey
-        //self.prodCount = prodCount + 1
+        self.basketQuantity = baskQuantity
+        super.init(name: item.name, price: item.price, imageURL: item.image, key: item.key)
     }
     
-    init?(snapshot: DataSnapshot) {
+    init(prodKey : String, baskQuantity: Int,name: String, price: String, imageURL: String, key: String = "") {
+        self.prodKey = prodKey
+        self.basketQuantity = baskQuantity
+        super.init(name: name, price: price, imageURL: imageURL, key: key)
+    }
+    
+    
+    override init?(snapshot: DataSnapshot) {
         guard
             let value = snapshot.value as? [String: AnyObject],
-            let prodKey = value["prodKey"] as? String else {
-                return nil
-        }
+            let name = value["name"] as? String,
+            let price = value["price"] as? String,
+            let imageURL = value["image"] as? String,
+            let prodKey = value["prodKey"] as? String,
+            let baskQuantity = value["quantity"] as? Int
+            else {return nil}
         
-        self.ref = snapshot.ref
-        self.key = snapshot.key
         self.prodKey = prodKey
+        self.basketQuantity = baskQuantity
+        super.init(name: name, price: price, imageURL: imageURL, key: prodKey)
     }
-     func toAnyObject() -> Any {
-         return [
-           "prodKey": prodKey
-         ]
-       }
+    
+    
+    override func toAnyObject() -> Any {
+        return [
+            "name": super.name,
+            "price": super.price,
+            "image": super.image,
+            "prodKey" : self.prodKey,
+            "quantity": self.basketQuantity
+        ]
+    }
     
 }

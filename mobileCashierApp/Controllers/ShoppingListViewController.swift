@@ -11,10 +11,6 @@ import Firebase
 
 class ShoppingListViewController: UIViewController,UITableViewDataSource,UITableViewDelegate,TableCellDelegate {
     
-    //    var ref: DatabaseReference!
-    //
-    //    ref = Database.database().reference()
-    
     var ref: DatabaseReference!
     
     let shoppingCellID = "shoppingCell"
@@ -40,7 +36,7 @@ class ShoppingListViewController: UIViewController,UITableViewDataSource,UITable
         let basketRef = ref.child("product-basket")
         let itemRef = ref.child("product-items")
         let itemKeyRef = itemRef.child("prodKey")
-                
+        
         let refItem = ref.child("product-items")
         
         // Do any additional setup after loading the view.
@@ -124,14 +120,10 @@ class ShoppingListViewController: UIViewController,UITableViewDataSource,UITable
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
         if segue.identifier == productDiscountSegue {
             guard  let destinationVC = segue.destination as? DiscountViewController else {return}
-            destinationVC.prodName = prodName
-            destinationVC.prodPrice = prodPrice
+            destinationVC.prodKey = prodKey
         }
     }
     
-    func goToNextScene() {
-        performSegue(withIdentifier: productDiscountSegue, sender: self)
-    }
     func getImage(url: String, completion: @escaping (UIImage?) -> ()) {
         URLSession.shared.dataTask(with: URL(string: url)!) { data, response, error in
             if error == nil {
@@ -140,6 +132,14 @@ class ShoppingListViewController: UIViewController,UITableViewDataSource,UITable
                 completion(nil)
             }
         }.resume()
+    }
+    
+    func goToNextScene(cell: UITableViewCell) {
+        guard let indexPath = shoppingTableView.indexPath(for: cell) else {return}
+        let item = items[indexPath.row]
+        prodKey = item.key
+        
+        performSegue(withIdentifier: productDiscountSegue, sender: self)
     }
 }
 

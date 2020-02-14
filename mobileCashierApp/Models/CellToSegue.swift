@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 /**
  Custom protocol for changing Segue to product edit View
@@ -14,5 +15,5 @@ import Foundation
 protocol TableCellDelegate : class{
     
     // make this class protocol so you can create `weak` reference
-    func goToNextScene()
+    func goToNextScene(cell: UITableViewCell)
 }

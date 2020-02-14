@@ -30,7 +30,7 @@ class ShoppingTVCell: UITableViewCell {
     @IBAction func discountButton(_ sender: UIButton) {
         print("btn discount clicked")
         if let d =  shoppingViewDelegate {
-            d.goToNextScene()
+            d.goToNextScene(cell: self)
         } else {
             print("delegete is nil")
         }

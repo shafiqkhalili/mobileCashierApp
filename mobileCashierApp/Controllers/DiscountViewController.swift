@@ -7,13 +7,17 @@
 //
 
 import UIKit
+import Firebase
 
 class DiscountViewController: UIViewController {
     
     var prodName : String?
     var prodPrice : String?
+    var prodKey : String?
     
     var discountType : UISegmentedControl?
+    
+    let ref = Database.database().reference()
     
     @IBOutlet weak var productName: UILabel!
     @IBOutlet weak var productPrice: UILabel!
@@ -26,6 +30,32 @@ class DiscountViewController: UIViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        if let prodKey = prodKey{
+            ref.keepSynced(true)
+            ref.child("product-basket").child(prodKey).observeSingleEvent(of: .value, with: { (snapshot) in
+                
+                print("Inside reference \(snapshot)")
+                
+                for child in snapshot.children {
+                    print("child: \(child)")
+                    if let snapshot = child as? ProductItem{
+                        print(snapshot.name)
+                    }
+                }
+                if snapshot.exists(){
+                    if let item = snapshot.value as? ProductItem {
+                        self.prodName = item.name
+                        self.prodPrice = item.price
+                    }
+                }
+                else{
+                    print("Snapshot is: \(snapshot.exists() ? true : false)")
+                }
+                // ...
+            }) { (error) in
+                print(error.localizedDescription)
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

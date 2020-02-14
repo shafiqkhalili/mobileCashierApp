@@ -9,12 +9,12 @@
 import Foundation
 import Firebase
 
-struct ProductItem {
-    let ref: DatabaseReference?
-    let key: String
-    let name: String
-    let price: String
-    let image: String
+class ProductItem {
+    var ref: DatabaseReference?
+    var key: String
+    var name: String
+    var price: String
+    var image: String
     
     init(name: String, price: String, imageURL: String, key: String = "") {
         self.ref = nil
@@ -29,9 +29,7 @@ struct ProductItem {
             let value = snapshot.value as? [String: AnyObject],
             let name = value["name"] as? String,
             let price = value["price"] as? String,
-            let imageURL = value["image"] as? String else {
-                return nil
-        }
+            let imageURL = value["image"] as? String else {return nil}
         
         self.ref = snapshot.ref
         self.key = snapshot.key

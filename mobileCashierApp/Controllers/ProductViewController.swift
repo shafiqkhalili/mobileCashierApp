@@ -12,9 +12,6 @@ import Firebase
 class ProductViewController: UIViewController, UITableViewDataSource,UITableViewDelegate,TableCellDelegate {
     @IBOutlet weak var searchBar: UISearchBar!
     
-    @IBOutlet weak var productCollectionView: UICollectionView!
-    
-    
     var ref: DatabaseReference!
     
     // MARK: Products array
@@ -35,6 +32,7 @@ class ProductViewController: UIViewController, UITableViewDataSource,UITableView
     override func viewWillAppear(_ animated: Bool) {
         //items.removeAll()
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -82,10 +80,8 @@ class ProductViewController: UIViewController, UITableViewDataSource,UITableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: productCellID,for: indexPath) as! ProductTVCell
-        
-        cell.prodViewDelegate = self
-        
         var currentCell : ProductItem
+        cell.prodViewDelegate = self
         
         if isSearching {
             currentCell = searchedItems[indexPath.row]
@@ -94,9 +90,6 @@ class ProductViewController: UIViewController, UITableViewDataSource,UITableView
             currentCell = items[indexPath.row]
         }
         
-        cell.itemName.text = currentCell.name
-        cell.itemPrice.text = currentCell.price
-        
         let photoUrl = currentCell.image
         
         getImage(url: photoUrl) { photo in
@@ -104,9 +97,12 @@ class ProductViewController: UIViewController, UITableViewDataSource,UITableView
                 DispatchQueue.main.async {
                     cell.itemImage.image = photo
                 }
-                
             }
         }
+        
+        cell.itemName.text = currentCell.name
+        cell.itemPrice.text = currentCell.price
+        
         cell.imageView?.image = UIImage(named: currentCell.image)
         
         //cell.textLabel?.text = String(persons[indexPath.row])
@@ -116,16 +112,27 @@ class ProductViewController: UIViewController, UITableViewDataSource,UITableView
         return cell
     }
     
-    
+    /*
+     Adding product to basket on clicking the row
+     */
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard tableView.cellForRow(at: indexPath) != nil else { return }
+        
         let item = items[indexPath.row]
-        clickedItemKey = item.key
         
-        let refBasket = ref.child("product-basket")
-        
-        refBasket.childByAutoId().setValue(item.toAnyObject())
-        
+        //Check if item exists in Basket Collection
+        if item.key != nil {
+            
+            //Increment quantity
+           
+        }
+        else{
+            let basket = BasketItem(prodKey: item.key, baskQuantity: 0, item: item)
+            
+            let refBasket = ref.child("product-basket")
+            
+            refBasket.childByAutoId().setValue(basket.toAnyObject())
+        }
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -136,16 +143,20 @@ class ProductViewController: UIViewController, UITableViewDataSource,UITableView
         }
     }
     
-    func goToNextScene() {
+    func goToNextScene(cell: UITableViewCell ) {
+        guard let indexPath = productsTableView.indexPath(for: cell) else {return}
+        let item = items[indexPath.row]
+        clickedItemKey = item.key
+        
         performSegue(withIdentifier: prodDetailsSegue, sender: self)
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        //        if segue.identifier == prodDetailsSegue {
-        //            let destinationVC = segue.destination as! AddProductViewController
-        //            destinationVC.prodKey = clickedItemKey
-        //            print("prepare: \(clickedItemKey)")
-        //        }
+        if segue.identifier == prodDetailsSegue {
+            let destinationVC = segue.destination as! ProductDetailsViewController
+            destinationVC.prodKey = clickedItemKey
+        }
     }
     
     func getImage(url: String, completion: @escaping (UIImage?) -> ()) {
