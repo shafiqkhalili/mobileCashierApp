@@ -13,7 +13,7 @@ class ProductItem: Codable {
     //var ref: DatabaseReference?
     var key: String
     var name: String
-    var price: String
+    var price: Double
     var image: String
     
     enum CodingKeys: CodingKey {
@@ -23,7 +23,7 @@ class ProductItem: Codable {
         case image
     }
     
-    init(name: String, price: String, imageURL: String, key: String = "") {
+    init(name: String, price: Double, imageURL: String, key: String = "") {
         //self.ref = nil
         self.key = key
         self.name = name

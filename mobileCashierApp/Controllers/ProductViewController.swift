@@ -150,7 +150,10 @@ class ProductViewController: UIViewController, UITableViewDataSource,UITableView
             }
         }
         cell.itemName.text = currentCell.name
-        cell.itemPrice.text = currentCell.price
+        
+        let prc: Double = currentCell.price
+        
+        cell.itemPrice.text = String(prc)
         
         cell.imageView?.image = cell.itemImage.image
         
@@ -186,7 +189,7 @@ class ProductViewController: UIViewController, UITableViewDataSource,UITableView
                 } else {
                     //Create productitem Type
                     basketItem = BasketItem(name: prodItem.name ,
-                                            price: prodItem.price ,
+                                            price: prodItem.price,
                                             imageURL: prodItem.image,
                                             key: prodItem.key,
                                             quantity: 1)
@@ -236,12 +239,49 @@ class ProductViewController: UIViewController, UITableViewDataSource,UITableView
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             
-            let item = items[indexPath.row]
+            let prodItem = items[indexPath.row]
             
+            let itemKey = prodItem.key
             
+            let itemRef = self.db.collection("product-items").document(itemKey)
+             
+            let basketRef = self.db.collection("product-basket").document(itemKey)
+            
+            //Delete item
+            itemRef.delete() { err in
+                if let err = err {
+                    print("Error removing document: \(err)")
+                } else {
+                    //If success, delete basket
+                    basketRef.delete() { err in
+                        if let err = err {
+                            print("Error removing document: \(err)")
+                        } else {
+                            print("Document successfully removed!")
+                        }
+                    }
+                    let imageUrl = prodItem.image
+                    //Delete image from storage
+                    // Create a reference to the file to delete
+                    if imageUrl.isEmpty{
+                        return
+                    }
+                    let storageRef = Storage.storage().reference(forURL: imageUrl)
+
+                    // Delete the file
+                    storageRef.delete { err in
+                      if let err = err {
+                          print("Error removing image: \(err)")
+                      } else {
+                          print("Image successfully removed!")
+                      }
+                    }
+                        
+                }
+            }
+
             productsTableView.reloadData()
-//            
-            //productsTableView.deleteRows(at: [indexPath], with: .bottom)
+
         }
     }
     

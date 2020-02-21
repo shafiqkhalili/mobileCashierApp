@@ -12,9 +12,10 @@ import Firebase
 class BasketItem : Codable  {
     var key: String
     var name: String
-    var price: String
+    var price: Double
     var image: String
-    var quantity : Int
+    var quantity: Int
+    var discount: Double
     
     enum CodingKeys: CodingKey {
         case key
@@ -22,15 +23,16 @@ class BasketItem : Codable  {
         case price
         case image
         case quantity
+        case discount
     }
     
-    init(name: String, price: String, imageURL: String, key: String, quantity: Int){
+    init(name: String, price: Double, imageURL: String, key: String, quantity: Int = 1, discount: Double = 0.0){
         self.key = key
         self.name = name
         self.price = price
         self.image = imageURL
         self.quantity = quantity
-        
+        self.discount = discount
     }
 
     /*

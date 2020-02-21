@@ -13,6 +13,7 @@ class ShoppingTVCell: UITableViewCell {
     @IBOutlet weak var itemImage: UIImageView!
     @IBOutlet weak var itemName: UILabel!
     @IBOutlet weak var itemPrice: UILabel!
+    @IBOutlet weak var itemQuantity: UILabel!
     
     weak var shoppingViewDelegate : TableCellDelegate?
     
@@ -28,7 +29,6 @@ class ShoppingTVCell: UITableViewCell {
     }
     
     @IBAction func discountButton(_ sender: UIButton) {
-        print("btn discount clicked")
         if let d =  shoppingViewDelegate {
             d.goToNextScene(cell: self)
         } else {

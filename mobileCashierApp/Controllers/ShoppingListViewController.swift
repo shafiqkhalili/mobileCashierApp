@@ -8,55 +8,62 @@
 
 import UIKit
 import Firebase
+import FirebaseFirestoreSwift
 
 class ShoppingListViewController: UIViewController,UITableViewDataSource,UITableViewDelegate,TableCellDelegate {
     
+    //Firestore ref
+    let db = Firestore.firestore()
+
     var ref: DatabaseReference!
     
     let shoppingCellID = "shoppingCell"
     let productDiscountSegue = "discountSegue"
     
-    var prodKey : String?
-    var prodName : String?
-    var prodImage : UIImage?
-    var prodPrice : String?
+    
+    var clickedItemKey : String?
     
     @IBOutlet weak var shoppingTableView: UITableView!
     
     // MARK: Products array
-    var items: [ProductItem] = []
+    var items: [BasketItem] = []
     var itemKeys: [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        ref = Database.database().reference()
-        
         tabBarItem.badgeValue = "0"
-        let basketRef = ref.child("product-basket")
-        let itemRef = ref.child("product-items")
-        let itemKeyRef = itemRef.child("prodKey")
-        
-        let refItem = ref.child("product-items")
         
         // Do any additional setup after loading the view.
-        basketRef.observe(.value, with: { snapshot in
-            // 2
-            var newItems: [ProductItem] = []
-            /*
-            // 3
-            for child in snapshot.children {
-                // 4
-                if let snapshot = child as? DataSnapshot,
-                    let productItem = ProductItem(snapshot: snapshot) {
-                    newItems.append(productItem)
+        db.collection("product-basket").addSnapshotListener(){(querySnapshot,error) in
+            //guard let snapshot = snapshot else{return}
+            if error != nil{
+                print("First error: \(error?.localizedDescription)")
+            }
+            guard let documents = querySnapshot?.documents else {
+                return
+            }
+            var newItems: [BasketItem] = []
+            
+            for document in documents{
+                let result = Result{
+                    //try document.data(as: ProductItem.init(snapshot: document))
+                    try document.data(as: BasketItem.self)
+                }
+                switch result {
+                case .success(let item):
+                    if let item = item {
+                        
+                        newItems.append(item)
+                    }
+                case .failure(let error):
+                    print("Error in switch: \(error.localizedDescription)")
                 }
             }
-            */
+            
             self.items = newItems
             self.shoppingTableView.reloadData()
-        })
-        
+        }
         // Do any additional setup after loading the view.
         let nib = UINib(nibName: "ShoppingTVCell", bundle: nil)
         shoppingTableView.register(nib, forCellReuseIdentifier: shoppingCellID)
@@ -74,8 +81,8 @@ class ShoppingListViewController: UIViewController,UITableViewDataSource,UITable
         let cell = tableView.dequeueReusableCell(withIdentifier: shoppingCellID,for: indexPath) as! ShoppingTVCell
         cell.shoppingViewDelegate = self
         cell.itemName.text = items[indexPath.row].name
-        cell.itemPrice.text = items[indexPath.row].price
-        
+        cell.itemPrice.text = String(items[indexPath.row].price)
+        cell.itemQuantity.text = String(items[indexPath.row].quantity)
         let photoUrl = items[indexPath.row].image
         
         getImage(url: photoUrl) { photo in
@@ -86,7 +93,7 @@ class ShoppingListViewController: UIViewController,UITableViewDataSource,UITable
                 
             }
         }
-        cell.imageView?.image = UIImage(named: items[indexPath.row].image)
+        cell.imageView?.image = cell.itemImage.image
         cell.layer.borderColor = UIColor.orange.cgColor
         cell.layer.borderWidth = 2.0
         return cell
@@ -98,9 +105,21 @@ class ShoppingListViewController: UIViewController,UITableViewDataSource,UITable
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let groceryItem = items[indexPath.row]
-            //groceryItem.ref?.removeValue()
             
+            let basketItem = items[indexPath.row]
+            
+            let itemKey = basketItem.key
+            
+            let basketRef = self.db.collection("product-basket").document(itemKey)
+            
+            //Delete item
+            basketRef.delete() { err in
+                if let err = err {
+                    print("Error removing document: \(err)")
+                }
+            }
+            shoppingTableView.reloadData()
+
         }
     }
     
@@ -120,7 +139,7 @@ class ShoppingListViewController: UIViewController,UITableViewDataSource,UITable
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
         if segue.identifier == productDiscountSegue {
             guard  let destinationVC = segue.destination as? DiscountViewController else {return}
-            destinationVC.prodKey = prodKey
+            destinationVC.prodKey = clickedItemKey
         }
     }
     
@@ -137,7 +156,7 @@ class ShoppingListViewController: UIViewController,UITableViewDataSource,UITable
     func goToNextScene(cell: UITableViewCell) {
         guard let indexPath = shoppingTableView.indexPath(for: cell) else {return}
         let item = items[indexPath.row]
-        prodKey = item.key
+        clickedItemKey = item.key
         
         performSegue(withIdentifier: productDiscountSegue, sender: self)
     }

@@ -19,7 +19,7 @@ class ReceiptViewController: UIViewController,UITableViewDataSource,UITableViewD
     var prodKey : String?
     var prodName : String?
     var prodImage : UIImage?
-    var prodPrice : String?
+    var prodPrice : Double?
     
     @IBOutlet weak var receiptTableView: UITableView!
     
@@ -74,7 +74,9 @@ class ReceiptViewController: UIViewController,UITableViewDataSource,UITableViewD
         let cell = tableView.dequeueReusableCell(withIdentifier: shoppingCellID,for: indexPath) as! ShoppingTVCell
         cell.shoppingViewDelegate = self
         cell.itemName.text = items[indexPath.row].name
-        cell.itemPrice.text = items[indexPath.row].price
+        
+        let prc: Double = items[indexPath.row].price
+        cell.itemPrice.text = String(prc)
         
         let photoUrl = items[indexPath.row].image
         
@@ -83,10 +85,9 @@ class ReceiptViewController: UIViewController,UITableViewDataSource,UITableViewD
                 DispatchQueue.main.async {
                     cell.itemImage.image = photo
                 }
-                
             }
         }
-        cell.imageView?.image = UIImage(named: items[indexPath.row].image)
+        cell.imageView?.image = cell.itemImage.image
         cell.layer.borderColor = UIColor.orange.cgColor
         cell.layer.borderWidth = 2.0
         return cell
@@ -121,7 +122,7 @@ class ReceiptViewController: UIViewController,UITableViewDataSource,UITableViewD
         if segue.identifier == productDiscountSegue {
             guard  let destinationVC = segue.destination as? DiscountViewController else {return}
             destinationVC.prodName = prodName
-            destinationVC.prodPrice = prodPrice
+            //destinationVC.prodPrice = prodPrice
         }
     }
     

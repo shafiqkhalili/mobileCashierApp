@@ -105,7 +105,9 @@ class ProductDetailsViewController: UIViewController,UIImagePickerControllerDele
     
     func fetchData() {
         productName.text = prodItem?.name
-        productPrice.text = prodItem?.price
+        if let price = prodItem?.price{
+            productPrice.text = String(price)
+        }
         
         guard let imageURL = prodItem?.image, !imageURL.isEmpty else{ return}
         
@@ -143,13 +145,13 @@ class ProductDetailsViewController: UIViewController,UIImagePickerControllerDele
     
     @IBAction func addProduct(_ sender: Any) {
         
-        if self.prodKey != nil {
-            editItem()
-        }
-        else{
-            addItem()
-        }
-        
+//        if self.prodKey != nil {
+//            editItem()
+//        }
+//        else{
+//            addItem()
+//        }
+        addItem()
         performSegue(withIdentifier: "fromProductAdd", sender: nil)
     }
     
@@ -178,7 +180,7 @@ class ProductDetailsViewController: UIViewController,UIImagePickerControllerDele
                     return
                 }
                 
-                let productItem = ProductItem(name: "test2", price: "2500",imageURL: downloadURL.absoluteString)
+                let productItem = ProductItem(name: "test2", price: 2500.0,imageURL: downloadURL.absoluteString)
                 
                 //Add to Firebase Firestore
                 do{
@@ -201,7 +203,9 @@ class ProductDetailsViewController: UIViewController,UIImagePickerControllerDele
     func addItem() {
         guard let name = productName.text,
             let price = productPrice.text else { return }
-        
+        guard let prc =  Double(price) else { return  }
+       //let test = (price as NSString).doubleValue
+
         //Check if image is new
         
         //let imgURL = uploadImage()
@@ -226,19 +230,33 @@ class ProductDetailsViewController: UIViewController,UIImagePickerControllerDele
                     guard let downloadURL = url else {return}
                     
                     do{
-                        let prodColl = self.db.collection("product-items")
-                        let prodRef = prodColl.document()
-                        
-                        //Create productitem Type
-                        let productItem = ProductItem(name: name, price: price,imageURL: downloadURL.absoluteString,key: prodRef.documentID)
-                        try prodRef.setData(from: productItem.self){err in
-                            if let err = err{
-                                print("Error adding document \(err)")
-                            }
-                            else{
-                                print("Document added with ID: \(self.ref!.documentID)")
+                        if let key = self.prodKey{
+                            let prodRef = self.db.collection("product-items").document(key)
+                            let basketRef = self.db.collection("product-basket").document(key)
+                         
+                            //Create productitem Type
+                            let productItem = ProductItem(name: name, price: prc,imageURL: downloadURL.absoluteString,key: key)
+                            
+                            try prodRef.setData(from: productItem.self){err in
+                                if let err = err{
+                                    print("Error adding document \(err)")
+                                }
                             }
                         }
+                        else{
+                            let prodColl = self.db.collection("product-items")
+                            let prodRef = prodColl.document()
+                            
+                            //Create productitem Type
+                            let productItem = ProductItem(name: name, price: prc,imageURL: downloadURL.absoluteString,key: prodRef.documentID)
+                            
+                            try prodRef.setData(from: productItem.self){err in
+                                if let err = err{
+                                    print("Error adding document \(err)")
+                                }
+                            }
+                        }
+                        
                     }catch{
                         print("Error on adding document")
                     }
