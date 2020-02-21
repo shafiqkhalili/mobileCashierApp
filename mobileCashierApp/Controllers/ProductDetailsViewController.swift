@@ -8,20 +8,26 @@
 
 import UIKit
 import Firebase
-
+import FirebaseFirestoreSwift
 
 class ProductDetailsViewController: UIViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
     
     //Initial values, used if updating product
-    var prodInitName : String?
-    var prodInitPrice : String?
-    var prodInitImageUrl : String?
+    var prodItem : ProductItem?
+    var prodImageView: UIImage?
+    
     var prodExists : Bool = false
     var prodImageIsNew : Bool = true
     
     var prodKey: String?
-   
-    let ref = Database.database().reference()
+    
+    //Real time ref
+    //let ref = Database.database().reference()
+    
+    //Firestore ref
+    let db = Firestore.firestore()
+    let storage = Storage.storage()
+    var ref: DocumentReference? = nil
     
     @IBOutlet weak var productName: UITextField!
     @IBOutlet weak var productPrice: UITextField!
@@ -34,42 +40,84 @@ class ProductDetailsViewController: UIViewController,UIImagePickerControllerDele
         
         imagePicker.delegate = self
         
-        if let prodKey = prodKey{
-            ref.keepSynced(true)
-            ref.child("product-items").child(prodKey).observeSingleEvent(of: .value, with: { (snapshot) in
-                if snapshot.exists(){
-                    if let snapshot = snapshot as? DataSnapshot{
-                        if let productItem = ProductItem(snapshot: snapshot){
-                            //Set
-                            self.prodExists = true
-                            self.prodInitImageUrl = productItem.image
-                            
-                            //TextFields value
-                            self.productName.text = productItem.name
-                            self.productPrice.text = productItem.price
-                            if let imageURL = self.prodInitImageUrl{
-                                self.getImage(url: imageURL) { photo in
-                                    if photo != nil {
-                                        DispatchQueue.main.async {
-                                            self.productImageView.image = photo
-                                            self.prodImageIsNew = false
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
+        guard let prodKey = prodKey else{return}
+        
+        let docRef = db.collection("product-items").document(prodKey)
+        
+        docRef.getDocument { (document, error) in
+            let result = Result {
+                try document?.data(as: ProductItem.self)
+//                try document.flatMap {
+//                    try $0.data(as: ProductItem.self)
+//                }
+            }
+            switch result {
+            case .success(let item):
+                if let item = item {
+                    
+                    self.prodItem = item
+                    
+                    self.fetchData()
+                } else {
+                    print("Document does not exist")
                 }
-                else{
-                    print("Snapshot is: \(snapshot.exists() ? true : false)")
+            case .failure(let error):
+                print("Error decoding city: \(error)")
+            }
+        }
+        
+        /*
+         // [Firebase real time database]
+         if let prodKey = prodKey{
+         ref.child("product-items").child(prodKey).observeSingleEvent(of: .value, with: { (snapshot) in
+         if snapshot.exists(){
+         if let snapshot = snapshot as? DataSnapshot{
+         if let productItem = ProductItem(snapshot: snapshot){
+         //Set
+         self.prodExists = true
+         self.prodInitImageUrl = productItem.image
+         
+         //TextFields value
+         self.productName.text = productItem.name
+         self.productPrice.text = productItem.price
+         if let imageURL = self.prodInitImageUrl{
+         self.getImage(url: imageURL) { photo in
+         if photo != nil {
+         DispatchQueue.main.async {
+         self.productImageView.image = photo
+         self.prodImageIsNew = false
+         }
+         }
+         }
+         }
+         }
+         }
+         }
+         else{
+         print("Snapshot is: \(snapshot.exists() ? true : false)")
+         }
+         }) { (error) in
+         print(error.localizedDescription)
+         }
+         }
+         */
+    }
+    
+    func fetchData() {
+        productName.text = prodItem?.name
+        productPrice.text = prodItem?.price
+        
+        guard let imageURL = prodItem?.image, !imageURL.isEmpty else{ return}
+        
+        self.getImage(url: imageURL) { photo in
+            if photo != nil {
+                DispatchQueue.main.async {
+                    self.productImageView.image = photo
+                    self.prodImageIsNew = false
                 }
-                // ...
-            }) { (error) in
-                print(error.localizedDescription)
             }
         }
     }
-    
     // MARK: - UIImagePickerControllerDelegate Methods
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -95,78 +143,132 @@ class ProductDetailsViewController: UIViewController,UIImagePickerControllerDele
     
     @IBAction func addProduct(_ sender: Any) {
         
-        if let prodKey = prodKey {
-            addItem()
+        if self.prodKey != nil {
+            editItem()
         }
         else{
-            editItem()
+            addItem()
         }
         
         performSegue(withIdentifier: "fromProductAdd", sender: nil)
     }
     
-    func itemExists() -> Bool{
-        if let prodKey = prodKey{
-            //ref.keepSynced(true)
-            ref.child("product-items").child(prodKey).observeSingleEvent(of: .value, with: { (snapshot) in
-                if snapshot.exists(){
-                    if let snapshot = snapshot as? DataSnapshot{
-                        if let productItem = ProductItem(snapshot: snapshot){
-                            self.getImage(url: productItem.image) { photo in
-                                if photo != nil {
-                                    DispatchQueue.main.async {
-                                        self.productImageView.image = photo
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            })
-        }
-        return false
-    }
-    
     func editItem() {
         
-    }
-    
-    func addItem() {
+        //image Storage setup
         let randomID = UUID.init().uuidString
         let storageRef = Storage.storage().reference(withPath: "product-images/\(randomID).jpg")
-        guard let imageData = productImageView.image?.jpegData(compressionQuality: 0.75) else{return}
-        
-        let uploadMetaData = StorageMetadata.init()
-        uploadMetaData.contentType = "image/jpeg"
-        
-        guard let name = productName.text,
-            let price = productPrice.text else { return }
+        guard let imageData = productImageView.image?.jpegData(compressionQuality: 0.50) else{return}
         
         // Upload the file to the path "images/rivers.jpg"
-        _ = storageRef.putData(imageData, metadata: nil) { (metadata, error) in
-            guard let metadata = metadata else {
+        
+        storageRef.putData(imageData, metadata: nil) { (metadata, error) in
+            guard metadata != nil else {
                 // Uh-oh, an error occurred!
                 return
             }
-            // Metadata contains file metadata such as size, content-type.
-            _ = metadata.size
+            
             // You can also access to download URL after upload.
-            storageRef.downloadURL { (url, error) in
+            storageRef.downloadURL{ (url, error) in
+                if error != nil{
+                    print("EEError: \(String(describing: error))")
+                }
                 guard let downloadURL = url else {
                     // Uh-oh, an error occurred!
                     return
                 }
                 
-                //
-                let productItem = ProductItem(name: name, price: price,imageURL: downloadURL.absoluteString)
-                //Add item to DB by auto ID
-                let productItemRef = self.ref.childByAutoId()
+                let productItem = ProductItem(name: "test2", price: "2500",imageURL: downloadURL.absoluteString)
                 
-                productItemRef.setValue(productItem.toAnyObject())
+                //Add to Firebase Firestore
+                do{
+                    self.ref = try self.db.collection("product-items").addDocument(from: productItem ){
+                        err in
+                        if let err = err{
+                            print("Error adding document \(err)")
+                        }
+                        else{
+                            print("Document added with ID: \(self.ref!.documentID)")
+                        }
+                    }
+                }catch{
+                    print("")
+                }
+            }
+        }
+    }
+    
+    func addItem() {
+        guard let name = productName.text,
+            let price = productPrice.text else { return }
+        
+        //Check if image is new
+        
+        //let imgURL = uploadImage()
+        //Add to Firebase Firestore
+        //guard let imageURL = imgURL else{return}
+        
+        //image Storage setup
+        let randomID = UUID.init().uuidString
+        let storageRef = storage.reference(withPath: "product-images/\(randomID).jpg")
+        let imageData = productImageView.image?.jpegData(compressionQuality: 0.25)
+        
+        if let imgData = imageData {
+            storageRef.putData(imgData, metadata: nil) { (metadata, error) in
+                if error != nil{
+                    print("Error on uploading impage: \(error?.localizedDescription)")
+                }
+                guard metadata != nil else {
+                    return
+                }
+                // You can also access to download URL after upload.
+                storageRef.downloadURL { (url, error) in
+                    guard let downloadURL = url else {return}
+                    
+                    do{
+                        let prodColl = self.db.collection("product-items")
+                        let prodRef = prodColl.document()
+                        
+                        //Create productitem Type
+                        let productItem = ProductItem(name: name, price: price,imageURL: downloadURL.absoluteString,key: prodRef.documentID)
+                        try prodRef.setData(from: productItem.self){err in
+                            if let err = err{
+                                print("Error adding document \(err)")
+                            }
+                            else{
+                                print("Document added with ID: \(self.ref!.documentID)")
+                            }
+                        }
+                    }catch{
+                        print("Error on adding document")
+                    }
+                }
             }
         }
         
         
+        /*
+         //image Storage setup
+         let randomID = UUID.init().uuidString
+         let storageRef = Storage.storage().reference(withPath: "product-images/\(randomID).jpg")
+         guard let imageData = productImageView.image?.jpegData(compressionQuality: 0.25) else{return}
+         
+         let uploadMetaData = StorageMetadata.init()
+         uploadMetaData.contentType = "image/jpeg"
+         
+         
+         // Upload the file to the path "images/rivers.jpg"
+         
+         storageRef.putData(imageData, metadata: nil) { (metadata, error) in
+         guard metadata != nil else {
+         // Uh-oh, an error occurred!
+         return
+         }
+         // You can also access to download URL after upload.
+         storageRef.downloadURL { (url, error) in
+         
+         }
+         }*/
     }
     
     func putImage(url: String, completion: @escaping (UIImage?) -> ()) {
@@ -182,6 +284,37 @@ class ProductDetailsViewController: UIViewController,UIImagePickerControllerDele
                 completion(nil)
             }
         }.resume()
+    }
+    
+    func deleteImage(imageUrl : String) -> Bool {
+        return true
+    }
+    
+    func uploadImage() -> String {
+        var imageUrl: String = ""
+        
+        //image Storage setup
+        let randomID = UUID.init().uuidString
+        let storageRef = Storage.storage().reference(withPath: "product-images/\(randomID).jpg")
+        let imageData = productImageView.image?.jpegData(compressionQuality: 0.25)
+        
+        if let imgData = imageData {
+            storageRef.putData(imgData, metadata: nil) { (metadata, error) in
+                if error != nil{
+                    print("Error on uploading impage: \(error?.localizedDescription)")
+                }
+                guard metadata != nil else {
+                    return
+                }
+                // You can also access to download URL after upload.
+                storageRef.downloadURL { (url, error) in
+                    guard let downloadURL = url else {return}
+                    imageUrl = downloadURL.absoluteString
+                }
+            }
+        }
+        
+        return imageUrl
     }
     /*
      // MARK: - Navigation

@@ -43,7 +43,7 @@ class ShoppingListViewController: UIViewController,UITableViewDataSource,UITable
         basketRef.observe(.value, with: { snapshot in
             // 2
             var newItems: [ProductItem] = []
-            
+            /*
             // 3
             for child in snapshot.children {
                 // 4
@@ -52,7 +52,7 @@ class ShoppingListViewController: UIViewController,UITableViewDataSource,UITable
                     newItems.append(productItem)
                 }
             }
-            
+            */
             self.items = newItems
             self.shoppingTableView.reloadData()
         })
@@ -99,7 +99,7 @@ class ShoppingListViewController: UIViewController,UITableViewDataSource,UITable
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let groceryItem = items[indexPath.row]
-            groceryItem.ref?.removeValue()
+            //groceryItem.ref?.removeValue()
             
         }
     }

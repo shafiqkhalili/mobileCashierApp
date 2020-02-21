@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C042305CBE0D5A0FBC3E3976 /* libPods-mobileCashierApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5153D1E5B8193A65233FEAF1 /* libPods-mobileCashierApp.a */; };
+		6197D87048328061050D7B84 /* Pods_mobileCashierApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE56A4A086AFE07F2DDE1534 /* Pods_mobileCashierApp.framework */; };
 		E20C929623E1A80E000E80AE /* DiscountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20C929523E1A80E000E80AE /* DiscountViewController.swift */; };
 		E20C929823E1A81F000E80AE /* ShoppingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20C929723E1A81F000E80AE /* ShoppingListViewController.swift */; };
 		E20D360A23EEF6FF00F3EA26 /* ShoppingTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20D360823EEF6FF00F3EA26 /* ShoppingTVCell.swift */; };
@@ -24,6 +24,9 @@
 		E26672BA23DA444D006F6709 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E26672B823DA444D006F6709 /* Main.storyboard */; };
 		E26672BC23DA444F006F6709 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E26672BB23DA444F006F6709 /* Assets.xcassets */; };
 		E26672BF23DA444F006F6709 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E26672BD23DA444F006F6709 /* LaunchScreen.storyboard */; };
+		E2A32D2323FAF66A00DF32F1 /* FIRFirestoreServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A32D2223FAF66A00DF32F1 /* FIRFirestoreServices.swift */; };
+		E2A32D2523FAF67900DF32F1 /* FIRCollectionReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A32D2423FAF67900DF32F1 /* FIRCollectionReference.swift */; };
+		E2A38FAC23FB17250042565E /* LocalCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A38FAB23FB17250042565E /* LocalCollection.swift */; };
 		E2A6090523E99EBD00CB99B6 /* BasketItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A6090423E99EBD00CB99B6 /* BasketItem.swift */; };
 		E2A6090723E9AFE300CB99B6 /* SellsLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A6090623E9AFE300CB99B6 /* SellsLog.swift */; };
 		E2A6090D23E9B61800CB99B6 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A6090C23E9B61700CB99B6 /* TabBarViewController.swift */; };
@@ -36,7 +39,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		5153D1E5B8193A65233FEAF1 /* libPods-mobileCashierApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-mobileCashierApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE56A4A086AFE07F2DDE1534 /* Pods_mobileCashierApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_mobileCashierApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E20C929523E1A80E000E80AE /* DiscountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscountViewController.swift; sourceTree = "<group>"; };
 		E20C929723E1A81F000E80AE /* ShoppingListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListViewController.swift; sourceTree = "<group>"; };
 		E20D360823EEF6FF00F3EA26 /* ShoppingTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingTVCell.swift; sourceTree = "<group>"; };
@@ -55,6 +58,9 @@
 		E26672BB23DA444F006F6709 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E26672BE23DA444F006F6709 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E26672C023DA444F006F6709 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E2A32D2223FAF66A00DF32F1 /* FIRFirestoreServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FIRFirestoreServices.swift; sourceTree = "<group>"; };
+		E2A32D2423FAF67900DF32F1 /* FIRCollectionReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FIRCollectionReference.swift; sourceTree = "<group>"; };
+		E2A38FAB23FB17250042565E /* LocalCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalCollection.swift; sourceTree = "<group>"; };
 		E2A6090423E99EBD00CB99B6 /* BasketItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketItem.swift; sourceTree = "<group>"; };
 		E2A6090623E9AFE300CB99B6 /* SellsLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellsLog.swift; sourceTree = "<group>"; };
 		E2A6090C23E9B61700CB99B6 /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
@@ -73,7 +79,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C042305CBE0D5A0FBC3E3976 /* libPods-mobileCashierApp.a in Frameworks */,
+				6197D87048328061050D7B84 /* Pods_mobileCashierApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,7 +89,7 @@
 		79C6C2A05D0EDBA883C86CBD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				5153D1E5B8193A65233FEAF1 /* libPods-mobileCashierApp.a */,
+				CE56A4A086AFE07F2DDE1534 /* Pods_mobileCashierApp.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -118,16 +124,17 @@
 		E26672B123DA444D006F6709 /* mobileCashierApp */ = {
 			isa = PBXGroup;
 			children = (
-				E23C52A423DB2E12003CAB48 /* GoogleService-Info.plist */,
-				E26672C023DA444F006F6709 /* Info.plist */,
 				E26672B223DA444D006F6709 /* AppDelegate.swift */,
-				E23C529A23DB1A6C003CAB48 /* Product.swift */,
-				E26672B423DA444D006F6709 /* SceneDelegate.swift */,
 				E26672BB23DA444F006F6709 /* Assets.xcassets */,
 				E2D3486023DE5A1800E7FADA /* Controllers */,
+				E2A32D2123FAF63400DF32F1 /* Firebase */,
+				E23C52A423DB2E12003CAB48 /* GoogleService-Info.plist */,
+				E26672C023DA444F006F6709 /* Info.plist */,
 				E26672BD23DA444F006F6709 /* LaunchScreen.storyboard */,
 				E26672B823DA444D006F6709 /* Main.storyboard */,
 				E2D3485B23DE402800E7FADA /* Models */,
+				E23C529A23DB1A6C003CAB48 /* Product.swift */,
+				E26672B423DA444D006F6709 /* SceneDelegate.swift */,
 				E27C59BD23DEE7800088516C /* Views */,
 			);
 			path = mobileCashierApp;
@@ -141,6 +148,16 @@
 				E2509A8423F0B21900FDE1FB /* ProductTVCell.xib */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		E2A32D2123FAF63400DF32F1 /* Firebase */ = {
+			isa = PBXGroup;
+			children = (
+				E2A32D2223FAF66A00DF32F1 /* FIRFirestoreServices.swift */,
+				E2A32D2423FAF67900DF32F1 /* FIRCollectionReference.swift */,
+				E2A38FAB23FB17250042565E /* LocalCollection.swift */,
+			);
+			path = Firebase;
 			sourceTree = "<group>";
 		};
 		E2D3485B23DE402800E7FADA /* Models */ = {
@@ -183,7 +200,7 @@
 				E26672AB23DA444D006F6709 /* Sources */,
 				E26672AC23DA444D006F6709 /* Frameworks */,
 				E26672AD23DA444D006F6709 /* Resources */,
-				CC129CF1C873DC2381A71BE4 /* [CP] Copy Pods Resources */,
+				6A32AD0DBEED1A69350A33F7 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -267,21 +284,21 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		CC129CF1C873DC2381A71BE4 /* [CP] Copy Pods Resources */ = {
+		6A32AD0DBEED1A69350A33F7 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-mobileCashierApp/Pods-mobileCashierApp-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-mobileCashierApp/Pods-mobileCashierApp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Copy Pods Resources";
+			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-mobileCashierApp/Pods-mobileCashierApp-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-mobileCashierApp/Pods-mobileCashierApp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-mobileCashierApp/Pods-mobileCashierApp-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-mobileCashierApp/Pods-mobileCashierApp-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -295,8 +312,10 @@
 				E2A6090D23E9B61800CB99B6 /* TabBarViewController.swift in Sources */,
 				E2D3485D23DE404500E7FADA /* ProductItem.swift in Sources */,
 				E26672B723DA444D006F6709 /* ProductViewController.swift in Sources */,
+				E2A38FAC23FB17250042565E /* LocalCollection.swift in Sources */,
 				E2E01CB423E30B9B00BFA762 /* ProductTVCell.swift in Sources */,
 				E2D3486223DE6A1A00E7FADA /* ProductDetailsViewController.swift in Sources */,
+				E2A32D2323FAF66A00DF32F1 /* FIRFirestoreServices.swift in Sources */,
 				E23C529B23DB1A6C003CAB48 /* Product.swift in Sources */,
 				E26672B323DA444D006F6709 /* AppDelegate.swift in Sources */,
 				E20C929623E1A80E000E80AE /* DiscountViewController.swift in Sources */,
@@ -309,6 +328,7 @@
 				E20C929823E1A81F000E80AE /* ShoppingListViewController.swift in Sources */,
 				E2A6090523E99EBD00CB99B6 /* BasketItem.swift in Sources */,
 				E2D3485F23DE48EC00E7FADA /* User.swift in Sources */,
+				E2A32D2523FAF67900DF32F1 /* FIRCollectionReference.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

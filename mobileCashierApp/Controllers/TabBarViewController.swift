@@ -17,7 +17,7 @@ class TabBarViewController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        /*
         ref.observe(.value, with: { snapshot in
             // 2
             var newItems: [ProductItem] = []
@@ -34,7 +34,7 @@ class TabBarViewController: UITabBarController {
             
             // 5
             self.items = newItems
-        })
+        })*/
     }
     
 

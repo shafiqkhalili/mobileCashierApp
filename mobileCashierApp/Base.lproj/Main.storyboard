@@ -12,11 +12,11 @@
             <objects>
                 <viewController storyboardIdentifier="landingPage" title="Product Table View" id="Cob-2X-tMw" customClass="ProductViewController" customModule="mobileCashierApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Z14-8i-5I6">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="koF-q5-M4g">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                                 <items>
                                     <navigationItem id="gi4-C8-pBG"/>
                                 </items>
@@ -41,7 +41,7 @@
                                 </connections>
                             </tableView>
                             <searchBar contentMode="redraw" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="D1l-pr-eER">
-                                <rect key="frame" x="0.0" y="56" width="306.5" height="56"/>
+                                <rect key="frame" x="0.0" y="88" width="306.5" height="56"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <scopeButtonTitles>
                                     <string>Title</string>
@@ -52,7 +52,7 @@
                                 </connections>
                             </searchBar>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qqj-o8-BxH">
-                                <rect key="frame" x="316.5" y="56" width="87.5" height="56"/>
+                                <rect key="frame" x="316.5" y="88" width="87.5" height="56"/>
                                 <state key="normal" backgroundImage="barcode"/>
                             </button>
                         </subviews>
@@ -74,7 +74,7 @@
                     <connections>
                         <outlet property="productsTableView" destination="ZBe-LA-eKV" id="2Ds-LM-Km7"/>
                         <outlet property="searchBar" destination="D1l-pr-eER" id="iPd-gs-KFq"/>
-                        <segue destination="fiG-rV-o7X" kind="presentation" identifier="productDetailsSegue" modalPresentationStyle="fullScreen" id="bTN-Fp-Hil"/>
+                        <segue destination="fiG-rV-o7X" kind="presentation" identifier="productDetailsSegue" modalPresentationStyle="fullScreen" id="h9p-vd-oGV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DPH-p1-QRY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -132,6 +132,26 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Barcode" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sn8-T9-t7f">
+                                <rect key="frame" x="100" y="458" width="240" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HV7-Tv-KY1">
+                                <rect key="frame" x="90" y="672" width="250" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Save"/>
+                                <connections>
+                                    <action selector="addProduct:" destination="fiG-rV-o7X" eventType="touchUpInside" id="qW7-R4-4ro"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Discount" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jBn-jP-fJd">
+                                <rect key="frame" x="100" y="522" width="240" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="5Am-A0-SGy"/>
@@ -141,7 +161,7 @@
                         <outlet property="productImageView" destination="4bi-T7-NFU" id="dkZ-Jw-El2"/>
                         <outlet property="productName" destination="54q-1b-81e" id="BBP-6s-nfD"/>
                         <outlet property="productPrice" destination="OcF-uA-9vz" id="3JI-mk-gVZ"/>
-                        <segue destination="Cob-2X-tMw" kind="presentation" identifier="fromProductAdd" id="6CT-Oi-hir"/>
+                        <segue destination="Cob-2X-tMw" kind="presentation" identifier="fromProductAdd" modalPresentationStyle="fullScreen" id="6CT-Oi-hir"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G50-7o-IlV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -475,7 +495,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="fiG-rV-o7X" kind="relationship" relationship="rootViewController" id="5lL-h9-gY5"/>
+                        <segue destination="fiG-rV-o7X" kind="relationship" relationship="rootViewController" id="BoC-jy-EaG"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zcb-Wk-s0R" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -517,8 +537,8 @@
         <image name="trash" width="27.5" height="35.5"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="J8I-j5-J7E"/>
-        <segue reference="bTN-Fp-Hil"/>
+        <segue reference="Yw0-SH-RlT"/>
+        <segue reference="h9p-vd-oGV"/>
         <segue reference="6CT-Oi-hir"/>
     </inferredMetricsTieBreakers>
 </document>

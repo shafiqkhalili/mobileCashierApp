@@ -38,7 +38,7 @@ class ReceiptViewController: UIViewController,UITableViewDataSource,UITableViewD
         let itemKeyRef = itemRef.child("prodKey")
         
         let refItem = ref.child("product-items")
-        
+        /*
         // Do any additional setup after loading the view.
         basketRef.observe(.value, with: { snapshot in
             // 2
@@ -56,7 +56,7 @@ class ReceiptViewController: UIViewController,UITableViewDataSource,UITableViewD
             self.items = newItems
             self.receiptTableView.reloadData()
         })
-        
+        */
         // Do any additional setup after loading the view.
         let nib = UINib(nibName: "ShoppingTVCell", bundle: nil)
         receiptTableView.register(nib, forCellReuseIdentifier: shoppingCellID)
@@ -99,7 +99,7 @@ class ReceiptViewController: UIViewController,UITableViewDataSource,UITableViewD
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let groceryItem = items[indexPath.row]
-            groceryItem.ref?.removeValue()
+            //groceryItem.ref?.removeValue()
             
         }
     }

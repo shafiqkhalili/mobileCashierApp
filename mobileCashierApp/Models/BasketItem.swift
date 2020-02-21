@@ -9,24 +9,31 @@
 import Foundation
 import Firebase
 
-class BasketItem : ProductItem  {
-    var prodKey: String
-    var basketQuantity : Int
+class BasketItem : Codable  {
+    var key: String
+    var name: String
+    var price: String
+    var image: String
+    var quantity : Int
     
-    init(prodKey : String, baskQuantity: Int,item: ProductItem){
-       
-        self.prodKey = prodKey
-        self.basketQuantity = baskQuantity
-        super.init(name: item.name, price: item.price, imageURL: item.image, key: item.key)
+    enum CodingKeys: CodingKey {
+        case key
+        case name
+        case price
+        case image
+        case quantity
     }
     
-    init(prodKey : String, baskQuantity: Int,name: String, price: String, imageURL: String, key: String = "") {
-        self.prodKey = prodKey
-        self.basketQuantity = baskQuantity
-        super.init(name: name, price: price, imageURL: imageURL, key: key)
+    init(name: String, price: String, imageURL: String, key: String, quantity: Int){
+        self.key = key
+        self.name = name
+        self.price = price
+        self.image = imageURL
+        self.quantity = quantity
+        
     }
-    
-    
+
+    /*
     override init?(snapshot: DataSnapshot) {
         guard
             let value = snapshot.value as? [String: AnyObject],
@@ -42,6 +49,9 @@ class BasketItem : ProductItem  {
         super.init(name: name, price: price, imageURL: imageURL, key: prodKey)
     }
     
+    required init(from decoder: Decoder) throws {
+        fatalError("init(from:) has not been implemented")
+    }
     
     override func toAnyObject() -> Any {
         return [
@@ -52,5 +62,5 @@ class BasketItem : ProductItem  {
             "quantity": self.basketQuantity
         ]
     }
-    
+    */
 }
