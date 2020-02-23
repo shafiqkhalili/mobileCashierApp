@@ -13,6 +13,8 @@
 		E20D360A23EEF6FF00F3EA26 /* ShoppingTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20D360823EEF6FF00F3EA26 /* ShoppingTVCell.swift */; };
 		E20D360B23EEF6FF00F3EA26 /* ShoppingTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E20D360923EEF6FF00F3EA26 /* ShoppingTVCell.xib */; };
 		E20D360D23EEFE6600F3EA26 /* CellToSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20D360C23EEFE6600F3EA26 /* CellToSegue.swift */; };
+		E20F55282401803200A566CA /* ReceiptTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E20F55272401803200A566CA /* ReceiptTVCell.xib */; };
+		E20F552E2401950100A566CA /* ReceiptTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20F552D2401950100A566CA /* ReceiptTVCell.swift */; };
 		E23C529B23DB1A6C003CAB48 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23C529A23DB1A6C003CAB48 /* Product.swift */; };
 		E23C52A223DB2192003CAB48 /* ProductCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23C52A023DB2192003CAB48 /* ProductCVCell.swift */; };
 		E23C52A323DB2192003CAB48 /* ProductCVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E23C52A123DB2192003CAB48 /* ProductCVCell.xib */; };
@@ -36,6 +38,7 @@
 		E2D3486223DE6A1A00E7FADA /* ProductDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D3486123DE6A1A00E7FADA /* ProductDetailsViewController.swift */; };
 		E2E01CB423E30B9B00BFA762 /* ProductTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E01CB223E30B9B00BFA762 /* ProductTVCell.swift */; };
 		E2E01CB923E31BAD00BFA762 /* ReceiptViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E01CB823E31BAD00BFA762 /* ReceiptViewController.swift */; };
+		E2E16D342402B272001A2B5F /* BasketCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E16D332402B272001A2B5F /* BasketCount.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +48,8 @@
 		E20D360823EEF6FF00F3EA26 /* ShoppingTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingTVCell.swift; sourceTree = "<group>"; };
 		E20D360923EEF6FF00F3EA26 /* ShoppingTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShoppingTVCell.xib; sourceTree = "<group>"; };
 		E20D360C23EEFE6600F3EA26 /* CellToSegue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellToSegue.swift; sourceTree = "<group>"; };
+		E20F55272401803200A566CA /* ReceiptTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReceiptTVCell.xib; sourceTree = "<group>"; };
+		E20F552D2401950100A566CA /* ReceiptTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptTVCell.swift; sourceTree = "<group>"; };
 		E23C529A23DB1A6C003CAB48 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		E23C52A023DB2192003CAB48 /* ProductCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCVCell.swift; sourceTree = "<group>"; };
 		E23C52A123DB2192003CAB48 /* ProductCVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductCVCell.xib; sourceTree = "<group>"; };
@@ -70,6 +75,7 @@
 		E2D3486123DE6A1A00E7FADA /* ProductDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsViewController.swift; sourceTree = "<group>"; };
 		E2E01CB223E30B9B00BFA762 /* ProductTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductTVCell.swift; sourceTree = "<group>"; };
 		E2E01CB823E31BAD00BFA762 /* ReceiptViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptViewController.swift; sourceTree = "<group>"; };
+		E2E16D332402B272001A2B5F /* BasketCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketCount.swift; sourceTree = "<group>"; };
 		E3789249CCB3E0FFC970CB19 /* Pods-mobileCashierApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mobileCashierApp.release.xcconfig"; path = "Target Support Files/Pods-mobileCashierApp/Pods-mobileCashierApp.release.xcconfig"; sourceTree = "<group>"; };
 		FE7FF16E286B392BF8AF6DE9 /* Pods-mobileCashierApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mobileCashierApp.debug.xcconfig"; path = "Target Support Files/Pods-mobileCashierApp/Pods-mobileCashierApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -146,6 +152,7 @@
 				E23C52A123DB2192003CAB48 /* ProductCVCell.xib */,
 				E20D360923EEF6FF00F3EA26 /* ShoppingTVCell.xib */,
 				E2509A8423F0B21900FDE1FB /* ProductTVCell.xib */,
+				E20F55272401803200A566CA /* ReceiptTVCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -169,6 +176,7 @@
 				E2A6090623E9AFE300CB99B6 /* SellsLog.swift */,
 				E20D360C23EEFE6600F3EA26 /* CellToSegue.swift */,
 				E2B0637623F56FC300AA029B /* Helpers.swift */,
+				E2E16D332402B272001A2B5F /* BasketCount.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -181,6 +189,7 @@
 				E2D3486123DE6A1A00E7FADA /* ProductDetailsViewController.swift */,
 				E2E01CB223E30B9B00BFA762 /* ProductTVCell.swift */,
 				E26672B623DA444D006F6709 /* ProductViewController.swift */,
+				E20F552D2401950100A566CA /* ReceiptTVCell.swift */,
 				E2E01CB823E31BAD00BFA762 /* ReceiptViewController.swift */,
 				E20C929723E1A81F000E80AE /* ShoppingListViewController.swift */,
 				E20D360823EEF6FF00F3EA26 /* ShoppingTVCell.swift */,
@@ -249,6 +258,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E20F55282401803200A566CA /* ReceiptTVCell.xib in Resources */,
 				E23C52A323DB2192003CAB48 /* ProductCVCell.xib in Resources */,
 				E26672BF23DA444F006F6709 /* LaunchScreen.storyboard in Resources */,
 				E23C52A523DB2E12003CAB48 /* GoogleService-Info.plist in Resources */,
@@ -318,6 +328,7 @@
 				E2A32D2323FAF66A00DF32F1 /* FIRFirestoreServices.swift in Sources */,
 				E23C529B23DB1A6C003CAB48 /* Product.swift in Sources */,
 				E26672B323DA444D006F6709 /* AppDelegate.swift in Sources */,
+				E20F552E2401950100A566CA /* ReceiptTVCell.swift in Sources */,
 				E20C929623E1A80E000E80AE /* DiscountViewController.swift in Sources */,
 				E20D360A23EEF6FF00F3EA26 /* ShoppingTVCell.swift in Sources */,
 				E2A6090723E9AFE300CB99B6 /* SellsLog.swift in Sources */,
@@ -326,6 +337,7 @@
 				E2B0637723F56FC300AA029B /* Helpers.swift in Sources */,
 				E2E01CB923E31BAD00BFA762 /* ReceiptViewController.swift in Sources */,
 				E20C929823E1A81F000E80AE /* ShoppingListViewController.swift in Sources */,
+				E2E16D342402B272001A2B5F /* BasketCount.swift in Sources */,
 				E2A6090523E99EBD00CB99B6 /* BasketItem.swift in Sources */,
 				E2D3485F23DE48EC00E7FADA /* User.swift in Sources */,
 				E2A32D2523FAF67900DF32F1 /* FIRCollectionReference.swift in Sources */,

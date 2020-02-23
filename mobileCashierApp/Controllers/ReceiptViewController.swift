@@ -24,41 +24,15 @@ class ReceiptViewController: UIViewController,UITableViewDataSource,UITableViewD
     @IBOutlet weak var receiptTableView: UITableView!
     
     // MARK: Products array
-    var items: [ProductItem] = []
+    var items: [BasketItem] = []
+    
     var itemKeys: [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        ref = Database.database().reference()
-        
-        tabBarItem.badgeValue = "0"
-        let basketRef = ref.child("product-basket")
-        let itemRef = ref.child("product-items")
-        let itemKeyRef = itemRef.child("prodKey")
-        
-        let refItem = ref.child("product-items")
-        /*
+       
         // Do any additional setup after loading the view.
-        basketRef.observe(.value, with: { snapshot in
-            // 2
-            var newItems: [ProductItem] = []
-            
-            // 3
-            for child in snapshot.children {
-                // 4
-                if let snapshot = child as? DataSnapshot,
-                    let productItem = ProductItem(snapshot: snapshot) {
-                    newItems.append(productItem)
-                }
-            }
-            
-            self.items = newItems
-            self.receiptTableView.reloadData()
-        })
-        */
-        // Do any additional setup after loading the view.
-        let nib = UINib(nibName: "ShoppingTVCell", bundle: nil)
+        let nib = UINib(nibName: "ReceiptTVCell", bundle: nil)
         receiptTableView.register(nib, forCellReuseIdentifier: shoppingCellID)
         receiptTableView.dataSource = self
     }
@@ -71,25 +45,20 @@ class ReceiptViewController: UIViewController,UITableViewDataSource,UITableViewD
         
         //cell.textLabel?.text = String(persons[indexPath.row])
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: shoppingCellID,for: indexPath) as! ShoppingTVCell
-        cell.shoppingViewDelegate = self
-        cell.itemName.text = items[indexPath.row].name
+        let cell = tableView.dequeueReusableCell(withIdentifier: shoppingCellID,for: indexPath) as! ReceiptTVCell
         
-        let prc: Double = items[indexPath.row].price
-        cell.itemPrice.text = String(prc)
+        cell.itemLabel.text = items[indexPath.row].name
         
-        let photoUrl = items[indexPath.row].image
+        let priceTotal: Double = Double(items[indexPath.row].price) * Double(items[indexPath.row].quantity)
         
-        getImage(url: photoUrl) { photo in
-            if photo != nil {
-                DispatchQueue.main.async {
-                    cell.itemImage.image = photo
-                }
-            }
-        }
-        cell.imageView?.image = cell.itemImage.image
-        cell.layer.borderColor = UIColor.orange.cgColor
-        cell.layer.borderWidth = 2.0
+        let discountTotal = Double(items[indexPath.row].discount) * Double(items[indexPath.row].quantity)
+        
+        let costTotal = priceTotal - discountTotal
+        cell.priceLabel.text = String(costTotal)
+        cell.quantityLabel.text = String(items[indexPath.row].quantity)
+        
+//        cell.layer.borderColor = UIColor.orange.cgColor
+//        cell.layer.borderWidth = 2.0
         return cell
     }
     
@@ -98,34 +67,29 @@ class ReceiptViewController: UIViewController,UITableViewDataSource,UITableViewD
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            let groceryItem = items[indexPath.row]
-            //groceryItem.ref?.removeValue()
-            
-        }
+       
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard tableView.cellForRow(at: indexPath) != nil else { return }
-        let item = items[indexPath.row]
+       
     }
     
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: IndexPath) {
-        let item = items[indexPath.row]
-        //        prodKey = item.prodKey
-        print("From didSelectRowAtIndexPath")
-        self.performSegue(withIdentifier: productDiscountSegue, sender: tableView)
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
-        if segue.identifier == productDiscountSegue {
-            guard  let destinationVC = segue.destination as? DiscountViewController else {return}
-            destinationVC.prodName = prodName
-            //destinationVC.prodPrice = prodPrice
-        }
+//        if segue.identifier == productDiscountSegue {
+//            guard  let destinationVC = segue.destination as? DiscountViewController else {return}
+//            destinationVC.prodName = prodName
+//            //destinationVC.prodPrice = prodPrice
+//        }
     }
     
+    @IBAction func backToBasket(_ sender: UIBarButtonItem) {
+        dismiss(animated: true, completion: nil)
+    }
     func goToNextScene(cell: UITableViewCell) {
         performSegue(withIdentifier: productDiscountSegue, sender: self)
     }

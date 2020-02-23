@@ -16,7 +16,7 @@ class DiscountViewController: UIViewController {
     var prodName : String?
     var prodPrice : Double?
     var prodImageView: UIImage?
-    var discountType : Int?
+    var discountType : Int = 0
     
     var prodItem : BasketItem?
     
@@ -106,11 +106,10 @@ class DiscountViewController: UIViewController {
         guard let prodKey = prodKey else{return}
         
         var discount : Double = 0.0
-        let userInput = discountAmount.text
+        guard let userInput = discountAmount.text else{return}
        
-        if let disc = userInput {
-            discount = (disc as NSString).doubleValue
-        }
+        discount = (userInput as NSString).doubleValue
+        
         
         if self.discountType == 0 {
             if let price = prodPrice{
@@ -126,7 +125,7 @@ class DiscountViewController: UIViewController {
             if let err = err {
                 print("Error updating document: \(err)")
             } else {
-                print("Document successfully updated")
+                self.performSegue(withIdentifier: "discountToBasket", sender: nil)
             }
         }
     }

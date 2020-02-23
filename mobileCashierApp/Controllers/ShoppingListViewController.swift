@@ -19,7 +19,7 @@ class ShoppingListViewController: UIViewController,UITableViewDataSource,UITable
     
     let shoppingCellID = "shoppingCell"
     let productDiscountSegue = "discountSegue"
-    
+    let basketToReceiptSegue = "basketToReceipt"
     
     var clickedItemKey : String?
     
@@ -32,7 +32,7 @@ class ShoppingListViewController: UIViewController,UITableViewDataSource,UITable
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tabBarItem.badgeValue = "0"
+        tabBarItem.badgeValue = "1"
         
         // Do any additional setup after loading the view.
         db.collection("product-basket").addSnapshotListener(){(querySnapshot,error) in
@@ -70,6 +70,9 @@ class ShoppingListViewController: UIViewController,UITableViewDataSource,UITable
         shoppingTableView.dataSource = self
     }
     
+    @IBAction func createReceipt(_ sender: UIButton) {
+        
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items.count
     }
@@ -140,6 +143,10 @@ class ShoppingListViewController: UIViewController,UITableViewDataSource,UITable
         if segue.identifier == productDiscountSegue {
             guard  let destinationVC = segue.destination as? DiscountViewController else {return}
             destinationVC.prodKey = clickedItemKey
+        }
+        else if segue.identifier == basketToReceiptSegue{
+            guard  let destinationVC = segue.destination as? ReceiptViewController else {return}
+            destinationVC.items = items
         }
     }
     
