@@ -26,6 +26,9 @@
 		E26672BA23DA444D006F6709 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E26672B823DA444D006F6709 /* Main.storyboard */; };
 		E26672BC23DA444F006F6709 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E26672BB23DA444F006F6709 /* Assets.xcassets */; };
 		E26672BF23DA444F006F6709 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E26672BD23DA444F006F6709 /* LaunchScreen.storyboard */; };
+		E26BB4742403AC9000BB797C /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26BB4732403AC9000BB797C /* RegisterViewController.swift */; };
+		E26BB4762403FB1300BB797C /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26BB4752403FB1300BB797C /* MenuViewController.swift */; };
+		E26BB47824040ECF00BB797C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26BB47724040ECF00BB797C /* LoginViewController.swift */; };
 		E2A32D2323FAF66A00DF32F1 /* FIRFirestoreServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A32D2223FAF66A00DF32F1 /* FIRFirestoreServices.swift */; };
 		E2A32D2523FAF67900DF32F1 /* FIRCollectionReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A32D2423FAF67900DF32F1 /* FIRCollectionReference.swift */; };
 		E2A38FAC23FB17250042565E /* LocalCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A38FAB23FB17250042565E /* LocalCollection.swift */; };
@@ -63,6 +66,9 @@
 		E26672BB23DA444F006F6709 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E26672BE23DA444F006F6709 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E26672C023DA444F006F6709 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E26BB4732403AC9000BB797C /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		E26BB4752403FB1300BB797C /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		E26BB47724040ECF00BB797C /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		E2A32D2223FAF66A00DF32F1 /* FIRFirestoreServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FIRFirestoreServices.swift; sourceTree = "<group>"; };
 		E2A32D2423FAF67900DF32F1 /* FIRCollectionReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FIRCollectionReference.swift; sourceTree = "<group>"; };
 		E2A38FAB23FB17250042565E /* LocalCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalCollection.swift; sourceTree = "<group>"; };
@@ -194,6 +200,9 @@
 				E20C929723E1A81F000E80AE /* ShoppingListViewController.swift */,
 				E20D360823EEF6FF00F3EA26 /* ShoppingTVCell.swift */,
 				E2A6090C23E9B61700CB99B6 /* TabBarViewController.swift */,
+				E26BB4732403AC9000BB797C /* RegisterViewController.swift */,
+				E26BB4752403FB1300BB797C /* MenuViewController.swift */,
+				E26BB47724040ECF00BB797C /* LoginViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -321,6 +330,7 @@
 				E20D360D23EEFE6600F3EA26 /* CellToSegue.swift in Sources */,
 				E2A6090D23E9B61800CB99B6 /* TabBarViewController.swift in Sources */,
 				E2D3485D23DE404500E7FADA /* ProductItem.swift in Sources */,
+				E26BB4742403AC9000BB797C /* RegisterViewController.swift in Sources */,
 				E26672B723DA444D006F6709 /* ProductViewController.swift in Sources */,
 				E2A38FAC23FB17250042565E /* LocalCollection.swift in Sources */,
 				E2E01CB423E30B9B00BFA762 /* ProductTVCell.swift in Sources */,
@@ -333,6 +343,7 @@
 				E20D360A23EEF6FF00F3EA26 /* ShoppingTVCell.swift in Sources */,
 				E2A6090723E9AFE300CB99B6 /* SellsLog.swift in Sources */,
 				E26672B523DA444D006F6709 /* SceneDelegate.swift in Sources */,
+				E26BB4762403FB1300BB797C /* MenuViewController.swift in Sources */,
 				E23C52A223DB2192003CAB48 /* ProductCVCell.swift in Sources */,
 				E2B0637723F56FC300AA029B /* Helpers.swift in Sources */,
 				E2E01CB923E31BAD00BFA762 /* ReceiptViewController.swift in Sources */,
@@ -340,6 +351,7 @@
 				E2E16D342402B272001A2B5F /* BasketCount.swift in Sources */,
 				E2A6090523E99EBD00CB99B6 /* BasketItem.swift in Sources */,
 				E2D3485F23DE48EC00E7FADA /* User.swift in Sources */,
+				E26BB47824040ECF00BB797C /* LoginViewController.swift in Sources */,
 				E2A32D2523FAF67900DF32F1 /* FIRCollectionReference.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

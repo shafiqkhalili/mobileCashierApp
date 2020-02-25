@@ -29,9 +29,12 @@ class ProductDetailsViewController: UIViewController,UIImagePickerControllerDele
     let storage = Storage.storage()
     var ref: DocumentReference? = nil
     
+    @IBOutlet weak var buttonSave: UIButton!
     @IBOutlet weak var productName: UITextField!
     @IBOutlet weak var productPrice: UITextField!
     @IBOutlet weak var productImageView: UIImageView!
+    @IBOutlet weak var productCount: UITextField!
+    @IBOutlet weak var productBarcode: UITextField!
     
     let imagePicker = UIImagePickerController()
     
@@ -39,6 +42,10 @@ class ProductDetailsViewController: UIViewController,UIImagePickerControllerDele
         super.viewDidLoad()
         
         imagePicker.delegate = self
+        
+        buttonSave.layer.borderWidth = 2
+        buttonSave.layer.borderColor = UIColor.orange.cgColor
+        buttonSave.layer.cornerRadius = 5
         
         guard let prodKey = prodKey else{return}
         
@@ -65,42 +72,6 @@ class ProductDetailsViewController: UIViewController,UIImagePickerControllerDele
                 print("Error decoding city: \(error)")
             }
         }
-        
-        /*
-         // [Firebase real time database]
-         if let prodKey = prodKey{
-         ref.child("product-items").child(prodKey).observeSingleEvent(of: .value, with: { (snapshot) in
-         if snapshot.exists(){
-         if let snapshot = snapshot as? DataSnapshot{
-         if let productItem = ProductItem(snapshot: snapshot){
-         //Set
-         self.prodExists = true
-         self.prodInitImageUrl = productItem.image
-         
-         //TextFields value
-         self.productName.text = productItem.name
-         self.productPrice.text = productItem.price
-         if let imageURL = self.prodInitImageUrl{
-         self.getImage(url: imageURL) { photo in
-         if photo != nil {
-         DispatchQueue.main.async {
-         self.productImageView.image = photo
-         self.prodImageIsNew = false
-         }
-         }
-         }
-         }
-         }
-         }
-         }
-         else{
-         print("Snapshot is: \(snapshot.exists() ? true : false)")
-         }
-         }) { (error) in
-         print(error.localizedDescription)
-         }
-         }
-         */
     }
     
     func fetchData() {
