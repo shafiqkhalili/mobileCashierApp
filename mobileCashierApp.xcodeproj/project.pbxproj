@@ -19,6 +19,7 @@
 		E23C52A223DB2192003CAB48 /* ProductCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23C52A023DB2192003CAB48 /* ProductCVCell.swift */; };
 		E23C52A323DB2192003CAB48 /* ProductCVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E23C52A123DB2192003CAB48 /* ProductCVCell.xib */; };
 		E23C52A523DB2E12003CAB48 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E23C52A423DB2E12003CAB48 /* GoogleService-Info.plist */; };
+		E23CEA8C2405BBD500DED75B /* Component.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23CEA8B2405BBD500DED75B /* Component.swift */; };
 		E2509A8523F0B21900FDE1FB /* ProductTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2509A8423F0B21900FDE1FB /* ProductTVCell.xib */; };
 		E26672B323DA444D006F6709 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26672B223DA444D006F6709 /* AppDelegate.swift */; };
 		E26672B523DA444D006F6709 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26672B423DA444D006F6709 /* SceneDelegate.swift */; };
@@ -57,6 +58,7 @@
 		E23C52A023DB2192003CAB48 /* ProductCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCVCell.swift; sourceTree = "<group>"; };
 		E23C52A123DB2192003CAB48 /* ProductCVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductCVCell.xib; sourceTree = "<group>"; };
 		E23C52A423DB2E12003CAB48 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E23CEA8B2405BBD500DED75B /* Component.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Component.swift; sourceTree = "<group>"; };
 		E2509A8423F0B21900FDE1FB /* ProductTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductTVCell.xib; sourceTree = "<group>"; };
 		E26672AF23DA444D006F6709 /* mobileCashierApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mobileCashierApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E26672B223DA444D006F6709 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -115,6 +117,14 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		E23CEA8A2405BBA400DED75B /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				E23CEA8B2405BBD500DED75B /* Component.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		E26672A623DA444D006F6709 = {
 			isa = PBXGroup;
 			children = (
@@ -136,6 +146,7 @@
 		E26672B123DA444D006F6709 /* mobileCashierApp */ = {
 			isa = PBXGroup;
 			children = (
+				E23CEA8A2405BBA400DED75B /* Helpers */,
 				E26672B223DA444D006F6709 /* AppDelegate.swift */,
 				E26672BB23DA444F006F6709 /* Assets.xcassets */,
 				E2D3486023DE5A1800E7FADA /* Controllers */,
@@ -337,6 +348,7 @@
 				E2D3486223DE6A1A00E7FADA /* ProductDetailsViewController.swift in Sources */,
 				E2A32D2323FAF66A00DF32F1 /* FIRFirestoreServices.swift in Sources */,
 				E23C529B23DB1A6C003CAB48 /* Product.swift in Sources */,
+				E23CEA8C2405BBD500DED75B /* Component.swift in Sources */,
 				E26672B323DA444D006F6709 /* AppDelegate.swift in Sources */,
 				E20F552E2401950100A566CA /* ReceiptTVCell.swift in Sources */,
 				E20C929623E1A80E000E80AE /* DiscountViewController.swift in Sources */,

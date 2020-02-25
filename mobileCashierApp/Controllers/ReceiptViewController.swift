@@ -21,7 +21,11 @@ class ReceiptViewController: UIViewController,UITableViewDataSource,UITableViewD
     var prodImage : UIImage?
     var prodPrice : Double?
     
+    @IBOutlet weak var totalPrice: UILabel!
     @IBOutlet weak var receiptTableView: UITableView!
+    
+    
+    var total: Double = 0
     
     // MARK: Products array
     var items: [BasketItem] = []
@@ -30,11 +34,22 @@ class ReceiptViewController: UIViewController,UITableViewDataSource,UITableViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+        
         // Do any additional setup after loading the view.
         let nib = UINib(nibName: "ReceiptTVCell", bundle: nil)
         receiptTableView.register(nib, forCellReuseIdentifier: shoppingCellID)
         receiptTableView.dataSource = self
+        
+        let priceSum = items.reduce(0) { $0 + $1.price }
+        setTotalPrice(price: priceSum)
+    }
+    
+    func setTotalPrice(price: Double) {
+        let headerView = Component(frame: .zero)
+        headerView.configure(text: "Total sum", price: String(price))
+        
+        receiptTableView.tableFooterView = headerView
+        //        receiptTableView.tableFooterView?.backgroundColor = .orange
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -102,5 +117,17 @@ class ReceiptViewController: UIViewController,UITableViewDataSource,UITableViewD
             }
         }.resume()
     }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        updateHeaderViewHeight(for: receiptTableView.tableHeaderView)
+        updateHeaderViewHeight(for: receiptTableView.tableFooterView)
+    }
+
+    func updateHeaderViewHeight(for header: UIView?) {
+        guard let header = header else { return }
+        header.frame.size.height = header.systemLayoutSizeFitting(CGSize(width: view.bounds.width - 32.0, height: 0)).height
+    }
+    
 }
 

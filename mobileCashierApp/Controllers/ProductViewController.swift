@@ -18,7 +18,9 @@ class ProductViewController: UIViewController, UITableViewDataSource,UITableView
     
     //Firestore ref
     let db = Firestore.firestore()
-
+    
+    var auth: Auth!
+    
     // MARK: Products array
     var items: [ProductItem] = []
     var searchedItems: [ProductItem] = []
@@ -42,6 +44,8 @@ class ProductViewController: UIViewController, UITableViewDataSource,UITableView
         super.viewDidLoad()
         
         searchBar.delegate = self
+        
+        auth = Auth.auth()
         
         //Retreive all data from Firestore
         //Firestore ref
@@ -113,9 +117,9 @@ class ProductViewController: UIViewController, UITableViewDataSource,UITableView
         productsTableView.dataSource = self
         
     }
-//    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-//        return true
-//    }
+    //    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+    //        return true
+    //    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print("Triggered from numberOfRowsInSection")
         if isSearching == true {
@@ -207,33 +211,6 @@ class ProductViewController: UIViewController, UITableViewDataSource,UITableView
                 print("Error decoding city: \(error)")
             }
         }
-        /*
-        // Atomically increment the population of the city by 50.
-        // Note that increment() with no arguments increments by 1.
-        basketDoc.updateData([
-            "quantity": FieldValue.increment(Int64(1))
-        ])
-        
-         //Check if item exists in Basket Collection
-        if item.key != nil {
-           
-            
-            
-            //Increment quantity
-            
-        }
-        else{
-         let basket = BasketItem(prodKey: item.key, baskQuantity: 0, item: item)
-            
-        //Update using Firestore database
-        // Update one field, creating the document if it does not exist.
-//            self.db.collection("product-basket").setValue(<#T##value: Any?##Any?#>, forUndefinedKey: <#T##String#>)([ "capital": true ], merge: true)
-            
-         /* update using realtime database
-         let refBasket = ref.child("product-basket")
-         
-         refBasket.childByAutoId().setValue(basket.toAnyObject())*/
-         }*/
     }
     //Delete product
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -244,7 +221,7 @@ class ProductViewController: UIViewController, UITableViewDataSource,UITableView
             let itemKey = prodItem.key
             
             let itemRef = self.db.collection("product-items").document(itemKey)
-             
+            
             let basketRef = self.db.collection("product-basket").document(itemKey)
             
             //Delete item
@@ -267,21 +244,21 @@ class ProductViewController: UIViewController, UITableViewDataSource,UITableView
                         return
                     }
                     let storageRef = Storage.storage().reference(forURL: imageUrl)
-
+                    
                     // Delete the file
                     storageRef.delete { err in
-                      if let err = err {
-                          print("Error removing image: \(err)")
-                      } else {
-                          print("Image successfully removed!")
-                      }
+                        if let err = err {
+                            print("Error removing image: \(err)")
+                        } else {
+                            print("Image successfully removed!")
+                        }
                     }
-                        
+                    
                 }
             }
-
+            
             productsTableView.reloadData()
-
+            
         }
     }
     
@@ -311,6 +288,20 @@ class ProductViewController: UIViewController, UITableViewDataSource,UITableView
                 completion(nil)
             }
         }.resume()
+    }
+    
+    @IBAction func logOut(_ sender: Any) {
+        if auth.currentUser != nil{
+            do {
+                try auth.signOut()
+                if auth.currentUser == nil {
+                    //                      self.performSegue(withIdentifier: self.segueId, sender: self)
+                }
+            }
+            catch {
+                print("Failed to sign out")
+            }
+        }
     }
 }
 

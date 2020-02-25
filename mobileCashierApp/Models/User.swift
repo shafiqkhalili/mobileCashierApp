@@ -9,18 +9,24 @@
 import Foundation
 import Firebase
 
-struct User {
-  
-  let uid: String
-  let email: String
-  
-  init(authData: Firebase.User) {
-    uid = authData.uid
-    email = authData.email!
-  }
-  
-  init(uid: String, email: String) {
-    self.uid = uid
-    self.email = email
-  }
+struct User: Codable {
+    
+    let uid: String
+    let email: String
+    let password: String
+    let organization: String
+    
+    enum CodingKeys: CodingKey{
+        case uid
+        case email
+        case password
+        case organization
+    }
+
+    init(uid: String = "", email: String,password: String,organization: String) {
+        self.uid = uid
+        self.email = email
+        self.password = password
+        self.organization = organization
+    }
 }

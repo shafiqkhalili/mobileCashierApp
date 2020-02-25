@@ -11,8 +11,8 @@ import Firebase
 import FirebaseFirestoreSwift
 
 class RegisterViewController: UIViewController {
-
-    var db: Firestore!
+    
+    let db = Firestore.firestore()
     
     var auth: Auth!
     
@@ -26,9 +26,9 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var passwordRepeat: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
-         auth = Auth.auth()
+        auth = Auth.auth()
     }
     
     @IBAction func registerButton(_ sender: UIButton) {
@@ -36,27 +36,42 @@ class RegisterViewController: UIViewController {
     }
     
     func creatUser() {
-        guard let email = self.email.text else{return}
-        guard let password = self.password.text else {return}
+        guard let email = self.email.text,
+            let password = self.password.text,
+            let organization = self.orgNr.text else {return}
         
         auth.createUser(withEmail: email, password: password){
             result, error in
             if let error = error {
                 print("Error: \(error.localizedDescription)")
-            }
-            if let user = self.auth.currentUser{
-                self.performSegue(withIdentifier: self.segueId, sender: self)
+            }else{
+                let userRef = self.db.collection("users").document()
+                
+                let user = User(uid: result!.user.uid, email: email, password: password, organization: organization)
+                
+                do{
+                    try userRef.setData(from: user.self){err in
+                        if let err = err{
+                            print("Error adding document \(err)")
+                        }
+                    }
+                } catch{
+                    print("Error")
+                }
+                if let user = self.auth.currentUser{
+                    self.performSegue(withIdentifier: self.segueId, sender: self)
+                }
             }
         }
     }
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }
