@@ -1753,7 +1753,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 			<key>License</key>
 			<string>Apache</string>
 			<key>Title</key>
-			<string>FirebaseDatabase</string>
+			<string>FirebaseFirestore</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 		</dict>
@@ -1965,7 +1965,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 			<key>License</key>
 			<string>Apache</string>
 			<key>Title</key>
-			<string>FirebaseFirestore</string>
+			<string>FirebaseFirestoreSwift</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 		</dict>

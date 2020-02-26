@@ -9,42 +9,48 @@
 import Foundation
 import Firebase
 
-struct ProductItem {
-    let ref: DatabaseReference?
-    let key: String
-    let name: String
-    let price: String
-    let image: String
+class ProductItem: Codable {
+    //var ref: DatabaseReference?
+    var key: String
+    var name: String
+    var price: Double
+    var image: String
     
-    init(name: String, price: String, imageURL: String, key: String = "") {
-        self.ref = nil
+    enum CodingKeys: CodingKey {
+        case key
+        case name
+        case price
+        case image
+    }
+    
+    init(name: String, price: Double, imageURL: String, key: String = "") {
+        //self.ref = nil
         self.key = key
         self.name = name
         self.price = price
         self.image = imageURL
     }
-    
+    /*
     init?(snapshot: DataSnapshot) {
         guard
-            let value = snapshot.value as? [String: AnyObject],
+            let value = snapshot.value as? [String: Any],
+            let key = value["key"] as? String,
             let name = value["name"] as? String,
             let price = value["price"] as? String,
-            let imageURL = value["image"] as? String else {
-                return nil
-        }
+            let image = value["image"] as? String else {return nil}
         
         self.ref = snapshot.ref
-        self.key = snapshot.key
+        self.key = key
         self.name = name
         self.price = price
-        self.image = imageURL
+        self.image = image
     }
-    
-    func toAnyObject() -> Any {
-        return [
-            "name": name,
-            "price": price,
-            "image": image
-        ]
-    }
+    */
+    //    func toAnyObject() -> Any {
+    //        return [
+    //            "name": name,
+    //            "price": price,
+    //            "image": image
+    //        ]
+    //    }
 }

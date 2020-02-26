@@ -1492,7 +1492,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    limitations under the License.
 
 
-## FirebaseDatabase
+## FirebaseFirestore
 
 
                                  Apache License
@@ -1698,7 +1698,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    limitations under the License.
 
 
-## FirebaseFirestore
+## FirebaseFirestoreSwift
 
 
                                  Apache License
