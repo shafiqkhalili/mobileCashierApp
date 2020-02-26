@@ -11,7 +11,7 @@ import Firebase
 
 class TabBarViewController: UITabBarController {
 
-    let ref = Database.database().reference(withPath: "product-basket")
+//    let ref = Database.database().reference(withPath: "product-basket")
     
     var items: [ProductItem] = []
     

@@ -17,7 +17,7 @@ UITableViewDelegate ,DiscountDelegate{
     let db = Firestore.firestore().collection("users")
     
     var auth: Auth!
-    var ref: DatabaseReference!
+//    var ref: DatabaseReference!
     
     let shoppingCellID = "shoppingCell"
     let productDiscountSegue = "discountSegue"

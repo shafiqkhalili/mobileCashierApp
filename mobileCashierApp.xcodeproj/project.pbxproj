@@ -11,7 +11,6 @@
 		E20C929623E1A80E000E80AE /* DiscountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20C929523E1A80E000E80AE /* DiscountViewController.swift */; };
 		E20C929823E1A81F000E80AE /* ShoppingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20C929723E1A81F000E80AE /* ShoppingListViewController.swift */; };
 		E20D360A23EEF6FF00F3EA26 /* ShoppingTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20D360823EEF6FF00F3EA26 /* ShoppingTVCell.swift */; };
-		E20D360B23EEF6FF00F3EA26 /* ShoppingTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E20D360923EEF6FF00F3EA26 /* ShoppingTVCell.xib */; };
 		E20D360D23EEFE6600F3EA26 /* Delegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20D360C23EEFE6600F3EA26 /* Delegates.swift */; };
 		E20F55282401803200A566CA /* ReceiptTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E20F55272401803200A566CA /* ReceiptTVCell.xib */; };
 		E20F552E2401950100A566CA /* ReceiptTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20F552D2401950100A566CA /* ReceiptTVCell.swift */; };
@@ -20,6 +19,7 @@
 		E23C52A323DB2192003CAB48 /* ProductCVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E23C52A123DB2192003CAB48 /* ProductCVCell.xib */; };
 		E23C52A523DB2E12003CAB48 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E23C52A423DB2E12003CAB48 /* GoogleService-Info.plist */; };
 		E23CEA8C2405BBD500DED75B /* Component.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23CEA8B2405BBD500DED75B /* Component.swift */; };
+		E24FECDE24072DDE00909405 /* ShoppingTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E24FECDD24072DDE00909405 /* ShoppingTVCell.xib */; };
 		E2509A8523F0B21900FDE1FB /* ProductTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2509A8423F0B21900FDE1FB /* ProductTVCell.xib */; };
 		E26672B323DA444D006F6709 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26672B223DA444D006F6709 /* AppDelegate.swift */; };
 		E26672B523DA444D006F6709 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26672B423DA444D006F6709 /* SceneDelegate.swift */; };
@@ -50,7 +50,6 @@
 		E20C929523E1A80E000E80AE /* DiscountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscountViewController.swift; sourceTree = "<group>"; };
 		E20C929723E1A81F000E80AE /* ShoppingListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListViewController.swift; sourceTree = "<group>"; };
 		E20D360823EEF6FF00F3EA26 /* ShoppingTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingTVCell.swift; sourceTree = "<group>"; };
-		E20D360923EEF6FF00F3EA26 /* ShoppingTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShoppingTVCell.xib; sourceTree = "<group>"; };
 		E20D360C23EEFE6600F3EA26 /* Delegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delegates.swift; sourceTree = "<group>"; };
 		E20F55272401803200A566CA /* ReceiptTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReceiptTVCell.xib; sourceTree = "<group>"; };
 		E20F552D2401950100A566CA /* ReceiptTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptTVCell.swift; sourceTree = "<group>"; };
@@ -59,6 +58,7 @@
 		E23C52A123DB2192003CAB48 /* ProductCVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductCVCell.xib; sourceTree = "<group>"; };
 		E23C52A423DB2E12003CAB48 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E23CEA8B2405BBD500DED75B /* Component.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Component.swift; sourceTree = "<group>"; };
+		E24FECDD24072DDE00909405 /* ShoppingTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShoppingTVCell.xib; sourceTree = "<group>"; };
 		E2509A8423F0B21900FDE1FB /* ProductTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductTVCell.xib; sourceTree = "<group>"; };
 		E26672AF23DA444D006F6709 /* mobileCashierApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mobileCashierApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E26672B223DA444D006F6709 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -200,9 +200,9 @@
 			isa = PBXGroup;
 			children = (
 				E23C52A123DB2192003CAB48 /* ProductCVCell.xib */,
-				E20D360923EEF6FF00F3EA26 /* ShoppingTVCell.xib */,
 				E2509A8423F0B21900FDE1FB /* ProductTVCell.xib */,
 				E20F55272401803200A566CA /* ReceiptTVCell.xib */,
+				E24FECDD24072DDE00909405 /* ShoppingTVCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -253,7 +253,7 @@
 				E26672AB23DA444D006F6709 /* Sources */,
 				E26672AC23DA444D006F6709 /* Frameworks */,
 				E26672AD23DA444D006F6709 /* Resources */,
-				6A32AD0DBEED1A69350A33F7 /* [CP] Embed Pods Frameworks */,
+				FEA6FB2FC11AC5DE43F80A85 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -307,7 +307,7 @@
 				E26672BF23DA444F006F6709 /* LaunchScreen.storyboard in Resources */,
 				E23C52A523DB2E12003CAB48 /* GoogleService-Info.plist in Resources */,
 				E26672BC23DA444F006F6709 /* Assets.xcassets in Resources */,
-				E20D360B23EEF6FF00F3EA26 /* ShoppingTVCell.xib in Resources */,
+				E24FECDE24072DDE00909405 /* ShoppingTVCell.xib in Resources */,
 				E2509A8523F0B21900FDE1FB /* ProductTVCell.xib in Resources */,
 				E26672BA23DA444D006F6709 /* Main.storyboard in Resources */,
 			);
@@ -338,7 +338,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		6A32AD0DBEED1A69350A33F7 /* [CP] Embed Pods Frameworks */ = {
+		FEA6FB2FC11AC5DE43F80A85 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (

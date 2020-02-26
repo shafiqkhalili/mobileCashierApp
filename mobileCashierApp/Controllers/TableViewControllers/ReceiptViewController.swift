@@ -11,7 +11,7 @@ import Firebase
 
 class ReceiptViewController: UIViewController,UITableViewDataSource,UITableViewDelegate,DiscountDelegate {
         
-    var ref: DatabaseReference!
+//    var ref: DatabaseReference!
     
     let shoppingCellID = "shoppingCell"
     let productDiscountSegue = "discountSegue"
