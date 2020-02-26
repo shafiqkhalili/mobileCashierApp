@@ -12,7 +12,7 @@
 		E20C929823E1A81F000E80AE /* ShoppingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20C929723E1A81F000E80AE /* ShoppingListViewController.swift */; };
 		E20D360A23EEF6FF00F3EA26 /* ShoppingTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20D360823EEF6FF00F3EA26 /* ShoppingTVCell.swift */; };
 		E20D360B23EEF6FF00F3EA26 /* ShoppingTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E20D360923EEF6FF00F3EA26 /* ShoppingTVCell.xib */; };
-		E20D360D23EEFE6600F3EA26 /* CellToSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20D360C23EEFE6600F3EA26 /* CellToSegue.swift */; };
+		E20D360D23EEFE6600F3EA26 /* Delegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20D360C23EEFE6600F3EA26 /* Delegates.swift */; };
 		E20F55282401803200A566CA /* ReceiptTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E20F55272401803200A566CA /* ReceiptTVCell.xib */; };
 		E20F552E2401950100A566CA /* ReceiptTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20F552D2401950100A566CA /* ReceiptTVCell.swift */; };
 		E23C529B23DB1A6C003CAB48 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23C529A23DB1A6C003CAB48 /* Product.swift */; };
@@ -51,7 +51,7 @@
 		E20C929723E1A81F000E80AE /* ShoppingListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListViewController.swift; sourceTree = "<group>"; };
 		E20D360823EEF6FF00F3EA26 /* ShoppingTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingTVCell.swift; sourceTree = "<group>"; };
 		E20D360923EEF6FF00F3EA26 /* ShoppingTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShoppingTVCell.xib; sourceTree = "<group>"; };
-		E20D360C23EEFE6600F3EA26 /* CellToSegue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellToSegue.swift; sourceTree = "<group>"; };
+		E20D360C23EEFE6600F3EA26 /* Delegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delegates.swift; sourceTree = "<group>"; };
 		E20F55272401803200A566CA /* ReceiptTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReceiptTVCell.xib; sourceTree = "<group>"; };
 		E20F552D2401950100A566CA /* ReceiptTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptTVCell.swift; sourceTree = "<group>"; };
 		E23C529A23DB1A6C003CAB48 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
@@ -125,6 +125,40 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
+		E23CEA8D2405D04A00DED75B /* TableViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				E20C929723E1A81F000E80AE /* ShoppingListViewController.swift */,
+				E26672B623DA444D006F6709 /* ProductViewController.swift */,
+				E2E01CB823E31BAD00BFA762 /* ReceiptViewController.swift */,
+			);
+			path = TableViewControllers;
+			sourceTree = "<group>";
+		};
+		E23CEA8E2405D08200DED75B /* CellViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				E20F552D2401950100A566CA /* ReceiptTVCell.swift */,
+				E23C52A023DB2192003CAB48 /* ProductCVCell.swift */,
+				E20D360823EEF6FF00F3EA26 /* ShoppingTVCell.swift */,
+				E2E01CB223E30B9B00BFA762 /* ProductTVCell.swift */,
+			);
+			path = CellViewControllers;
+			sourceTree = "<group>";
+		};
+		E23CEA8F2405D0AC00DED75B /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				E20C929523E1A80E000E80AE /* DiscountViewController.swift */,
+				E2D3486123DE6A1A00E7FADA /* ProductDetailsViewController.swift */,
+				E2A6090C23E9B61700CB99B6 /* TabBarViewController.swift */,
+				E26BB4732403AC9000BB797C /* RegisterViewController.swift */,
+				E26BB4752403FB1300BB797C /* MenuViewController.swift */,
+				E26BB47724040ECF00BB797C /* LoginViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
 		E26672A623DA444D006F6709 = {
 			isa = PBXGroup;
 			children = (
@@ -156,7 +190,6 @@
 				E26672BD23DA444F006F6709 /* LaunchScreen.storyboard */,
 				E26672B823DA444D006F6709 /* Main.storyboard */,
 				E2D3485B23DE402800E7FADA /* Models */,
-				E23C529A23DB1A6C003CAB48 /* Product.swift */,
 				E26672B423DA444D006F6709 /* SceneDelegate.swift */,
 				E27C59BD23DEE7800088516C /* Views */,
 			);
@@ -191,9 +224,10 @@
 				E2D3485E23DE48EC00E7FADA /* User.swift */,
 				E2A6090423E99EBD00CB99B6 /* BasketItem.swift */,
 				E2A6090623E9AFE300CB99B6 /* SellsLog.swift */,
-				E20D360C23EEFE6600F3EA26 /* CellToSegue.swift */,
+				E20D360C23EEFE6600F3EA26 /* Delegates.swift */,
 				E2B0637623F56FC300AA029B /* Helpers.swift */,
 				E2E16D332402B272001A2B5F /* BasketCount.swift */,
+				E23C529A23DB1A6C003CAB48 /* Product.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -201,19 +235,9 @@
 		E2D3486023DE5A1800E7FADA /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				E20C929523E1A80E000E80AE /* DiscountViewController.swift */,
-				E23C52A023DB2192003CAB48 /* ProductCVCell.swift */,
-				E2D3486123DE6A1A00E7FADA /* ProductDetailsViewController.swift */,
-				E2E01CB223E30B9B00BFA762 /* ProductTVCell.swift */,
-				E26672B623DA444D006F6709 /* ProductViewController.swift */,
-				E20F552D2401950100A566CA /* ReceiptTVCell.swift */,
-				E2E01CB823E31BAD00BFA762 /* ReceiptViewController.swift */,
-				E20C929723E1A81F000E80AE /* ShoppingListViewController.swift */,
-				E20D360823EEF6FF00F3EA26 /* ShoppingTVCell.swift */,
-				E2A6090C23E9B61700CB99B6 /* TabBarViewController.swift */,
-				E26BB4732403AC9000BB797C /* RegisterViewController.swift */,
-				E26BB4752403FB1300BB797C /* MenuViewController.swift */,
-				E26BB47724040ECF00BB797C /* LoginViewController.swift */,
+				E23CEA8F2405D0AC00DED75B /* ViewControllers */,
+				E23CEA8E2405D08200DED75B /* CellViewControllers */,
+				E23CEA8D2405D04A00DED75B /* TableViewControllers */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -338,7 +362,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E20D360D23EEFE6600F3EA26 /* CellToSegue.swift in Sources */,
+				E20D360D23EEFE6600F3EA26 /* Delegates.swift in Sources */,
 				E2A6090D23E9B61800CB99B6 /* TabBarViewController.swift in Sources */,
 				E2D3485D23DE404500E7FADA /* ProductItem.swift in Sources */,
 				E26BB4742403AC9000BB797C /* RegisterViewController.swift in Sources */,

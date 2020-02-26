@@ -9,12 +9,16 @@
 import UIKit
 import Firebase
 
-class ReceiptViewController: UIViewController,UITableViewDataSource,UITableViewDelegate,TableCellDelegate {
+class ReceiptViewController: UIViewController,UITableViewDataSource,UITableViewDelegate,DiscountDelegate {
         
     var ref: DatabaseReference!
     
     let shoppingCellID = "shoppingCell"
     let productDiscountSegue = "discountSegue"
+    
+    let db = Firestore.firestore().collection("users")
+    
+    var auth: Auth!
     
     var prodKey : String?
     var prodName : String?
@@ -34,6 +38,11 @@ class ReceiptViewController: UIViewController,UITableViewDataSource,UITableViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        auth = Auth.auth()
+        //Firestore ref
+        let dbRef = db.document(auth.currentUser!.uid)
+        var ref: DocumentReference? = nil
         
         // Do any additional setup after loading the view.
         let nib = UINib(nibName: "ReceiptTVCell", bundle: nil)

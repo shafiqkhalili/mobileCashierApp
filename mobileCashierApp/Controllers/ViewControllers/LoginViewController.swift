@@ -18,12 +18,22 @@ class LoginViewController: UIViewController {
     
     @IBOutlet weak var email: UITextField!
     @IBOutlet weak var password: UITextField!
+    @IBOutlet weak var loginButton: UIButton!
+    @IBOutlet weak var registerbutton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
         auth = Auth.auth()
+        
+        loginButton.layer.borderWidth = 2
+        loginButton.layer.borderColor = UIColor.darkGray.cgColor
+        loginButton.layer.cornerRadius = 5
+        
+        registerbutton.layer.borderWidth = 2
+        registerbutton.layer.borderColor = UIColor.orange.cgColor
+        registerbutton.layer.cornerRadius = 5
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -50,6 +60,9 @@ class LoginViewController: UIViewController {
                 }}
             
         }
+        
+        Auth.auth().currentUser?.uid
+        
     }
     /*
      // MARK: - Navigation

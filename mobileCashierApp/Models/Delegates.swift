@@ -12,8 +12,12 @@ import UIKit
 /**
  Custom protocol for changing Segue to product edit View
  */
-protocol TableCellDelegate : class{
+protocol DiscountDelegate : class{
     
     // make this class protocol so you can create `weak` reference
     func goToNextScene(cell: UITableViewCell)
+}
+
+protocol  StepperDelegate{
+    func changeBasketQuantity(basket: BasketItem)
 }

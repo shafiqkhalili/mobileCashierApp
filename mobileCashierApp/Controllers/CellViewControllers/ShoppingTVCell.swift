@@ -1,21 +1,21 @@
 //
-//  ProductTVCell.swift
+//  ShoppoingTableViewCell.swift
 //  mobileCashierApp
 //
-//  Created by Shafigh Khalili on 2020-01-30.
+//  Created by Shafigh Khalili on 2020-02-08.
 //  Copyright © 2020 Shafigh Khalili. All rights reserved.
 //
 
 import UIKit
 
-
-class ProductTVCell: UITableViewCell {
+class ShoppingTVCell: UITableViewCell {
     
     @IBOutlet weak var itemImage: UIImageView!
     @IBOutlet weak var itemName: UILabel!
     @IBOutlet weak var itemPrice: UILabel!
+    @IBOutlet weak var itemQuantity: UILabel!
     
-    weak var prodViewDelegate : TableCellDelegate?
+    weak var shoppingViewDelegate : DiscountDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -28,14 +28,11 @@ class ProductTVCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    @IBAction func details(_ sender: UIButton) {
-        
-        print("btn discount clicked")
-        if let d =  prodViewDelegate {
+    @IBAction func discountButton(_ sender: UIButton) {
+        if let d =  shoppingViewDelegate {
             d.goToNextScene(cell: self)
         } else {
             print("delegete is nil")
         }
     }
 }
-

@@ -25,9 +25,11 @@ class ProductDetailsViewController: UIViewController,UIImagePickerControllerDele
     //let ref = Database.database().reference()
     
     //Firestore ref
-    let db = Firestore.firestore()
+    let db = Firestore.firestore().collection("users")
     let storage = Storage.storage()
     var ref: DocumentReference? = nil
+    
+    var auth: Auth!
     
     @IBOutlet weak var buttonSave: UIButton!
     @IBOutlet weak var productName: UITextField!
@@ -41,6 +43,8 @@ class ProductDetailsViewController: UIViewController,UIImagePickerControllerDele
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        auth = Auth.auth()
+        
         imagePicker.delegate = self
         
         buttonSave.layer.borderWidth = 2
@@ -48,8 +52,9 @@ class ProductDetailsViewController: UIViewController,UIImagePickerControllerDele
         buttonSave.layer.cornerRadius = 5
         
         guard let prodKey = prodKey else{return}
-        
-        let docRef = db.collection("product-items").document(prodKey)
+                
+        let dbRef = db.document(auth.currentUser!.uid)
+        let docRef = dbRef.collection("product-items").document(prodKey)
         
         docRef.getDocument { (document, error) in
             let result = Result {
@@ -123,13 +128,21 @@ class ProductDetailsViewController: UIViewController,UIImagePickerControllerDele
 //            addItem()
 //        }
         addItem()
-        performSegue(withIdentifier: "fromProductAdd", sender: nil)
+        dismiss(animated: true, completion: nil)
+        //performSegue(withIdentifier: "fromProductAdd", sender: nil)
     }
     
+    func transitionToHome() {
+        let homeViewController = storyboard?.instantiateViewController(withIdentifier: "landingPage") as? ProductViewController
+       
+    }
     func editItem() {
         
         //image Storage setup
         let randomID = UUID.init().uuidString
+        
+        let dbRef = db.document(auth.currentUser!.uid)
+        
         let storageRef = Storage.storage().reference(withPath: "product-images/\(randomID).jpg")
         guard let imageData = productImageView.image?.jpegData(compressionQuality: 0.50) else{return}
         
@@ -155,7 +168,7 @@ class ProductDetailsViewController: UIViewController,UIImagePickerControllerDele
                 
                 //Add to Firebase Firestore
                 do{
-                    self.ref = try self.db.collection("product-items").addDocument(from: productItem ){
+                    self.ref = try dbRef.collection("product-items").addDocument(from: productItem ){
                         err in
                         if let err = err{
                             print("Error adding document \(err)")
@@ -201,9 +214,12 @@ class ProductDetailsViewController: UIViewController,UIImagePickerControllerDele
                     guard let downloadURL = url else {return}
                     
                     do{
+                        let dbRef = self.db.document(self.auth.currentUser!.uid)
+                        
                         if let key = self.prodKey{
-                            let prodRef = self.db.collection("product-items").document(key)
-                            let basketRef = self.db.collection("product-basket").document(key)
+                            
+                            let prodRef = dbRef.collection("product-items").document(key)
+                            let basketRef = dbRef.collection("product-basket").document(key)
                          
                             //Create productitem Type
                             let productItem = ProductItem(name: name, price: prc,imageURL: downloadURL.absoluteString,key: key)
@@ -215,7 +231,7 @@ class ProductDetailsViewController: UIViewController,UIImagePickerControllerDele
                             }
                         }
                         else{
-                            let prodColl = self.db.collection("product-items")
+                            let prodColl = dbRef.collection("product-items")
                             let prodRef = prodColl.document()
                             
                             //Create productitem Type
@@ -234,30 +250,6 @@ class ProductDetailsViewController: UIViewController,UIImagePickerControllerDele
                 }
             }
         }
-        
-        
-        /*
-         //image Storage setup
-         let randomID = UUID.init().uuidString
-         let storageRef = Storage.storage().reference(withPath: "product-images/\(randomID).jpg")
-         guard let imageData = productImageView.image?.jpegData(compressionQuality: 0.25) else{return}
-         
-         let uploadMetaData = StorageMetadata.init()
-         uploadMetaData.contentType = "image/jpeg"
-         
-         
-         // Upload the file to the path "images/rivers.jpg"
-         
-         storageRef.putData(imageData, metadata: nil) { (metadata, error) in
-         guard metadata != nil else {
-         // Uh-oh, an error occurred!
-         return
-         }
-         // You can also access to download URL after upload.
-         storageRef.downloadURL { (url, error) in
-         
-         }
-         }*/
     }
     
     func putImage(url: String, completion: @escaping (UIImage?) -> ()) {

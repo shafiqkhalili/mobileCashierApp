@@ -10,11 +10,13 @@ import UIKit
 import Firebase
 import FirebaseFirestoreSwift
 
-class ShoppingListViewController: UIViewController,UITableViewDataSource,UITableViewDelegate,TableCellDelegate {
+class ShoppingListViewController: UIViewController,UITableViewDataSource,
+UITableViewDelegate ,DiscountDelegate{
     
     //Firestore ref
-    let db = Firestore.firestore()
-
+    let db = Firestore.firestore().collection("users")
+    
+    var auth: Auth!
     var ref: DatabaseReference!
     
     let shoppingCellID = "shoppingCell"
@@ -32,10 +34,14 @@ class ShoppingListViewController: UIViewController,UITableViewDataSource,UITable
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tabBarItem.badgeValue = "1"
+        auth = Auth.auth()
+        
+        //Retreive all data from Firestore
+        //Firestore ref
+        let dbRef = db.document(auth.currentUser!.uid)
         
         // Do any additional setup after loading the view.
-        db.collection("product-basket").addSnapshotListener(){(querySnapshot,error) in
+        dbRef.collection("product-basket").addSnapshotListener(){(querySnapshot,error) in
             //guard let snapshot = snapshot else{return}
             if error != nil{
                 print("First error: \(error?.localizedDescription)")
@@ -113,7 +119,9 @@ class ShoppingListViewController: UIViewController,UITableViewDataSource,UITable
             
             let itemKey = basketItem.key
             
-            let basketRef = self.db.collection("product-basket").document(itemKey)
+            let dbRef = self.db.document(auth.currentUser!.uid)
+            
+            let basketRef = dbRef.collection("product-basket").document(itemKey)
             
             //Delete item
             basketRef.delete() { err in
@@ -134,8 +142,6 @@ class ShoppingListViewController: UIViewController,UITableViewDataSource,UITable
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: IndexPath) {
         let item = items[indexPath.row]
-        //        prodKey = item.prodKey
-        print("From didSelectRowAtIndexPath")
         self.performSegue(withIdentifier: productDiscountSegue, sender: tableView)
     }
     

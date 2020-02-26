@@ -10,14 +10,14 @@ import UIKit
 import Firebase
 import FirebaseFirestoreSwift
 
-class ProductViewController: UIViewController, UITableViewDataSource,UITableViewDelegate,TableCellDelegate {
+class ProductViewController: UIViewController, UITableViewDataSource,UITableViewDelegate,DiscountDelegate {
     @IBOutlet weak var searchBar: UISearchBar!
     
     //Realtime ref
     //var ref: DatabaseReference!
     
     //Firestore ref
-    let db = Firestore.firestore()
+    let db = Firestore.firestore().collection("users")
     
     var auth: Auth!
     
@@ -49,10 +49,10 @@ class ProductViewController: UIViewController, UITableViewDataSource,UITableView
         
         //Retreive all data from Firestore
         //Firestore ref
-        let db = Firestore.firestore()
+        let dbRef = db.document(auth.currentUser!.uid)
         var ref: DocumentReference? = nil
         
-        db.collection("product-items").addSnapshotListener(){(querySnapshot,error) in
+        dbRef.collection("product-items").addSnapshotListener(){(querySnapshot,error) in
             //guard let snapshot = snapshot else{return}
             if error != nil{
                 print("First error: \(error?.localizedDescription)")
@@ -83,34 +83,7 @@ class ProductViewController: UIViewController, UITableViewDataSource,UITableView
             self.items = newItems
             self.productsTableView.reloadData()
         }
-        //productsTableView.allowsMultipleSelectionDuringEditing = true
-        
-        //        Retreive all data from Real time database
-        /*
-         ref = Database.database().reference()
-         
-         let refItem = ref.child("product-items")
-         
-         // Do any additional setup after loading the view.
-         refItem.observe(.value, with: { snapshot in
-         // 2
-         var newItems: [ProductItem] = []
-         
-         // 3
-         for child in snapshot.children {
-         // 4
-         if let snapshot = child as? DataSnapshot,
-         let productItem = ProductItem(snapshot: snapshot) {
-         
-         newItems.append(productItem)
-         }
-         }
-         self.searchedItems = newItems
-         self.items = self.searchedItems
-         self.productsTableView.reloadData()
-         })
-         */
-        
+       
         // Do any additional setup after loading the view.
         let nib = UINib(nibName: "ProductTVCell", bundle: nil)
         productsTableView.register(nib, forCellReuseIdentifier: productCellID)
@@ -121,7 +94,7 @@ class ProductViewController: UIViewController, UITableViewDataSource,UITableView
     //        return true
     //    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("Triggered from numberOfRowsInSection")
+      
         if isSearching == true {
             return searchedItems.count
         }
@@ -177,7 +150,8 @@ class ProductViewController: UIViewController, UITableViewDataSource,UITableView
         let prodItem = items[indexPath.row]
         var basketItem: BasketItem?
         
-        let basketRef = self.db.collection("product-basket").document(prodItem.key)
+        let dbRef = db.document(auth.currentUser!.uid)
+        let basketRef = dbRef.collection("product-basket").document(prodItem.key)
         
         basketRef.getDocument { (document, error) in
             let result = Result {
@@ -220,9 +194,11 @@ class ProductViewController: UIViewController, UITableViewDataSource,UITableView
             
             let itemKey = prodItem.key
             
-            let itemRef = self.db.collection("product-items").document(itemKey)
+            let dbRef = db.document(auth.currentUser!.uid)
             
-            let basketRef = self.db.collection("product-basket").document(itemKey)
+            let itemRef = dbRef.collection("product-items").document(itemKey)
+            
+            let basketRef = dbRef.collection("product-basket").document(itemKey)
             
             //Delete item
             itemRef.delete() { err in
@@ -295,13 +271,17 @@ class ProductViewController: UIViewController, UITableViewDataSource,UITableView
             do {
                 try auth.signOut()
                 if auth.currentUser == nil {
-                    //                      self.performSegue(withIdentifier: self.segueId, sender: self)
+                    print("Signed out !")
+                    self.performSegue(withIdentifier: "productToSignin", sender: self)
                 }
             }
             catch {
                 print("Failed to sign out")
             }
         }
+    }
+    @IBAction func addProduct(_ sender: UIBarButtonItem) {
+        performSegue(withIdentifier: prodDetailsSegue, sender: self)
     }
 }
 
