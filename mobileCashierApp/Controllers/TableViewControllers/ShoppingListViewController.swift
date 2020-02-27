@@ -166,6 +166,21 @@ UITableViewDelegate ,DiscountDelegate{
         }.resume()
     }
     
+    @IBAction func emtpyBasketButton(_ sender: UIButton) {
+        for basket in items {
+            let dbRef = self.db.document(auth.currentUser!.uid)
+            
+            let basketRef = dbRef.collection("product-basket").document(basket.key)
+            
+            //Delete item
+            basketRef.delete() { err in
+                if let err = err {
+                    print("Error removing document: \(err)")
+                }
+            }
+        }
+        shoppingTableView.reloadData()
+    }
     func goToNextScene(cell: UITableViewCell) {
         guard let indexPath = shoppingTableView.indexPath(for: cell) else {return}
         let item = items[indexPath.row]

@@ -111,7 +111,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="kpS-dY-afh">
-                                <rect key="frame" x="0.0" y="188" width="414" height="409"/>
+                                <rect key="frame" x="0.0" y="188" width="414" height="558"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4Je-Ps-zyA">
                                         <rect key="frame" x="20" y="0.0" width="374" height="50"/>
@@ -140,7 +140,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jx9-be-has">
-                                        <rect key="frame" x="20" y="300" width="374" height="109"/>
+                                        <rect key="frame" x="20" y="300" width="374" height="258"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="jYa-9X-cIW"/>
                                         </constraints>
@@ -521,6 +521,10 @@
                                 <rect key="frame" x="349" y="155" width="28" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="trash"/>
+                                <connections>
+                                    <action selector="emptyBasketButton:" destination="CLu-be-mla" eventType="touchUpInside" id="k4J-5G-reE"/>
+                                    <action selector="emtpyBasketButton:" destination="YX8-oJ-bB0" eventType="touchUpInside" id="vOZ-Ov-5SN"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -538,6 +542,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ulp-r0-MLR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="CLu-be-mla" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="3093" y="763"/>
         </scene>
