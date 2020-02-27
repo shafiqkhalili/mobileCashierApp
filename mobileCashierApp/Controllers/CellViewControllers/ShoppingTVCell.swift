@@ -14,8 +14,10 @@ class ShoppingTVCell: UITableViewCell {
     @IBOutlet weak var itemName: UILabel!
     @IBOutlet weak var itemPrice: UILabel!
     @IBOutlet weak var itemQuantity: UILabel!
+    @IBOutlet weak var itemStepper: UIStepper!
     
     weak var shoppingViewDelegate : DiscountDelegate?
+    weak var stepperDelegate : StepperDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -31,6 +33,13 @@ class ShoppingTVCell: UITableViewCell {
     @IBAction func discountButton(_ sender: UIButton) {
         if let d =  shoppingViewDelegate {
             d.goToNextScene(cell: self)
+        } else {
+            print("delegete is nil")
+        }
+    }
+    @IBAction func stepperButton(_ sender: UIStepper) {
+        if let s = stepperDelegate {
+            s.changeBasketQuantity(cell: self,stepper: sender)
         } else {
             print("delegete is nil")
         }

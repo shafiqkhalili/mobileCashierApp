@@ -193,12 +193,7 @@ class ProductDetailsViewController: UIViewController,UIImagePickerControllerDele
         guard let user = auth.currentUser?.uid else{
             return
         }
-        if let imageUrl = prodItem?.image {
-            let oldStorageRef = storage.reference(forURL: imageUrl)
-            oldStorageRef.delete { (err) in
-                //print("\(err.lo)")
-            }
-        }
+       
         //image Storage setup
         let randomID = UUID.init().uuidString
         let storageRef = storage.reference(withPath: "/\(user)/product-images/\(randomID).jpg")
@@ -220,9 +215,14 @@ class ProductDetailsViewController: UIViewController,UIImagePickerControllerDele
                         let dbRef = self.db.document(self.auth.currentUser!.uid)
                         
                         if let key = self.prodKey{
-                            
+                            if let imageUrl = self.prodItem?.image {
+                                let oldStorageRef = self.storage.reference(forURL: imageUrl)
+                                       oldStorageRef.delete { (err) in
+                                           print("\(err?.localizedDescription)")
+                                       }
+                                   }
                             let prodRef = dbRef.collection("product-items").document(key)
-                            let basketRef = dbRef.collection("product-basket").document(key)
+                            //let basketRef = dbRef.collection("product-basket").document(key)
                          
                             //Create productitem Type
                             let productItem = ProductItem(name: name, price: prc,imageURL: downloadURL.absoluteString,key: key)
@@ -232,6 +232,8 @@ class ProductDetailsViewController: UIViewController,UIImagePickerControllerDele
                                     print("Error adding document \(err)")
                                 }
                             }
+                            
+                            
                         }
                         else{
                             let prodColl = dbRef.collection("product-items")

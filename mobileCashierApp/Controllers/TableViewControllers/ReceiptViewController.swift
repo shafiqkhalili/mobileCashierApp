@@ -36,6 +36,9 @@ class ReceiptViewController: UIViewController,UITableViewDataSource,UITableViewD
     
     var itemKeys: [String] = []
     
+    var basketItem: BasketItem?
+    var productItem: ProductItem?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -49,8 +52,57 @@ class ReceiptViewController: UIViewController,UITableViewDataSource,UITableViewD
         receiptTableView.register(nib, forCellReuseIdentifier: shoppingCellID)
         receiptTableView.dataSource = self
         
-        let priceSum = items.reduce(0) { $0 + $1.price }
-        setTotalPrice(price: priceSum)
+        self.items.removeAll()
+        // Do any additional setup after loading the view.
+        dbRef.collection("product-basket").addSnapshotListener(){(querySnapshot,error) in
+            //guard let snapshot = snapshot else{return}
+            if error != nil{
+                print("First error: \(error?.localizedDescription)")
+            }
+            guard let documents = querySnapshot?.documents else {
+                return
+            }
+            
+            var newItems: [BasketItem] = []
+            
+            for document in documents{
+                let result = Result{
+                    //try document.data(as: ProductItem.init(snapshot: document))
+                    try document.data(as: BasketItem.self)
+                }
+                switch result {
+                case .success(let basket):
+                    if let basket = basket {
+                        //Get product info
+                        let prodRef = dbRef.collection("product-items").document(basket.key)
+                        
+                        prodRef.getDocument { (document, error) in
+                            let result = Result {
+                                try document?.data(as: ProductItem.self)
+                            }
+                            switch result {
+                            case .success(let product):
+                                if let prod = product {
+                                    
+                                    self.basketItem?.name = prod.name
+                                    self.basketItem?.price = prod.price
+                                    self.basketItem?.image = prod.image
+                                    
+                                    self.items.append(basket)
+                                    self.receiptTableView.reloadData()
+                                } else {
+                                    print("Document does not exist")
+                                }
+                            case .failure(let error):
+                                print("Error decoding: \(error)")
+                            }
+                        }
+                    }
+                case .failure(let error):
+                    print("Error in switch: \(error.localizedDescription)")
+                }
+            }
+        }
     }
     
     func setTotalPrice(price: Double) {
@@ -71,19 +123,22 @@ class ReceiptViewController: UIViewController,UITableViewDataSource,UITableViewD
         
         let cell = tableView.dequeueReusableCell(withIdentifier: shoppingCellID,for: indexPath) as! ReceiptTVCell
         
-        cell.itemLabel.text = items[indexPath.row].name
+        let item = items[indexPath.row]
+        let quantity =  item.quantity
         
-        let priceTotal: Double = Double(items[indexPath.row].price) * Double(items[indexPath.row].quantity)
-        
-        let discountTotal = Double(items[indexPath.row].discount) * Double(items[indexPath.row].quantity)
-        
-        let costTotal = priceTotal - discountTotal
-        cell.priceLabel.text = String(costTotal)
-        cell.quantityLabel.text = String(items[indexPath.row].quantity)
-        
-//        cell.layer.borderColor = UIColor.orange.cgColor
-//        cell.layer.borderWidth = 2.0
+        if let price = item.price{
+            let priceTotal = Double(price) * Double(quantity)
+            
+            let discount = item.discount
+            
+            let discountTotal = Double(discount) * Double(quantity)
+            let costTotal = priceTotal - discountTotal
+            
+            cell.priceLabel.text = String(costTotal)
+            cell.quantityLabel.text = String(quantity)
+        }
         return cell
+            
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

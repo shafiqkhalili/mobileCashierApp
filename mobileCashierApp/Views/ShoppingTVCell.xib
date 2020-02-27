@@ -49,11 +49,19 @@
                         <action selector="discountButton:" destination="iN0-l3-epB" eventType="touchUpInside" id="u9F-NJ-2bS"/>
                     </connections>
                 </button>
+                <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="mpt-bU-YQB">
+                    <rect key="frame" x="310" y="108" width="94" height="32"/>
+                    <connections>
+                        <action selector="stepperButton:" destination="iN0-l3-epB" eventType="valueChanged" id="YHw-yX-GfI"/>
+                    </connections>
+                </stepper>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="399-7I-Jtp" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="8T1-tP-g6T"/>
                 <constraint firstItem="l7f-rb-rIz" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Hca-mV-Ufx"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="mpt-bU-YQB" secondAttribute="trailing" constant="10" id="Kis-je-XPs"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="mpt-bU-YQB" secondAttribute="bottom" constant="10" id="NL9-VJ-RLN"/>
                 <constraint firstItem="l7f-rb-rIz" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="cWx-Dd-0qB"/>
                 <constraint firstItem="v9y-ZP-Exx" firstAttribute="leading" secondItem="l7f-rb-rIz" secondAttribute="trailing" constant="8" symbolic="YES" id="fEj-NB-ZjR"/>
                 <constraint firstItem="l7f-rb-rIz" firstAttribute="centerY" secondItem="v9y-ZP-Exx" secondAttribute="centerY" id="jrS-Ci-RUR"/>
@@ -67,6 +75,7 @@
                 <outlet property="itemName" destination="wsa-Mk-NkD" id="FhW-zp-vuC"/>
                 <outlet property="itemPrice" destination="w5C-yq-Ak8" id="oyR-xH-zTM"/>
                 <outlet property="itemQuantity" destination="Sxq-1l-5rd" id="HKQ-a6-Gys"/>
+                <outlet property="itemStepper" destination="mpt-bU-YQB" id="xI9-de-EkT"/>
             </connections>
             <point key="canvasLocation" x="137.68115942028987" y="103.79464285714285"/>
         </view>
