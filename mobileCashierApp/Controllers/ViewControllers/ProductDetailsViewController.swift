@@ -193,6 +193,12 @@ class ProductDetailsViewController: UIViewController,UIImagePickerControllerDele
         guard let user = auth.currentUser?.uid else{
             return
         }
+        if let imageUrl = prodItem?.image {
+            let oldStorageRef = storage.reference(forURL: imageUrl)
+            oldStorageRef.delete { (err) in
+                //print("\(err.lo)")
+            }
+        }
         //image Storage setup
         let randomID = UUID.init().uuidString
         let storageRef = storage.reference(withPath: "/\(user)/product-images/\(randomID).jpg")

@@ -280,85 +280,6 @@
             </objects>
             <point key="canvasLocation" x="1090" y="763"/>
         </scene>
-        <!--Product Details View Controller-->
-        <scene sceneID="Nb8-rd-JRW">
-            <objects>
-                <viewController storyboardIdentifier="addProduct" id="fiG-rV-o7X" customClass="ProductDetailsViewController" customModule="mobileCashierApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="6jM-Uc-WLT">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4bi-T7-NFU">
-                                <rect key="frame" x="82" y="144" width="250" height="250"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </imageView>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Product name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="54q-1b-81e">
-                                <rect key="frame" x="57" y="496" width="300" height="50"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Product price" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OcF-uA-9vz">
-                                <rect key="frame" x="217" y="636" width="140" height="50"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Barcode" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sn8-T9-t7f">
-                                <rect key="frame" x="217" y="566" width="140" height="50"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Discount" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jBn-jP-fJd">
-                                <rect key="frame" x="57" y="566" width="140" height="50"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Stock count" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dDo-zg-uqn">
-                                <rect key="frame" x="57" y="636" width="140" height="50"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HV7-Tv-KY1">
-                                <rect key="frame" x="57" y="706" width="300" height="50"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Save">
-                                    <color key="titleColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="addProduct:" destination="fiG-rV-o7X" eventType="touchUpInside" id="qW7-R4-4ro"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZQw-HX-PXv">
-                                <rect key="frame" x="330.5" y="424" width="26.5" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="folder.badge.plus" catalog="system"/>
-                                <connections>
-                                    <action selector="addImage:" destination="fiG-rV-o7X" eventType="touchUpInside" id="d5s-al-kv4"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <viewLayoutGuide key="safeArea" id="5Am-A0-SGy"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="nZQ-rz-mZb"/>
-                    <connections>
-                        <outlet property="buttonSave" destination="HV7-Tv-KY1" id="Pph-fH-jp1"/>
-                        <outlet property="productBarcode" destination="sn8-T9-t7f" id="hbH-PT-mTe"/>
-                        <outlet property="productCount" destination="dDo-zg-uqn" id="OgR-Wy-UFt"/>
-                        <outlet property="productImageView" destination="4bi-T7-NFU" id="dkZ-Jw-El2"/>
-                        <outlet property="productName" destination="54q-1b-81e" id="BBP-6s-nfD"/>
-                        <outlet property="productPrice" destination="OcF-uA-9vz" id="3JI-mk-gVZ"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="G50-7o-IlV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2090" y="763"/>
-        </scene>
         <!--Discount View Controller-->
         <scene sceneID="1nd-ge-tt9">
             <objects>
@@ -469,7 +390,7 @@
                         <outlet property="productImagView" destination="kD9-uk-mrK" id="e9C-sL-vvx"/>
                         <outlet property="productName" destination="9rp-zq-GTz" id="mq2-yS-z3M"/>
                         <outlet property="productPrice" destination="bxm-9X-jEo" id="rY6-9i-0AK"/>
-                        <segue destination="YX8-oJ-bB0" kind="presentation" identifier="discountToBasket" modalPresentationStyle="fullScreen" id="rRy-bU-eJN"/>
+                        <segue destination="djb-wS-O4S" kind="presentation" identifier="discountToBasket" modalPresentationStyle="fullScreen" id="Iuk-9w-q02"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p6p-Iv-Bi5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -517,9 +438,8 @@
                                     <segue destination="kSv-VR-0HY" kind="presentation" identifier="basketToReceipt" modalPresentationStyle="fullScreen" id="Lg6-Mr-Rnh"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fjG-vt-eTh">
-                                <rect key="frame" x="349" y="155" width="28" height="36"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fjG-vt-eTh">
+                                <rect key="frame" x="336" y="138" width="28" height="36"/>
                                 <state key="normal" image="trash"/>
                                 <connections>
                                     <action selector="emptyBasketButton:" destination="CLu-be-mla" eventType="touchUpInside" id="k4J-5G-reE"/>
@@ -529,7 +449,9 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="GDG-bB-WhN" firstAttribute="trailing" secondItem="fjG-vt-eTh" secondAttribute="trailing" constant="50" id="FAC-sW-evk"/>
                             <constraint firstItem="z7H-bp-sd2" firstAttribute="leading" secondItem="GDG-bB-WhN" secondAttribute="leading" constant="20" id="VR7-bd-1TW"/>
+                            <constraint firstItem="fjG-vt-eTh" firstAttribute="top" secondItem="GDG-bB-WhN" secondAttribute="top" constant="50" id="hFW-ze-eTt"/>
                             <constraint firstItem="GDG-bB-WhN" firstAttribute="bottom" secondItem="z7H-bp-sd2" secondAttribute="bottom" constant="60" id="oN1-ql-1YU"/>
                             <constraint firstItem="GDG-bB-WhN" firstAttribute="trailing" secondItem="z7H-bp-sd2" secondAttribute="trailing" constant="20" id="oag-ZY-rHw"/>
                         </constraints>
@@ -940,7 +862,6 @@
         <image name="trash" width="27.5" height="35.5"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="BuJ-x8-9wF"/>
-        <segue reference="opC-vJ-yUQ"/>
+        <segue reference="Iuk-9w-q02"/>
     </inferredMetricsTieBreakers>
 </document>
