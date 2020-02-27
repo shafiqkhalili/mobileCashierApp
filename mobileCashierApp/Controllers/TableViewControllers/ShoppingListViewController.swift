@@ -11,13 +11,14 @@ import Firebase
 import FirebaseFirestoreSwift
 
 class ShoppingListViewController: UIViewController,UITableViewDataSource,
-UITableViewDelegate ,DiscountDelegate{
+UITableViewDelegate ,DiscountDelegate, StepperDelegate{
+    
     
     //Firestore ref
     let db = Firestore.firestore().collection("users")
     
     var auth: Auth!
-//    var ref: DatabaseReference!
+    //    var ref: DatabaseReference!
     
     let shoppingCellID = "shoppingCell"
     let productDiscountSegue = "discountSegue"
@@ -25,17 +26,25 @@ UITableViewDelegate ,DiscountDelegate{
     
     var clickedItemKey : String?
     
+    var productItem: ProductItem?
+    
+    
     @IBOutlet weak var shoppingTableView: UITableView!
     
     // MARK: Products array
     var items: [BasketItem] = []
     var itemKeys: [String] = []
     
+    override func viewWillAppear(_ animated: Bool) {
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         auth = Auth.auth()
         
+        // items = []
         //Retreive all data from Firestore
         //Firestore ref
         let dbRef = db.document(auth.currentUser!.uid)
@@ -43,13 +52,10 @@ UITableViewDelegate ,DiscountDelegate{
         // Do any additional setup after loading the view.
         dbRef.collection("product-basket").addSnapshotListener(){(querySnapshot,error) in
             //guard let snapshot = snapshot else{return}
-            if error != nil{
-                print("First error: \(error?.localizedDescription)")
-            }
             guard let documents = querySnapshot?.documents else {
                 return
             }
-            var newItems: [BasketItem] = []
+            self.items.removeAll()
             
             for document in documents{
                 let result = Result{
@@ -57,24 +63,44 @@ UITableViewDelegate ,DiscountDelegate{
                     try document.data(as: BasketItem.self)
                 }
                 switch result {
-                case .success(let item):
-                    if let item = item {
+                case .success(let basket):
+                    if let basket = basket {
+                        //Get product info
+                        let prodRef = dbRef.collection("product-items").document(basket.key)
                         
-                        newItems.append(item)
+                        prodRef.getDocument { (document, error) in
+                            let result = Result {
+                                try document?.data(as: ProductItem.self)
+                            }
+                            switch result {
+                            case .success(let product):
+                                if let prod = product {
+                                    basket.name = prod.name
+                                    basket.price = prod.price
+                                    basket.image = prod.image
+                                    
+                                    self.items.append(basket)
+                                    self.shoppingTableView.reloadData()
+                                } else {
+                                    print("Document does not exist")
+                                }
+                            case .failure(let error):
+                                print("Error decoding: \(error)")
+                            }
+                        }
                     }
                 case .failure(let error):
                     print("Error in switch: \(error.localizedDescription)")
                 }
             }
-            
-            self.items = newItems
-            self.shoppingTableView.reloadData()
         }
+        
         // Do any additional setup after loading the view.
         let nib = UINib(nibName: "ShoppingTVCell", bundle: nil)
         shoppingTableView.register(nib, forCellReuseIdentifier: shoppingCellID)
         shoppingTableView.dataSource = self
     }
+    
     
     @IBAction func createReceipt(_ sender: UIButton) {
         
@@ -88,23 +114,36 @@ UITableViewDelegate ,DiscountDelegate{
         //cell.textLabel?.text = String(persons[indexPath.row])
         
         let cell = tableView.dequeueReusableCell(withIdentifier: shoppingCellID,for: indexPath) as! ShoppingTVCell
-        cell.shoppingViewDelegate = self
-        cell.itemName.text = items[indexPath.row].name
-        cell.itemPrice.text = String(items[indexPath.row].price)
-        cell.itemQuantity.text = String(items[indexPath.row].quantity)
-        let photoUrl = items[indexPath.row].image
         
-        getImage(url: photoUrl) { photo in
-            if photo != nil {
-                DispatchQueue.main.async {
-                    cell.itemImage.image = photo
-                }
-                
+        cell.shoppingViewDelegate = self
+        cell.stepperDelegate = self
+        
+        if items.count > 0{
+            
+            cell.itemStepper.value = Double(items[indexPath.row].quantity)
+            cell.itemStepper.minimumValue = 0
+            
+            cell.itemName.text = items[indexPath.row].name
+            if let price = items[indexPath.row].price{
+                cell.itemPrice.text = String(price)
             }
+            cell.itemQuantity.text = String(items[indexPath.row].quantity)
+            
+            if let photoUrl = items[indexPath.row].image{
+                
+                getImage(url: photoUrl) { photo in
+                    if photo != nil {
+                        DispatchQueue.main.async {
+                            cell.itemImage.image = photo
+                        }
+                        
+                    }
+                }
+            }
+            cell.imageView?.image = cell.itemImage.image
+            cell.layer.borderColor = UIColor.orange.cgColor
+            cell.layer.borderWidth = 2.0
         }
-        cell.imageView?.image = cell.itemImage.image
-        cell.layer.borderColor = UIColor.orange.cgColor
-        cell.layer.borderWidth = 2.0
         return cell
     }
     
@@ -116,7 +155,7 @@ UITableViewDelegate ,DiscountDelegate{
         if editingStyle == .delete {
             
             let basketItem = items[indexPath.row]
-            
+            items.remove(at: indexPath.row)
             let itemKey = basketItem.key
             
             let dbRef = self.db.document(auth.currentUser!.uid)
@@ -130,13 +169,12 @@ UITableViewDelegate ,DiscountDelegate{
                 }
             }
             shoppingTableView.reloadData()
-
+            
         }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard tableView.cellForRow(at: indexPath) != nil else { return }
-        let item = items[indexPath.row]
     }
     
     
@@ -187,6 +225,37 @@ UITableViewDelegate ,DiscountDelegate{
         clickedItemKey = item.key
         
         performSegue(withIdentifier: productDiscountSegue, sender: self)
+    }
+    
+    func changeBasketQuantity(cell: UITableViewCell,stepper: UIStepper) {
+        guard let indexPath = shoppingTableView.indexPath(for: cell) else {return}
+        
+        print("intdexPath: \( self.items[indexPath.row].name)")
+        let item = items[indexPath.row]
+        
+        clickedItemKey = item.key
+        
+        let quantity = stepper.value
+        if let key = clickedItemKey{
+            let dbRef = db.document(auth.currentUser!.uid)
+            let basketRef = dbRef.collection("product-basket").document(key)
+            
+            // Set the "capital" field of the city 'DC'
+            basketRef.updateData(["quantity": quantity]) { err in
+                if let err = err {
+                    print("Error updating document: \(err)")
+                }
+                self.shoppingTableView.reloadData()
+            }
+            if quantity > 0 {
+                basketRef.delete { err in
+                    if let err = err {
+                        print("Error on deleting document: \(err)")
+                    }
+                }
+                self.shoppingTableView.reloadData()
+            }
+        }
     }
 }
 

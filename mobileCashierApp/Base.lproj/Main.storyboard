@@ -110,8 +110,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="lHw-pM-FbX">
+                                <rect key="frame" x="107" y="138" width="200" height="212"/>
+                            </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="kpS-dY-afh">
-                                <rect key="frame" x="0.0" y="188" width="414" height="558"/>
+                                <rect key="frame" x="0.0" y="388" width="414" height="340"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4Je-Ps-zyA">
                                         <rect key="frame" x="20" y="0.0" width="374" height="50"/>
@@ -140,7 +143,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jx9-be-has">
-                                        <rect key="frame" x="20" y="300" width="374" height="258"/>
+                                        <rect key="frame" x="20" y="300" width="374" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="jYa-9X-cIW"/>
                                         </constraints>
@@ -173,9 +176,10 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="kpS-dY-afh" firstAttribute="leading" secondItem="Uj5-eq-PWo" secondAttribute="leading" id="1J1-8p-WOe"/>
-                            <constraint firstAttribute="bottom" secondItem="kpS-dY-afh" secondAttribute="bottom" constant="150" id="LMq-Rp-sQb"/>
+                            <constraint firstItem="lHw-pM-FbX" firstAttribute="top" secondItem="Uj5-eq-PWo" secondAttribute="top" constant="50" id="V8U-8I-r82"/>
                             <constraint firstItem="Uj5-eq-PWo" firstAttribute="trailing" secondItem="kpS-dY-afh" secondAttribute="trailing" id="cqS-ZE-t8t"/>
-                            <constraint firstItem="kpS-dY-afh" firstAttribute="top" secondItem="Uj5-eq-PWo" secondAttribute="top" constant="100" id="x6r-1o-YDH"/>
+                            <constraint firstItem="lHw-pM-FbX" firstAttribute="centerX" secondItem="kpS-dY-afh" secondAttribute="centerX" id="w5z-Qp-Yy7"/>
+                            <constraint firstItem="kpS-dY-afh" firstAttribute="top" secondItem="Uj5-eq-PWo" secondAttribute="top" constant="300" id="x6r-1o-YDH"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Uj5-eq-PWo"/>
                     </view>
@@ -855,6 +859,7 @@
         <image name="dollarsign.circle" catalog="system" width="64" height="60"/>
         <image name="folder.badge.plus" catalog="system" width="64" height="42"/>
         <image name="home" width="30" height="33"/>
+        <image name="logo" width="200" height="212"/>
         <image name="paperplane" catalog="system" width="64" height="60"/>
         <image name="percent" catalog="system" width="64" height="58"/>
         <image name="printer" catalog="system" width="64" height="54"/>
@@ -862,6 +867,6 @@
         <image name="trash" width="27.5" height="35.5"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Iuk-9w-q02"/>
+        <segue reference="mGg-Om-Wbr"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -18,6 +18,6 @@ protocol DiscountDelegate : class{
     func goToNextScene(cell: UITableViewCell)
 }
 
-protocol  StepperDelegate{
-    func changeBasketQuantity(basket: BasketItem)
+protocol  StepperDelegate: class{
+    func changeBasketQuantity(cell: UITableViewCell,stepper: UIStepper)
 }

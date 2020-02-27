@@ -18,7 +18,8 @@ class DiscountViewController: UIViewController {
     var prodImageView: UIImage?
     var discountType : Int = 0
     
-    var prodItem : BasketItem?
+    var basketItem : BasketItem?
+    var productItem: ProductItem?
     
     //Firestore ref
     let db = Firestore.firestore().collection("users")
@@ -52,15 +53,37 @@ class DiscountViewController: UIViewController {
         docRef.getDocument { (document, error) in
             let result = Result {
                 try document?.data(as: BasketItem.self)
-                
             }
             switch result {
-            case .success(let item):
-                if let item = item {
-                    self.prodItem = item
-                    self.fetchData()
+            case .success(let basket):
+                if let basket = basket {
+                    self.basketItem = basket
+                    //Get product item info
+                    
+                    let prodRef = dbRef.collection("product-items").document(prodKey)
+                    
+                    prodRef.getDocument { (document, error) in
+                        let result = Result {
+                            try document?.data(as: ProductItem.self)
+                        }
+                        switch result {
+                        case .success(let item):
+                            //If already exist
+                            if let item = item {
+                                self.basketItem?.name = item.name
+                                self.basketItem?.price = item.price
+                                self.basketItem?.image = item.image
+                             
+                                self.fetchData()
+                            }
+                        case .failure(let error):
+                            print("Error decoding: \(error)")
+                            print(error.localizedDescription)
+                        }
+                    }
+                    
                 } else {
-                    print("Document does not exist")
+                    print("Document does not exist ")
                 }
             case .failure(let error):
                 print("Error decoding: \(error)")
@@ -69,14 +92,18 @@ class DiscountViewController: UIViewController {
     }
     
     func fetchData() {
-        productName.text = prodItem?.name
-        productPrice.text = String(prodItem?.price ?? 0)
-        prodPrice = prodItem?.price
-        currentDiscount.text = String(prodItem?.discount as! Double)
+        guard let name = basketItem?.name else{return}
+        productName.text = name
+        
+        guard let price = basketItem?.price else { return }
+        productPrice.text = String(price)
+        
+        guard let disc = basketItem?.discount else {return}
+        currentDiscount.text = String(disc)
+        
         
         //discountAmount.text = String(prodItem?.discount ?? 0)
-        
-        guard let imageURL = prodItem?.image, !imageURL.isEmpty else{ return}
+        guard let imageURL = basketItem?.image, !imageURL.isEmpty else{ return}
         
         self.getImage(url: imageURL) { photo in
             if photo != nil {

@@ -159,18 +159,15 @@ class ProductViewController: UIViewController, UITableViewDataSource,UITableView
             }
             switch result {
             case .success(let item):
+                //If already exist
                 if let item = item {
                     basketItem = item
                     basketRef.updateData([
                         "quantity": FieldValue.increment(Int64(1))
                     ])
                 } else {
-                    //Create productitem Type
-                    basketItem = BasketItem(name: prodItem.name ,
-                                            price: prodItem.price,
-                                            imageURL: prodItem.image,
-                                            key: prodItem.key,
-                                            quantity: 1)
+                    basketItem = BasketItem(key: prodItem.key)
+                 
                     do{
                         try basketRef.setData(from: basketItem.self){err in
                             if let err = err{
@@ -182,7 +179,8 @@ class ProductViewController: UIViewController, UITableViewDataSource,UITableView
                     }
                 }
             case .failure(let error):
-                print("Error decoding city: \(error)")
+                print("Error decoding: \(error)")
+                print(error.localizedDescription)
             }
         }
     }
