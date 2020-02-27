@@ -281,6 +281,7 @@ class ProductViewController: UIViewController, UITableViewDataSource,UITableView
         }
     }
     @IBAction func addProduct(_ sender: UIBarButtonItem) {
+        clickedItemKey = nil
         performSegue(withIdentifier: prodDetailsSegue, sender: self)
     }
 }
