@@ -186,19 +186,22 @@ class ProductDetailsViewController: UIViewController,UIImagePickerControllerDele
     
     func addItem() {
         guard let name = productName.text,
-            let price = productPrice.text else { return }
-        guard let prc =  Double(price) else { return  }
+            let price = productPrice.text,
+            let prc =  Double(price) else { return  }
        //let test = (price as NSString).doubleValue
 
-        //Check if image is new
-        
-        //let imgURL = uploadImage()
-        //Add to Firebase Firestore
-        //guard let imageURL = imgURL else{return}
-        
+        guard let user = auth.currentUser?.uid else{
+            return
+        }
+        if let imageUrl = prodItem?.image {
+            let oldStorageRef = storage.reference(forURL: imageUrl)
+            oldStorageRef.delete { (err) in
+                //print("\(err.lo)")
+            }
+        }
         //image Storage setup
         let randomID = UUID.init().uuidString
-        let storageRef = storage.reference(withPath: "product-images/\(randomID).jpg")
+        let storageRef = storage.reference(withPath: "/\(user)/product-images/\(randomID).jpg")
         let imageData = productImageView.image?.jpegData(compressionQuality: 0.25)
         
         if let imgData = imageData {

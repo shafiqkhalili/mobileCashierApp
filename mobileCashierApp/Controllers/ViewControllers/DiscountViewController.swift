@@ -21,9 +21,10 @@ class DiscountViewController: UIViewController {
     var prodItem : BasketItem?
     
     //Firestore ref
-    let db = Firestore.firestore()
+    let db = Firestore.firestore().collection("users")
     let storage = Storage.storage()
     var ref: DocumentReference? = nil
+    var auth: Auth!
     
     @IBOutlet weak var productName: UILabel!
     @IBOutlet weak var productPrice: UILabel!
@@ -40,10 +41,13 @@ class DiscountViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        auth = Auth.auth()
+        
         // Do any additional setup after loading the view.
         guard let prodKey = prodKey else{return}
         
-        let docRef = db.collection("product-basket").document(prodKey)
+        let dbRef = db.document(auth.currentUser!.uid)
+        let docRef = dbRef.collection("product-basket").document(prodKey)
         
         docRef.getDocument { (document, error) in
             let result = Result {
@@ -117,8 +121,8 @@ class DiscountViewController: UIViewController {
             }
         }
         
-        
-        let basketRef = db.collection("product-basket").document(prodKey)
+        let dbRef = db.document(auth.currentUser!.uid)
+        let basketRef = dbRef.collection("product-basket").document(prodKey)
         
         // Set the "capital" field of the city 'DC'
         basketRef.updateData(["discount": discount]) { err in
