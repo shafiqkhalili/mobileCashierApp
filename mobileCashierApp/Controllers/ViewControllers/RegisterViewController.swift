@@ -35,6 +35,17 @@ class RegisterViewController: UIViewController {
         creatUser()
     }
     
+    @IBAction func modalDismissed(segue: UIStoryboardSegue) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let secondVC = storyboard.instantiateViewController(identifier: "LoginViewController")
+
+        show(secondVC, sender: self)
+      
+//        let storyboard = UIStoryboard(name: "myStoryboardName", bundle: nil)
+//        let vc = storyboard.instantiateViewController(withIdentifier: "nextViewController") as UIViewController
+//        presentViewController(vc, animated: true, completion: nil)
+    }
+    
     func creatUser() {
         guard let email = self.email.text,
             let password = self.password.text,

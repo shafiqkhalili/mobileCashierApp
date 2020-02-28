@@ -25,6 +25,7 @@ class ReceiptViewController: UIViewController,UITableViewDataSource,UITableViewD
     var prodImage : UIImage?
     var prodPrice : Double?
     
+    @IBOutlet weak var labelDate: UILabel!
     @IBOutlet weak var totalPrice: UILabel!
     @IBOutlet weak var receiptTableView: UITableView!
     
@@ -34,7 +35,8 @@ class ReceiptViewController: UIViewController,UITableViewDataSource,UITableViewD
     // MARK: Products array
     var items: [ProductItem] = []
     
-    var itemKeys: [String] = []
+    var totalAmount: Double = 0
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,10 +45,16 @@ class ReceiptViewController: UIViewController,UITableViewDataSource,UITableViewD
         //Firestore ref
         let dbRef = db.document(auth.currentUser!.uid)
         
-        // Do any additional setup after loading the view.
+        self.totalAmount = 0
+        
+       let formatter = DateFormatter()
+        formatter.timeStyle = .long
+       let dateString = formatter.string(from: Date())
+        
+        labelDate.text = dateString
         
         self.items.removeAll()
-        dbRef.collection("products").addSnapshotListener(){(querySnapshot,error) in
+        dbRef.collection("products").whereField("quantity", isGreaterThan: 0).addSnapshotListener(){(querySnapshot,error) in
             //guard let snapshot = snapshot else{return}
             if error != nil{
                 print("First error: \(error?.localizedDescription)")
@@ -64,38 +72,17 @@ class ReceiptViewController: UIViewController,UITableViewDataSource,UITableViewD
                 case .success(let basket):
                     if let basket = basket {
                         self.items.append(basket)
-                        /*
-                        //Get product info
-                        let prodRef = dbRef.collection("product-items").document(basket.key)
                         
-                        prodRef.getDocument { (document, error) in
-                            let result = Result {
-                                try document?.data(as: ProductItem.self)
-                            }
-                            switch result {
-                            case .success(let product):
-                                if let prod = product {
-                                    
-                                    basket.name = prod.name
-                                    basket.price = prod.price
-                                    basket.image = prod.image
-                                    
-                                    self.items.append(basket)
-                                    self.receiptTableView.reloadData()
-                                } else {
-                                    print("Document does not exist")
-                                }
-                            case .failure(let error):
-                                print("Error decoding: \(error)")
-                            }
-                        }
-                        */
+                        self.totalAmount += Double(basket.price) * Double(basket.quantity)
+                        self.setTotalPrice(price: self.totalAmount)
                     }
                 case .failure(let error):
                     print("Error in switch: \(error.localizedDescription)")
                 }
             }
         }
+        
+        
         let nib = UINib(nibName: "ReceiptTVCell", bundle: nil)
         receiptTableView.register(nib, forCellReuseIdentifier: receiptCell)
         receiptTableView.dataSource = self
