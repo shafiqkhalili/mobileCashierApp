@@ -36,7 +36,7 @@ class ProductDetailsViewController: UIViewController,UIImagePickerControllerDele
     @IBOutlet weak var productPrice: UITextField!
     @IBOutlet weak var productImageView: UIImageView!
     @IBOutlet weak var productCount: UITextField!
-    @IBOutlet weak var productBarcode: UITextField!
+    @IBOutlet weak var productDiscount: UITextField!
     
     let imagePicker = UIImagePickerController()
     
@@ -76,6 +76,14 @@ class ProductDetailsViewController: UIViewController,UIImagePickerControllerDele
             case .failure(let error):
                 print("Error decoding city: \(error)")
             }
+        }
+    }
+    
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            return .landscape
+        } else {
+            return .all
         }
     }
     
