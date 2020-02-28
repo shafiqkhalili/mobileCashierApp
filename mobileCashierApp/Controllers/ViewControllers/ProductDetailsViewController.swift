@@ -36,7 +36,7 @@ class ProductDetailsViewController: UIViewController,UIImagePickerControllerDele
     @IBOutlet weak var productPrice: UITextField!
     @IBOutlet weak var productImageView: UIImageView!
     @IBOutlet weak var productCount: UITextField!
-    @IBOutlet weak var productBarcode: UITextField!
+    @IBOutlet weak var productDiscount: UITextField!
     
     let imagePicker = UIImagePickerController()
     
@@ -50,6 +50,7 @@ class ProductDetailsViewController: UIViewController,UIImagePickerControllerDele
         buttonSave.layer.borderWidth = 2
         buttonSave.layer.borderColor = UIColor.orange.cgColor
         buttonSave.layer.cornerRadius = 5
+        productImageView.layer.masksToBounds = true
         
         guard let prodKey = prodKey else{return}
                 
@@ -78,6 +79,7 @@ class ProductDetailsViewController: UIViewController,UIImagePickerControllerDele
             }
         }
     }
+    
     
     func fetchData() {
         productName.text = prodItem?.name

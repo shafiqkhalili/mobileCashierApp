@@ -27,6 +27,8 @@ class LoginViewController: UIViewController {
         // Do any additional setup after loading the view.
         auth = Auth.auth()
         
+        password.isSecureTextEntry = true
+        
         loginButton.layer.borderWidth = 2
         loginButton.layer.borderColor = UIColor.darkGray.cgColor
         loginButton.layer.cornerRadius = 5

@@ -24,8 +24,12 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var email: UITextField!
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var passwordRepeat: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        password.isSecureTextEntry = true
+        passwordRepeat.isSecureTextEntry = true
         
         // Do any additional setup after loading the view.
         auth = Auth.auth()
@@ -33,6 +37,17 @@ class RegisterViewController: UIViewController {
     
     @IBAction func registerButton(_ sender: UIButton) {
         creatUser()
+    }
+    
+    @IBAction func modalDismissed(segue: UIStoryboardSegue) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let secondVC = storyboard.instantiateViewController(identifier: "LoginViewController")
+
+        show(secondVC, sender: self)
+      
+//        let storyboard = UIStoryboard(name: "myStoryboardName", bundle: nil)
+//        let vc = storyboard.instantiateViewController(withIdentifier: "nextViewController") as UIViewController
+//        presentViewController(vc, animated: true, completion: nil)
     }
     
     func creatUser() {

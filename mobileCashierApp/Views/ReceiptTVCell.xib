@@ -14,38 +14,44 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleAspectFill" distribution="fillEqually" alignment="center" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="Oe8-XV-inT">
-                    <rect key="frame" x="10" y="10" width="394" height="130"/>
+                    <rect key="frame" x="10" y="10" width="350" height="130"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zUm-DB-6l6">
-                            <rect key="frame" x="0.0" y="55" width="98" height="20.5"/>
+                            <rect key="frame" x="0.0" y="55" width="150" height="20.5"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="150" id="1G3-dQ-QTl"/>
+                            </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="exb-PF-B8D">
-                            <rect key="frame" x="148" y="55" width="98" height="20.5"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mcN-Gc-frG">
-                            <rect key="frame" x="296" y="55" width="98" height="20.5"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
+                        <stackView opaque="NO" contentMode="scaleToFill" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="1Ub-GO-3nU">
+                            <rect key="frame" x="200" y="55" width="150" height="20.5"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="exb-PF-B8D">
+                                    <rect key="frame" x="0.0" y="0.0" width="58" height="20.5"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mcN-Gc-frG">
+                                    <rect key="frame" x="108" y="0.0" width="42" height="20.5"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="mcN-Gc-frG" firstAttribute="centerY" secondItem="exb-PF-B8D" secondAttribute="centerY" id="cNr-b0-gAF"/>
+                            </constraints>
+                        </stackView>
                     </subviews>
-                    <constraints>
-                        <constraint firstItem="mcN-Gc-frG" firstAttribute="width" secondItem="zUm-DB-6l6" secondAttribute="width" id="MdN-If-mXM"/>
-                        <constraint firstItem="exb-PF-B8D" firstAttribute="width" secondItem="zUm-DB-6l6" secondAttribute="width" id="sIm-0K-Uyv"/>
-                    </constraints>
                 </stackView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="Oe8-XV-inT" secondAttribute="trailing" constant="10" id="0dV-Nt-GHO"/>
                 <constraint firstAttribute="bottom" secondItem="Oe8-XV-inT" secondAttribute="bottom" constant="10" id="JXC-my-RQe"/>
-                <constraint firstItem="Oe8-XV-inT" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="Lh5-DE-go8"/>
+                <constraint firstItem="Oe8-XV-inT" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="PGC-dd-NdH"/>
                 <constraint firstItem="Oe8-XV-inT" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="SJe-R8-laS"/>
                 <constraint firstItem="Oe8-XV-inT" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="dYC-OS-ztb"/>
             </constraints>

@@ -27,7 +27,7 @@ class ProductItem: Codable {
         case discount
     }
     
-    init(name: String, price: Double, imageURL: String, key: String = "",quantity: Int = 1,discount: Double = 0) {
+    init(name: String, price: Double, imageURL: String, key: String = "",quantity: Int = 0,discount: Double = 0) {
         //self.ref = nil
         self.key = key
         self.name = name
@@ -36,27 +36,4 @@ class ProductItem: Codable {
         self.discount = discount
         self.quantity = quantity
     }
-    /*
-    init?(snapshot: DataSnapshot) {
-        guard
-            let value = snapshot.value as? [String: Any],
-            let key = value["key"] as? String,
-            let name = value["name"] as? String,
-            let price = value["price"] as? String,
-            let image = value["image"] as? String else {return nil}
-        
-        self.ref = snapshot.ref
-        self.key = key
-        self.name = name
-        self.price = price
-        self.image = image
-    }
-    */
-    //    func toAnyObject() -> Any {
-    //        return [
-    //            "name": name,
-    //            "price": price,
-    //            "image": image
-    //        ]
-    //    }
 }
