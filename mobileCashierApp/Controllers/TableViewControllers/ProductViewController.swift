@@ -52,7 +52,7 @@ class ProductViewController: UIViewController, UITableViewDataSource,UITableView
         let dbRef = db.document(auth.currentUser!.uid)
         var ref: DocumentReference? = nil
         
-        dbRef.collection("product-items").addSnapshotListener(){(querySnapshot,error) in
+        dbRef.collection("products").addSnapshotListener(){(querySnapshot,error) in
             //guard let snapshot = snapshot else{return}
             if error != nil{
                 print("First error: \(error?.localizedDescription)")
@@ -148,35 +148,21 @@ class ProductViewController: UIViewController, UITableViewDataSource,UITableView
         guard tableView.cellForRow(at: indexPath) != nil else { return }
         
         let prodItem = items[indexPath.row]
-        var basketItem: BasketItem?
         
         let dbRef = db.document(auth.currentUser!.uid)
-        let basketRef = dbRef.collection("product-basket").document(prodItem.key)
+        let basketRef = dbRef.collection("products").document(prodItem.key)
         
         basketRef.getDocument { (document, error) in
             let result = Result {
-                try document?.data(as: BasketItem.self)
+                try document?.data(as: ProductItem.self)
             }
             switch result {
             case .success(let item):
                 //If already exist
-                if let item = item {
-                    basketItem = item
+                if item != nil {
                     basketRef.updateData([
                         "quantity": FieldValue.increment(Int64(1))
                     ])
-                } else {
-                    basketItem = BasketItem(key: prodItem.key)
-                 
-                    do{
-                        try basketRef.setData(from: basketItem.self){err in
-                            if let err = err{
-                                print("Error adding document \(err)")
-                            }
-                        }
-                    }catch{
-                        print("Error on adding document")
-                    }
                 }
             case .failure(let error):
                 print("Error decoding: \(error)")
@@ -194,9 +180,9 @@ class ProductViewController: UIViewController, UITableViewDataSource,UITableView
             
             let dbRef = db.document(auth.currentUser!.uid)
             
-            let itemRef = dbRef.collection("product-items").document(itemKey)
+            let itemRef = dbRef.collection("products").document(itemKey)
             
-            let basketRef = dbRef.collection("product-basket").document(itemKey)
+            //let basketRef = dbRef.collection("product-basket").document(itemKey)
             
             //Delete item
             itemRef.delete() { err in
@@ -204,13 +190,14 @@ class ProductViewController: UIViewController, UITableViewDataSource,UITableView
                     print("Error removing document: \(err)")
                 } else {
                     //If success, delete basket
+                    /*
                     basketRef.delete() { err in
                         if let err = err {
                             print("Error removing document: \(err)")
                         } else {
                             print("Document successfully removed!")
                         }
-                    }
+                    }*/
                     let imageUrl = prodItem.image
                     //Delete image from storage
                     // Create a reference to the file to delete
@@ -223,11 +210,8 @@ class ProductViewController: UIViewController, UITableViewDataSource,UITableView
                     storageRef.delete { err in
                         if let err = err {
                             print("Error removing image: \(err)")
-                        } else {
-                            print("Image successfully removed!")
                         }
                     }
-                    
                 }
             }
             

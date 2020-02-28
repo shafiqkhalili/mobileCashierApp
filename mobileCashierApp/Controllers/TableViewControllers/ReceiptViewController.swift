@@ -10,10 +10,10 @@ import UIKit
 import Firebase
 
 class ReceiptViewController: UIViewController,UITableViewDataSource,UITableViewDelegate,DiscountDelegate {
-        
-//    var ref: DatabaseReference!
     
-    let shoppingCellID = "shoppingCell"
+    //    var ref: DatabaseReference!
+    
+    let receiptCell = "receiptCell"
     let productDiscountSegue = "discountSegue"
     
     let db = Firestore.firestore().collection("users")
@@ -32,12 +32,9 @@ class ReceiptViewController: UIViewController,UITableViewDataSource,UITableViewD
     var total: Double = 0
     
     // MARK: Products array
-    var items: [BasketItem] = []
+    var items: [ProductItem] = []
     
     var itemKeys: [String] = []
-    
-    var basketItem: BasketItem?
-    var productItem: ProductItem?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,16 +42,11 @@ class ReceiptViewController: UIViewController,UITableViewDataSource,UITableViewD
         auth = Auth.auth()
         //Firestore ref
         let dbRef = db.document(auth.currentUser!.uid)
-        var ref: DocumentReference? = nil
         
         // Do any additional setup after loading the view.
-        let nib = UINib(nibName: "ReceiptTVCell", bundle: nil)
-        receiptTableView.register(nib, forCellReuseIdentifier: shoppingCellID)
-        receiptTableView.dataSource = self
         
         self.items.removeAll()
-        // Do any additional setup after loading the view.
-        dbRef.collection("product-basket").addSnapshotListener(){(querySnapshot,error) in
+        dbRef.collection("products").addSnapshotListener(){(querySnapshot,error) in
             //guard let snapshot = snapshot else{return}
             if error != nil{
                 print("First error: \(error?.localizedDescription)")
@@ -63,16 +55,16 @@ class ReceiptViewController: UIViewController,UITableViewDataSource,UITableViewD
                 return
             }
             
-            var newItems: [BasketItem] = []
-            
             for document in documents{
                 let result = Result{
                     //try document.data(as: ProductItem.init(snapshot: document))
-                    try document.data(as: BasketItem.self)
+                    try document.data(as: ProductItem.self)
                 }
                 switch result {
                 case .success(let basket):
                     if let basket = basket {
+                        self.items.append(basket)
+                        /*
                         //Get product info
                         let prodRef = dbRef.collection("product-items").document(basket.key)
                         
@@ -84,9 +76,9 @@ class ReceiptViewController: UIViewController,UITableViewDataSource,UITableViewD
                             case .success(let product):
                                 if let prod = product {
                                     
-                                    self.basketItem?.name = prod.name
-                                    self.basketItem?.price = prod.price
-                                    self.basketItem?.image = prod.image
+                                    basket.name = prod.name
+                                    basket.price = prod.price
+                                    basket.image = prod.image
                                     
                                     self.items.append(basket)
                                     self.receiptTableView.reloadData()
@@ -97,12 +89,16 @@ class ReceiptViewController: UIViewController,UITableViewDataSource,UITableViewD
                                 print("Error decoding: \(error)")
                             }
                         }
+                        */
                     }
                 case .failure(let error):
                     print("Error in switch: \(error.localizedDescription)")
                 }
             }
         }
+        let nib = UINib(nibName: "ReceiptTVCell", bundle: nil)
+        receiptTableView.register(nib, forCellReuseIdentifier: receiptCell)
+        receiptTableView.dataSource = self
     }
     
     func setTotalPrice(price: Double) {
@@ -121,24 +117,27 @@ class ReceiptViewController: UIViewController,UITableViewDataSource,UITableViewD
         
         //cell.textLabel?.text = String(persons[indexPath.row])
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: shoppingCellID,for: indexPath) as! ReceiptTVCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: receiptCell,for: indexPath) as! ReceiptTVCell
         
         let item = items[indexPath.row]
         let quantity =  item.quantity
         
-        if let price = item.price{
-            let priceTotal = Double(price) * Double(quantity)
-            
-            let discount = item.discount
-            
-            let discountTotal = Double(discount) * Double(quantity)
-            let costTotal = priceTotal - discountTotal
-            
-            cell.priceLabel.text = String(costTotal)
-            cell.quantityLabel.text = String(quantity)
-        }
+        let name = items[indexPath.row].name
+        
+        let price = item.price
+        let priceTotal = Double(price) * Double(quantity)
+        
+        let discount = item.discount
+        
+        let discountTotal = Double(discount) * Double(quantity)
+        let costTotal = priceTotal - discountTotal
+        
+        cell.itemLabel.text = String(name)
+        cell.priceLabel.text = String(costTotal)
+        cell.quantityLabel.text = String(quantity)
+        
         return cell
-            
+        
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -146,11 +145,11 @@ class ReceiptViewController: UIViewController,UITableViewDataSource,UITableViewD
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-       
+        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-       
+        
     }
     
     
@@ -159,11 +158,11 @@ class ReceiptViewController: UIViewController,UITableViewDataSource,UITableViewD
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
-//        if segue.identifier == productDiscountSegue {
-//            guard  let destinationVC = segue.destination as? DiscountViewController else {return}
-//            destinationVC.prodName = prodName
-//            //destinationVC.prodPrice = prodPrice
-//        }
+        //        if segue.identifier == productDiscountSegue {
+        //            guard  let destinationVC = segue.destination as? DiscountViewController else {return}
+        //            destinationVC.prodName = prodName
+        //            //destinationVC.prodPrice = prodPrice
+        //        }
     }
     
     @IBAction func backToBasket(_ sender: UIBarButtonItem) {
@@ -187,7 +186,7 @@ class ReceiptViewController: UIViewController,UITableViewDataSource,UITableViewD
         updateHeaderViewHeight(for: receiptTableView.tableHeaderView)
         updateHeaderViewHeight(for: receiptTableView.tableFooterView)
     }
-
+    
     func updateHeaderViewHeight(for header: UIView?) {
         guard let header = header else { return }
         header.frame.size.height = header.systemLayoutSizeFitting(CGSize(width: view.bounds.width - 32.0, height: 0)).height

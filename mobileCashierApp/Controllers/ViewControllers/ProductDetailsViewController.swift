@@ -54,7 +54,7 @@ class ProductDetailsViewController: UIViewController,UIImagePickerControllerDele
         guard let prodKey = prodKey else{return}
                 
         let dbRef = db.document(auth.currentUser!.uid)
-        let docRef = dbRef.collection("product-items").document(prodKey)
+        let docRef = dbRef.collection("products").document(prodKey)
         
         docRef.getDocument { (document, error) in
             let result = Result {
@@ -168,7 +168,7 @@ class ProductDetailsViewController: UIViewController,UIImagePickerControllerDele
                 
                 //Add to Firebase Firestore
                 do{
-                    self.ref = try dbRef.collection("product-items").addDocument(from: productItem ){
+                    self.ref = try dbRef.collection("products").addDocument(from: productItem ){
                         err in
                         if let err = err{
                             print("Error adding document \(err)")
@@ -221,7 +221,7 @@ class ProductDetailsViewController: UIViewController,UIImagePickerControllerDele
                                            print("\(err?.localizedDescription)")
                                        }
                                    }
-                            let prodRef = dbRef.collection("product-items").document(key)
+                            let prodRef = dbRef.collection("products").document(key)
                             //let basketRef = dbRef.collection("product-basket").document(key)
                          
                             //Create productitem Type
@@ -236,7 +236,7 @@ class ProductDetailsViewController: UIViewController,UIImagePickerControllerDele
                             
                         }
                         else{
-                            let prodColl = dbRef.collection("product-items")
+                            let prodColl = dbRef.collection("products")
                             let prodRef = prodColl.document()
                             
                             //Create productitem Type

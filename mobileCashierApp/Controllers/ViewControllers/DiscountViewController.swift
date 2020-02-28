@@ -18,7 +18,8 @@ class DiscountViewController: UIViewController {
     var prodImageView: UIImage?
     var discountType : Int = 0
     
-    var basketItem : BasketItem?
+    var discountToBasket = "discountToBasket"
+//    var basketItem : BasketItem?
     var productItem: ProductItem?
     
     //Firestore ref
@@ -48,18 +49,19 @@ class DiscountViewController: UIViewController {
         guard let prodKey = prodKey else{return}
         
         let dbRef = db.document(auth.currentUser!.uid)
-        let docRef = dbRef.collection("product-basket").document(prodKey)
+        let docRef = dbRef.collection("products").document(prodKey)
         
         docRef.getDocument { (document, error) in
             let result = Result {
-                try document?.data(as: BasketItem.self)
+                try document?.data(as: ProductItem.self)
             }
             switch result {
             case .success(let basket):
                 if let basket = basket {
-                    self.basketItem = basket
+                    self.productItem = basket
+                    self.fetchData()
                     //Get product item info
-                    
+                    /*
                     let prodRef = dbRef.collection("product-items").document(prodKey)
                     
                     prodRef.getDocument { (document, error) in
@@ -81,7 +83,7 @@ class DiscountViewController: UIViewController {
                             print(error.localizedDescription)
                         }
                     }
-                    
+                    */
                 } else {
                     print("Document does not exist ")
                 }
@@ -92,18 +94,18 @@ class DiscountViewController: UIViewController {
     }
     
     func fetchData() {
-        guard let name = basketItem?.name else{return}
+        guard let name = productItem?.name else{return}
         productName.text = name
         
-        guard let price = basketItem?.price else { return }
+        guard let price = productItem?.price else { return }
         productPrice.text = String(price)
         
-        guard let disc = basketItem?.discount else {return}
+        guard let disc = productItem?.discount else {return}
         currentDiscount.text = String(disc)
         
         
         //discountAmount.text = String(prodItem?.discount ?? 0)
-        guard let imageURL = basketItem?.image, !imageURL.isEmpty else{ return}
+        guard let imageURL = productItem?.image, !imageURL.isEmpty else{ return}
         
         self.getImage(url: imageURL) { photo in
             if photo != nil {
@@ -149,14 +151,15 @@ class DiscountViewController: UIViewController {
         }
         
         let dbRef = db.document(auth.currentUser!.uid)
-        let basketRef = dbRef.collection("product-basket").document(prodKey)
+        let basketRef = dbRef.collection("products").document(prodKey)
         
         // Set the "capital" field of the city 'DC'
         basketRef.updateData(["discount": discount]) { err in
             if let err = err {
                 print("Error updating document: \(err)")
             } else {
-                self.performSegue(withIdentifier: "discountToBasket", sender: nil)
+                self.dismiss(animated: true, completion: nil)
+                //self.performSegue(withIdentifier: "discountToBasket", sender: nil)
             }
         }
     }
