@@ -27,7 +27,7 @@ class ProductItem: Codable {
         case discount
     }
     
-    init(name: String, price: Double, imageURL: String, key: String = "",quantity: Int = 1,discount: Double = 0) {
+    init(name: String, price: Double, imageURL: String, key: String = "",quantity: Int = 0,discount: Double = 0) {
         //self.ref = nil
         self.key = key
         self.name = name
