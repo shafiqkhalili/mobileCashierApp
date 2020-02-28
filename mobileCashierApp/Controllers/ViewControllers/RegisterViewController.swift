@@ -24,8 +24,12 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var email: UITextField!
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var passwordRepeat: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        password.isSecureTextEntry = true
+        passwordRepeat.isSecureTextEntry = true
         
         // Do any additional setup after loading the view.
         auth = Auth.auth()
