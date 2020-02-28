@@ -32,11 +32,10 @@ UITableViewDelegate ,DiscountDelegate, StepperDelegate{
     @IBOutlet weak var shoppingTableView: UITableView!
     
     // MARK: Products array
-    var items: [BasketItem] = []
-    var itemKeys: [String] = []
+    var items: [ProductItem] = []
     
     override func viewWillAppear(_ animated: Bool) {
-        
+        shoppingTableView.reloadData()
     }
     
     override func viewDidLoad() {
@@ -50,7 +49,7 @@ UITableViewDelegate ,DiscountDelegate, StepperDelegate{
         let dbRef = db.document(auth.currentUser!.uid)
         
         // Do any additional setup after loading the view.
-        dbRef.collection("product-basket").addSnapshotListener(){(querySnapshot,error) in
+        dbRef.collection("products").whereField("quantity", isGreaterThan: 0).addSnapshotListener(){(querySnapshot,error) in
             //guard let snapshot = snapshot else{return}
             guard let documents = querySnapshot?.documents else {
                 return
@@ -60,34 +59,40 @@ UITableViewDelegate ,DiscountDelegate, StepperDelegate{
             for document in documents{
                 let result = Result{
                     //try document.data(as: ProductItem.init(snapshot: document))
-                    try document.data(as: BasketItem.self)
+                    try document.data(as: ProductItem.self)
                 }
                 switch result {
                 case .success(let basket):
                     if let basket = basket {
+                        self.items.append(basket)
+                        self.shoppingTableView.reloadData()
                         //Get product info
-                        let prodRef = dbRef.collection("product-items").document(basket.key)
-                        
-                        prodRef.getDocument { (document, error) in
-                            let result = Result {
-                                try document?.data(as: ProductItem.self)
-                            }
-                            switch result {
-                            case .success(let product):
-                                if let prod = product {
-                                    basket.name = prod.name
-                                    basket.price = prod.price
-                                    basket.image = prod.image
-                                    
-                                    self.items.append(basket)
-                                    self.shoppingTableView.reloadData()
-                                } else {
-                                    print("Document does not exist")
+                        /*
+                        if basket.quantity > 0 {
+                            let prodRef = dbRef.collection("product-items").document(basket.key)
+                            
+                            prodRef.getDocument { (document, error) in
+                                let result = Result {
+                                    try document?.data(as: ProductItem.self)
                                 }
-                            case .failure(let error):
-                                print("Error decoding: \(error)")
+                                switch result {
+                                case .success(let product):
+                                    if let prod = product {
+                                        basket.name = prod.name
+                                        basket.price = prod.price
+                                        basket.image = prod.image
+                                        
+                                        self.items.append(basket)
+                                        self.shoppingTableView.reloadData()
+                                    } else {
+                                        print("Document does not exist")
+                                    }
+                                case .failure(let error):
+                                    print("Error decoding: \(error)")
+                                }
                             }
                         }
+                         */
                     }
                 case .failure(let error):
                     print("Error in switch: \(error.localizedDescription)")
@@ -124,22 +129,20 @@ UITableViewDelegate ,DiscountDelegate, StepperDelegate{
             cell.itemStepper.minimumValue = 0
             
             cell.itemName.text = items[indexPath.row].name
-            if let price = items[indexPath.row].price{
-                cell.itemPrice.text = String(price)
-            }
+            
+            cell.itemPrice.text = String(items[indexPath.row].price)
+            
             cell.itemQuantity.text = String(items[indexPath.row].quantity)
             
-            if let photoUrl = items[indexPath.row].image{
-                
-                getImage(url: photoUrl) { photo in
-                    if photo != nil {
-                        DispatchQueue.main.async {
-                            cell.itemImage.image = photo
-                        }
-                        
+            getImage(url: items[indexPath.row].image) { photo in
+                if photo != nil {
+                    DispatchQueue.main.async {
+                        cell.itemImage.image = photo
                     }
+                    
                 }
             }
+            
             cell.imageView?.image = cell.itemImage.image
             cell.layer.borderColor = UIColor.orange.cgColor
             cell.layer.borderWidth = 2.0
@@ -160,14 +163,19 @@ UITableViewDelegate ,DiscountDelegate, StepperDelegate{
             
             let dbRef = self.db.document(auth.currentUser!.uid)
             
-            let basketRef = dbRef.collection("product-basket").document(itemKey)
+            let basketRef = dbRef.collection("products").document(itemKey)
             
+            basketRef.updateData(["quantity":0]) { error in
+                print("Error on deleting basket:\(error?.localizedDescription)")
+            }
+            /*
             //Delete item
             basketRef.delete() { err in
                 if let err = err {
                     print("Error removing document: \(err)")
                 }
             }
+            */
             shoppingTableView.reloadData()
             
         }
@@ -177,12 +185,11 @@ UITableViewDelegate ,DiscountDelegate, StepperDelegate{
         guard tableView.cellForRow(at: indexPath) != nil else { return }
     }
     
-    
+    /*
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: IndexPath) {
-        let item = items[indexPath.row]
         self.performSegue(withIdentifier: productDiscountSegue, sender: tableView)
     }
-    
+    */
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
         if segue.identifier == productDiscountSegue {
             guard  let destinationVC = segue.destination as? DiscountViewController else {return}
@@ -208,14 +215,28 @@ UITableViewDelegate ,DiscountDelegate, StepperDelegate{
         for basket in items {
             let dbRef = self.db.document(auth.currentUser!.uid)
             
-            let basketRef = dbRef.collection("product-basket").document(basket.key)
+            let docRef = dbRef.collection("products")
             
+            docRef.whereField("quantity", isGreaterThan: 0)
+                .getDocuments() { (querySnapshot, err) in
+                    if let err = err {
+                        print("Error getting documents: \(err)")
+                    } else {
+                        for document in querySnapshot!.documents {
+                            
+                            print("\(document.documentID) => \(document.data())")
+                        }
+                    }
+            }
+            /*
+            let basketRef = dbRef.collection("products").document(basket.key)
+        
             //Delete item
             basketRef.delete() { err in
                 if let err = err {
                     print("Error removing document: \(err)")
                 }
-            }
+            }*/
         }
         shoppingTableView.reloadData()
     }
@@ -238,16 +259,17 @@ UITableViewDelegate ,DiscountDelegate, StepperDelegate{
         let quantity = stepper.value
         if let key = clickedItemKey{
             let dbRef = db.document(auth.currentUser!.uid)
-            let basketRef = dbRef.collection("product-basket").document(key)
+            let docRef = dbRef.collection("products").document(key)
             
             // Set the "capital" field of the city 'DC'
-            basketRef.updateData(["quantity": quantity]) { err in
+            docRef.updateData(["quantity": quantity]) { err in
                 if let err = err {
                     print("Error updating document: \(err)")
                 }
                 self.shoppingTableView.reloadData()
             }
-            if quantity > 0 {
+            /*
+            if quantity == 0 {
                 basketRef.delete { err in
                     if let err = err {
                         print("Error on deleting document: \(err)")
@@ -255,6 +277,7 @@ UITableViewDelegate ,DiscountDelegate, StepperDelegate{
                 }
                 self.shoppingTableView.reloadData()
             }
+ */
         }
     }
 }
