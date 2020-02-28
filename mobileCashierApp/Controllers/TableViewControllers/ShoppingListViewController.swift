@@ -43,14 +43,13 @@ UITableViewDelegate ,DiscountDelegate, StepperDelegate{
         
         auth = Auth.auth()
         
-        // items = []
         //Retreive all data from Firestore
         //Firestore ref
         let dbRef = db.document(auth.currentUser!.uid)
         
         // Do any additional setup after loading the view.
         dbRef.collection("products").whereField("quantity", isGreaterThan: 0).addSnapshotListener(){(querySnapshot,error) in
-            //guard let snapshot = snapshot else{return}
+            
             guard let documents = querySnapshot?.documents else {
                 return
             }
@@ -66,33 +65,6 @@ UITableViewDelegate ,DiscountDelegate, StepperDelegate{
                     if let basket = basket {
                         self.items.append(basket)
                         self.shoppingTableView.reloadData()
-                        //Get product info
-                        /*
-                        if basket.quantity > 0 {
-                            let prodRef = dbRef.collection("product-items").document(basket.key)
-                            
-                            prodRef.getDocument { (document, error) in
-                                let result = Result {
-                                    try document?.data(as: ProductItem.self)
-                                }
-                                switch result {
-                                case .success(let product):
-                                    if let prod = product {
-                                        basket.name = prod.name
-                                        basket.price = prod.price
-                                        basket.image = prod.image
-                                        
-                                        self.items.append(basket)
-                                        self.shoppingTableView.reloadData()
-                                    } else {
-                                        print("Document does not exist")
-                                    }
-                                case .failure(let error):
-                                    print("Error decoding: \(error)")
-                                }
-                            }
-                        }
-                         */
                     }
                 case .failure(let error):
                     print("Error in switch: \(error.localizedDescription)")
@@ -106,9 +78,12 @@ UITableViewDelegate ,DiscountDelegate, StepperDelegate{
         shoppingTableView.dataSource = self
     }
     
-    
+    /*
+     On clicking Checkout button
+     */
     @IBAction func createReceipt(_ sender: UIButton) {
-        
+        resetProductBasket()
+        performSegue(withIdentifier: basketToReceiptSegue, sender: self)
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items.count
@@ -139,7 +114,6 @@ UITableViewDelegate ,DiscountDelegate, StepperDelegate{
                     DispatchQueue.main.async {
                         cell.itemImage.image = photo
                     }
-                    
                 }
             }
             
@@ -168,14 +142,7 @@ UITableViewDelegate ,DiscountDelegate, StepperDelegate{
             basketRef.updateData(["quantity":0]) { error in
                 print("Error on deleting basket:\(error?.localizedDescription)")
             }
-            /*
-            //Delete item
-            basketRef.delete() { err in
-                if let err = err {
-                    print("Error removing document: \(err)")
-                }
-            }
-            */
+            
             shoppingTableView.reloadData()
             
         }
@@ -185,11 +152,6 @@ UITableViewDelegate ,DiscountDelegate, StepperDelegate{
         guard tableView.cellForRow(at: indexPath) != nil else { return }
     }
     
-    /*
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: IndexPath) {
-        self.performSegue(withIdentifier: productDiscountSegue, sender: tableView)
-    }
-    */
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
         if segue.identifier == productDiscountSegue {
             guard  let destinationVC = segue.destination as? DiscountViewController else {return}
@@ -200,7 +162,9 @@ UITableViewDelegate ,DiscountDelegate, StepperDelegate{
             destinationVC.items = items
         }
     }
-    
+    /*
+     Get image by URL
+     */
     func getImage(url: String, completion: @escaping (UIImage?) -> ()) {
         URLSession.shared.dataTask(with: URL(string: url)!) { data, response, error in
             if error == nil {
@@ -212,34 +176,38 @@ UITableViewDelegate ,DiscountDelegate, StepperDelegate{
     }
     
     @IBAction func emtpyBasketButton(_ sender: UIButton) {
-        for basket in items {
-            let dbRef = self.db.document(auth.currentUser!.uid)
-            
-            let docRef = dbRef.collection("products")
-            
-            docRef.whereField("quantity", isGreaterThan: 0)
-                .getDocuments() { (querySnapshot, err) in
-                    if let err = err {
-                        print("Error getting documents: \(err)")
-                    } else {
-                        for document in querySnapshot!.documents {
-                            
-                            print("\(document.documentID) => \(document.data())")
+        resetProductBasket()
+    }
+    
+    /*
+     Reset quantity Field in product Collection / Remove items from basket
+     */
+    func resetProductBasket() {
+        let dbRef = self.db.document(auth.currentUser!.uid)
+        
+        let docRef = dbRef.collection("products")
+        
+        docRef.whereField("quantity", isGreaterThan: 0)
+            .getDocuments() { (querySnapshot, err) in
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    for document in querySnapshot!.documents {
+                        let prodRef = docRef.document(document.documentID)
+                        prodRef.updateData(["quantity": 0]) { err in
+                            if let err = err {
+                                print("Error updating document: \(err)")
+                            }
+                            self.shoppingTableView.reloadData()
                         }
                     }
-            }
-            /*
-            let basketRef = dbRef.collection("products").document(basket.key)
-        
-            //Delete item
-            basketRef.delete() { err in
-                if let err = err {
-                    print("Error removing document: \(err)")
                 }
-            }*/
         }
-        shoppingTableView.reloadData()
     }
+    
+    /*
+     Going to discount UIView on clicking Discount icon
+     */
     func goToNextScene(cell: UITableViewCell) {
         guard let indexPath = shoppingTableView.indexPath(for: cell) else {return}
         let item = items[indexPath.row]
@@ -248,6 +216,9 @@ UITableViewDelegate ,DiscountDelegate, StepperDelegate{
         performSegue(withIdentifier: productDiscountSegue, sender: self)
     }
     
+    /*
+     Updating quanity on clicking Stepper / changing product quantity directly in basket
+     */
     func changeBasketQuantity(cell: UITableViewCell,stepper: UIStepper) {
         guard let indexPath = shoppingTableView.indexPath(for: cell) else {return}
         
@@ -268,16 +239,6 @@ UITableViewDelegate ,DiscountDelegate, StepperDelegate{
                 }
                 self.shoppingTableView.reloadData()
             }
-            /*
-            if quantity == 0 {
-                basketRef.delete { err in
-                    if let err = err {
-                        print("Error on deleting document: \(err)")
-                    }
-                }
-                self.shoppingTableView.reloadData()
-            }
- */
         }
     }
 }

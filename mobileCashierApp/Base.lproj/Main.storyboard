@@ -225,9 +225,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="productsTableView" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ZBe-LA-eKV">
-                                <rect key="frame" x="0.0" y="303" width="414" height="510"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="productsTableView" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ZBe-LA-eKV">
+                                <rect key="frame" x="0.0" y="188" width="414" height="625"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="Ek3-ua-lHh">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -310,10 +309,14 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="emW-jC-r0C" firstAttribute="trailing" secondItem="7hI-hi-UAR" secondAttribute="trailing" id="6tl-Fv-h4r"/>
+                            <constraint firstItem="ZBe-LA-eKV" firstAttribute="bottom" secondItem="emW-jC-r0C" secondAttribute="bottom" id="D6s-Ur-jwZ"/>
                             <constraint firstItem="Bb4-mg-H3A" firstAttribute="top" secondItem="emW-jC-r0C" secondAttribute="top" id="DWs-mN-YNi"/>
+                            <constraint firstItem="ZBe-LA-eKV" firstAttribute="trailing" secondItem="emW-jC-r0C" secondAttribute="trailing" id="IEV-Dx-hWV"/>
+                            <constraint firstItem="ZBe-LA-eKV" firstAttribute="top" secondItem="7hI-hi-UAR" secondAttribute="bottom" id="PKN-Dx-Lfx"/>
                             <constraint firstItem="7hI-hi-UAR" firstAttribute="leading" secondItem="emW-jC-r0C" secondAttribute="leading" id="XHf-K7-DQL"/>
                             <constraint firstItem="7hI-hi-UAR" firstAttribute="top" secondItem="Bb4-mg-H3A" secondAttribute="bottom" symbolic="YES" id="fsl-7X-DEj"/>
                             <constraint firstItem="Bb4-mg-H3A" firstAttribute="leading" secondItem="emW-jC-r0C" secondAttribute="leading" id="hcP-it-L7t"/>
+                            <constraint firstItem="ZBe-LA-eKV" firstAttribute="leading" secondItem="emW-jC-r0C" secondAttribute="leading" id="r3L-MX-Izp"/>
                             <constraint firstItem="Bb4-mg-H3A" firstAttribute="trailing" secondItem="emW-jC-r0C" secondAttribute="trailing" id="yJS-po-RgQ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="emW-jC-r0C"/>
@@ -515,7 +518,6 @@
                                 </state>
                                 <connections>
                                     <action selector="createReceipt:" destination="YX8-oJ-bB0" eventType="touchUpInside" id="s6c-9m-hpB"/>
-                                    <segue destination="kSv-VR-0HY" kind="presentation" identifier="basketToReceipt" modalPresentationStyle="fullScreen" id="Lg6-Mr-Rnh"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fjG-vt-eTh">
@@ -545,6 +547,7 @@
                     <connections>
                         <outlet property="shoppingTableView" destination="prt-kS-XJn" id="AWC-WG-NAT"/>
                         <segue destination="3ub-Rc-O7L" kind="presentation" identifier="discountSegue" modalPresentationStyle="fullScreen" id="J8I-j5-J7E"/>
+                        <segue destination="kSv-VR-0HY" kind="presentation" identifier="basketToReceipt" modalPresentationStyle="fullScreen" id="n5T-DF-dr6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ulp-r0-MLR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

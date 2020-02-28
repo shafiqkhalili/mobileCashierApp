@@ -73,7 +73,8 @@ class ReceiptViewController: UIViewController,UITableViewDataSource,UITableViewD
                     if let basket = basket {
                         self.items.append(basket)
                         
-                        self.totalAmount += Double(basket.price) * Double(basket.quantity)
+                        self.totalAmount += (Double(basket.price) - Double(basket.discount)) * Double(basket.quantity)
+                        
                         self.setTotalPrice(price: self.totalAmount)
                     }
                 case .failure(let error):
@@ -87,13 +88,14 @@ class ReceiptViewController: UIViewController,UITableViewDataSource,UITableViewD
         receiptTableView.register(nib, forCellReuseIdentifier: receiptCell)
         receiptTableView.dataSource = self
     }
-    
+    /*
+     Used to creat Label for total price as tableView Footer
+     */
     func setTotalPrice(price: Double) {
-        let headerView = Component(frame: .zero)
-        headerView.configure(text: "Total sum", price: String(price))
+        let footerView = Component(frame: .zero)
+        footerView.configure(text: "Total sum ", price: String(price))
         
-        receiptTableView.tableFooterView = headerView
-        //        receiptTableView.tableFooterView?.backgroundColor = .orange
+        receiptTableView.tableFooterView = footerView
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -134,30 +136,16 @@ class ReceiptViewController: UIViewController,UITableViewDataSource,UITableViewD
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
     }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-    }
-    
-    
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: IndexPath) {
-        
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?){
-        //        if segue.identifier == productDiscountSegue {
-        //            guard  let destinationVC = segue.destination as? DiscountViewController else {return}
-        //            destinationVC.prodName = prodName
-        //            //destinationVC.prodPrice = prodPrice
-        //        }
-    }
-    
+  
     @IBAction func backToBasket(_ sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
     }
     func goToNextScene(cell: UITableViewCell) {
         performSegue(withIdentifier: productDiscountSegue, sender: self)
     }
+    /*
+     Get image from using URL
+     */
     func getImage(url: String, completion: @escaping (UIImage?) -> ()) {
         URLSession.shared.dataTask(with: URL(string: url)!) { data, response, error in
             if error == nil {
@@ -167,7 +155,9 @@ class ReceiptViewController: UIViewController,UITableViewDataSource,UITableViewD
             }
         }.resume()
     }
-    
+    /*
+     Set height of tableView Footer which we created above
+     */
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         updateHeaderViewHeight(for: receiptTableView.tableHeaderView)
