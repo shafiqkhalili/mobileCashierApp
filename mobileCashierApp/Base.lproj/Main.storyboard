@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="SI9-7h-BHW">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="SI9-7h-BHW">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -133,6 +133,11 @@
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="lHw-pM-FbX">
                                 <rect key="frame" x="107" y="138" width="200" height="212"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="212" id="L9g-3S-r7S"/>
+                                    <constraint firstAttribute="width" constant="200" id="MsG-eK-7L0"/>
+                                    <constraint firstAttribute="width" secondItem="lHw-pM-FbX" secondAttribute="height" multiplier="50:53" id="eCD-2N-IDA"/>
+                                </constraints>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="kpS-dY-afh">
                                 <rect key="frame" x="0.0" y="388" width="414" height="340"/>
@@ -181,14 +186,12 @@
                                     <constraint firstItem="bUP-dT-nM7" firstAttribute="leading" secondItem="kpS-dY-afh" secondAttribute="leading" constant="20" id="F7z-aw-6OR"/>
                                     <constraint firstItem="bUP-dT-nM7" firstAttribute="top" secondItem="4Je-Ps-zyA" secondAttribute="bottom" constant="50" id="Gva-GF-n8g"/>
                                     <constraint firstItem="jx9-be-has" firstAttribute="leading" secondItem="kpS-dY-afh" secondAttribute="leading" constant="20" id="Ill-4u-GKB"/>
-                                    <constraint firstAttribute="bottom" secondItem="jx9-be-has" secondAttribute="bottom" constant="20" id="MUr-bU-mJM"/>
                                     <constraint firstAttribute="trailing" secondItem="jx9-be-has" secondAttribute="trailing" constant="20" id="WXi-nS-HzI"/>
                                     <constraint firstAttribute="trailing" secondItem="zu4-HK-SBE" secondAttribute="trailing" constant="20" id="ak9-5U-zgC"/>
                                     <constraint firstItem="zu4-HK-SBE" firstAttribute="top" secondItem="bUP-dT-nM7" secondAttribute="bottom" constant="50" id="jFN-49-qKv"/>
                                     <constraint firstItem="jx9-be-has" firstAttribute="leading" secondItem="kpS-dY-afh" secondAttribute="leading" constant="20" id="jbX-M8-p0v"/>
                                     <constraint firstAttribute="trailing" secondItem="bUP-dT-nM7" secondAttribute="trailing" constant="20" id="ko0-f2-rgw"/>
                                     <constraint firstItem="zu4-HK-SBE" firstAttribute="leading" secondItem="kpS-dY-afh" secondAttribute="leading" constant="20" id="lAa-W4-q3O"/>
-                                    <constraint firstAttribute="bottom" secondItem="jx9-be-has" secondAttribute="bottom" constant="20" id="pHk-Qa-pV6"/>
                                     <constraint firstAttribute="trailing" secondItem="jx9-be-has" secondAttribute="trailing" constant="20" id="r2y-Vi-QsC"/>
                                     <constraint firstItem="4Je-Ps-zyA" firstAttribute="leading" secondItem="kpS-dY-afh" secondAttribute="leading" constant="20" id="zep-Uu-fOj"/>
                                 </constraints>
@@ -953,19 +956,19 @@
             <point key="canvasLocation" x="-135" y="-10"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="BuJ-x8-9wF"/>
+    </inferredMetricsTieBreakers>
     <resources>
-        <image name="doc" catalog="system" width="56" height="64"/>
-        <image name="dollarsign.circle" catalog="system" width="64" height="60"/>
-        <image name="folder.fill.badge.plus" catalog="system" width="64" height="42"/>
+        <image name="doc" catalog="system" width="115" height="128"/>
+        <image name="dollarsign.circle" catalog="system" width="128" height="121"/>
+        <image name="folder.fill.badge.plus" catalog="system" width="128" height="86"/>
         <image name="home" width="30" height="33"/>
         <image name="logo" width="200" height="212"/>
-        <image name="paperplane" catalog="system" width="64" height="60"/>
-        <image name="percent" catalog="system" width="64" height="58"/>
-        <image name="printer" catalog="system" width="64" height="54"/>
+        <image name="paperplane" catalog="system" width="128" height="121"/>
+        <image name="percent" catalog="system" width="128" height="118"/>
+        <image name="printer" catalog="system" width="128" height="111"/>
         <image name="shopping-basket" width="31.5" height="27"/>
         <image name="trash" width="27.5" height="35.5"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="mGg-Om-Wbr"/>
-    </inferredMetricsTieBreakers>
 </document>
