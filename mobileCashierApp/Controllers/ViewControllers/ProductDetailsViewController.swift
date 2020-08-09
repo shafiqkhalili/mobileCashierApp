@@ -9,8 +9,13 @@
 import UIKit
 import Firebase
 import FirebaseFirestoreSwift
+import AVFoundation
 
 class ProductDetailsViewController: UIViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
+    
+    //Scanner setup
+    var avCaptureSession: AVCaptureSession!
+    var avPreviewLayer: AVCaptureVideoPreviewLayer!
     
     //Initial values, used if updating product
     var prodItem : ProductItem?
@@ -80,7 +85,18 @@ class ProductDetailsViewController: UIViewController,UIImagePickerControllerDele
         }
     }
     
+    func failed() {
+        let ac = UIAlertController(title: "Scanner not supported", message: "Please use a device with a camera. Because this device does not support scanning a code", preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "OK", style: .default))
+        present(ac, animated: true)
+        avCaptureSession = nil
+    }
     
+    override func viewWillDisappear(_ animated: Bool) {
+         if (avCaptureSession?.isRunning == true) {
+                   avCaptureSession.stopRunning()
+               }
+    }
     func fetchData() {
         productName.text = prodItem?.name
         if let price = prodItem?.price{
@@ -110,6 +126,48 @@ class ProductDetailsViewController: UIViewController,UIImagePickerControllerDele
         dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func readBarcode(_ sender: UIButton){
+        avCaptureSession = AVCaptureSession()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            guard let videoCaptureDevice = AVCaptureDevice.default(for: .video) else {
+                self.failed()
+                return
+            }
+            let avVideoInput: AVCaptureDeviceInput
+            
+            do {
+                avVideoInput = try AVCaptureDeviceInput(device: videoCaptureDevice)
+            } catch {
+                self.failed()
+                return
+            }
+            
+            if (self.avCaptureSession.canAddInput(avVideoInput)) {
+                self.avCaptureSession.addInput(avVideoInput)
+            } else {
+                self.failed()
+                return
+            }
+            
+            let metadataOutput = AVCaptureMetadataOutput()
+            
+            if (self.avCaptureSession.canAddOutput(metadataOutput)) {
+                self.avCaptureSession.addOutput(metadataOutput)
+                
+                metadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
+                metadataOutput.metadataObjectTypes = [.ean8, .ean13, .pdf417, .qr]
+            } else {
+                self.failed()
+                return
+            }
+            
+            self.avPreviewLayer = AVCaptureVideoPreviewLayer(session: self.avCaptureSession)
+            self.avPreviewLayer.frame = self.view.layer.bounds
+            self.avPreviewLayer.videoGravity = .resizeAspectFill
+            self.view.layer.addSublayer(self.avPreviewLayer)
+            self.avCaptureSession.startRunning()
+        }
+    }
     @IBAction func addImage(_ sender: UIButton) {
         imagePicker.allowsEditing = false
         imagePicker.sourceType = .photoLibrary
@@ -314,4 +372,35 @@ class ProductDetailsViewController: UIViewController,UIImagePickerControllerDele
      }
      */
     
+}
+extension ProductDetailsViewController : AVCaptureMetadataOutputObjectsDelegate {
+    func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
+        avCaptureSession.stopRunning()
+        
+        if let metadataObject = metadataObjects.first {
+            guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject else { return }
+            guard let stringValue = readableObject.stringValue else { return }
+            AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
+            found(code: stringValue)
+        }
+        
+        dismiss(animated: true)
+    }
+    
+    func found(code: String) {
+//        let alert = UIAlertController(title: "Barcode", message: "Your scanned barcode is: \(code)", preferredStyle: .alert)
+//
+//        alert.addAction(UIAlertAction(title: "Search", style: .default, handler: nil))
+//        alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
+//        self.present(alert, animated: true)
+//
+        print("Barcode: \(code)")
+    }
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
+
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .portrait
+    }
 }
